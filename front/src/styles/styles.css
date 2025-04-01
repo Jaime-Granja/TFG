@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #6874e8;
+    display: flex;
+    justify-content: center;
+}
+
+#body {
+    background-color: #B0A4FF;
+    padding: 1rem;
+    margin: 2rem 2rem 2rem 2rem;
+
+}
+
+h1 {
+    color: #bb0a21;
+    padding: 0.5em;
+    background-color: #FFEBCD;
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+#Texto {
+    display: block;
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+}
+
+#Log {
+    display: none;
+}
+
+#New {
+    display: none;
+}
+
+#Nosotros {
+    display: none;
+}
+#Nosotros div {
+    display: block;
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.botones {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+button {
+    border-radius: 2em;
+    background-color: #ffebcd;
+}
+
+button:hover {
+    box-shadow: 0px 0px 4px 0px black;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#logOut {
+    margin: 1rem;
+    padding: 1rem;
+    height: 4rem;
+    width: 20rem;
+}
+
+footer {
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+}
+
+
+@media (min-width: 576px) {}
+
+
+@media (min-width: 992px) {}
