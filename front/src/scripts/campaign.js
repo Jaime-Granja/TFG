@@ -8,10 +8,8 @@ window.onload = function () {
   let logOut = document.getElementById("logOut");
   let editCampaign = document.getElementById("campaignButton");
   let contenido = document.getElementById("contenido");
-  let campaignInfo = document.getElementById("campaignInfo")
   let campaignForm = document.getElementById("campaignForm");
-
-
+  let campaignDelete = document.getElementById("campaignDelete");
 
   menu.addEventListener("click", abrirMenu);
   document.addEventListener("click", function (event) {
@@ -21,6 +19,7 @@ window.onload = function () {
   logOut.addEventListener("click", logOutFunction);
   userBotton.addEventListener("click", user);
   editCampaign.addEventListener("click", editCampaignFunction);
+  campaignDelete.addEventListener("click", campaignDeleteFunction);
 
   function abrirMenu() {
     botones.style.display = "flex";
@@ -44,14 +43,19 @@ window.onload = function () {
     if (editCampaign.textContent == "Editar") {
       contenido.style.display = "none";
       editCampaign.textContent = "Volver a Campaña";
-      campaignForm.style.display = "block"
+      campaignForm.style.display = "block";
+      campaignDelete.style.display = "block";
     } else {
       contenido.style.display = "block";
       editCampaign.textContent = "Editar";
-      campaignForm.style.display = "none"
+      campaignForm.style.display = "none";
+      campaignDelete.style.display = "none";
     }
   }
 
+  function campaignDeleteFunction() {
+    /* Supongo que aquí iría el proceso de php */
+  }
   function user() {
     window.location.href = "user.html";
   }
