@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':password' => $hashed_password
         ]);
 
-        echo "Usuario registrado con éxito.";
+        header('Location: ../front/public/index.html');
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) { // 23000 es el código de error para clave duplicada
             $errorInfo = $e->errorInfo[2]; /* Obtiene el mensaje de error específico de MySQL. [0] da código SQLSTATE (23000), 

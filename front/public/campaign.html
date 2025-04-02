@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../src/styles/stylesCampaign.css">
+    <link rel="stylesheet" href="../src/styles/stylesCampaign.css" />
     <script src="../src/scripts/campaign.js"></script>
     <link rel="shortcut icon" href="../src/img/D20.png" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="contenedor">
-        <h1 class="title">Nombre de la Campaña</h1>
-        <p>
-        <h2>Pequeña Descripción de la Campaña.</h2>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lobortis hendrerit urna, nec rutrum turpis
-        fermentum sagittis. Phasellus eleifend pulvinar magna, dapibus consequat justo maximus non. Sed ac ullamcorper
-        turpis, id gravida nunc. Nulla eget auctor ligula. Proin ullamcorper tortor vel purus congue, sed suscipit eros
-        finibus.
-        </p>
-        <div id="contenido">
-            <div id="sheet">
-                <h2 id="titleSheet">Ficha de X</h2>
-                Espacio para la Ficha
-            </div>
-            <div id="journal">
-                <h2 id="titleJournal">Diario de Campaña</h2>
-                Espacio para Diario de Campaña
-            </div>
-            <div id="participants">
-                <h2 id="titleParticipants"> Participantes</h2>
-                <div class="participant">
-                    <img class="profilePic" src="../src/img/user.png">
-                    Jorge
-                </div>
-                <div class="participant">
-                    <img class="profilePic" src="../src/img/user.png">
-                    Jaime
-                </div>
-                <div class="participant">
-                    <img class="profilePic" src="../src/img/user.png">
-                    Alex
-                </div>
-                <div class="participant">
-                    <img class="profilePic" src="../src/img/user.png">
-                    Victor
-                </div>
-                <div class="participant">
-                    <img class="profilePic" src="../src/img/user.png">
-                    Brutalitops
-                </div>
-
-            </div>
+      <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->
+      <div campaignInfo>
+        <button id="campaignButton">Editar</button>
+        <h1 id="campaignName" class="title">Nombre de la Campaña</h1>
+        <!-- $campaignName de la base de datos-->
+        <div id="campaignDescription">
+          <h2>Pequeña Descripción de la Campaña.</h2>
+          <!-- $description en la base de datos-->
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+          lobortis hendrerit urna, nec rutrum turpis fermentum sagittis.
+          Phasellus eleifend pulvinar magna, dapibus consequat justo maximus
+          non. Sed ac ullamcorper turpis, id gravida nunc. Nulla eget auctor
+          ligula. Proin ullamcorper tortor vel purus congue, sed suscipit eros
+          finibus.
         </div>
+      </div>
+      <div id="contenido">
+        <div id="sheet">
+          <h2 id="sheetTitle">Ficha de X</h2>
+          <button id="sheetButton">Editar</button><br />
+          <div id="sheetPage">Espacio para la Ficha</div>
+        </div>
+        <div id="journal">
+          <h2 id="journalTitle">Diario de Campaña</h2>
+          <button id="journalButton">Editar</button><br />
+          <div id="journalPage">Espacio para Diario de Campaña</div>
+        </div>
+        <div id="participants">
+          <h2 id="participantsTittle">Participantes</h2>
+          <div class="participant">
+            <img class="profilePic" src="../src/img/user.png" />
+            Jorge
+          </div>
+          <div class="participant">
+            <img class="profilePic" src="../src/img/user.png" />
+            Jaime
+          </div>
+          <div class="participant">
+            <img class="profilePic" src="../src/img/user.png" />
+            Alex
+          </div>
+          <div class="participant">
+            <img class="profilePic" src="../src/img/user.png" />
+            Victor
+          </div>
+          <div class="participant">
+            <img class="profilePic" src="../src/img/user.png" />
+            Brutalitops
+          </div>
+        </div>
+      </div>
+      <div id="campaignForm">
+        <form method="POST" action=""> <!--Aquí tiene que ir el php para editar campañas-->
+            <label for="campaignName">Indique el nuevo nombre de la campaña:</label>
+          <input type="text" name="campaignName" placeholder="" required /> <!--En el placeholder habría que poner el campaignName actual-->
+
+          <label for="description">Edite la descripción de la campaña:</label>
+          <textarea name="description" placeholder="" required></textarea> <!--En el placeholder habría que poner la description actual-->
+
+          <button type="submit">Editar Campaña</button>
+        </form>
+      </div>
     </div>
     <div id="margin">
-        <img id="menuHamburguesa" src="../src/img/menu.png">
-        <div id="menuHamburguesaBotones">
+      <img id="menuHamburguesa" src="../src/img/menu.png" />
+      <div id="menuHamburguesaBotones">
         <button id="userProfile">Perfil de Usuario</button>
         <button id="goBack">Retroceder</button>
         <button id="logOut">Cerrar Sesión</button>
+      </div>
     </div>
-    </div>
-</body>
-
+  </body>
 </html>
