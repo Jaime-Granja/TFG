@@ -2,26 +2,45 @@
 require 'conection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
-    $jsonData = file_get_contents($_FILES['jsonFile']['tmp_name']);
-    $classes = json_decode($jsonData, true);
+    $fileName = $_FILES['jsonFile']['name'];
+    $fileTmp = $_FILES['jsonFile']['tmp_name'];
 
-    if (!$classes || !is_array($classes)) {
-        die("Error: Formato JSON no válido.");
+    // Detectar si el archivo es para clases o especies y adaptamos las variables en cada caso
+    if ($fileName === 'classes.json') {
+        $table = 'Classes';
+        $nameField = 'class_name';
+        $featuresField = 'class_features';
+        $traitsField = 'class_traits';
+    } elseif ($fileName === 'species.json') {
+        $table = 'Species';
+        $nameField = 'specie_name';
+        $featuresField = 'specie_features';
+        $traitsField = 'specie_traits';
+    } else {
+        die("Nombre de archivo no reconocido. Debe llamarse 'classes.json' o 'species.json'. Espabila un poco macho.");
+    }
+
+    // Leer y decodificar JSON
+    $jsonData = file_get_contents($fileTmp);
+    $entities = json_decode($jsonData, true);
+
+    if (!$entities || !is_array($entities)) {
+        die("Error: El archivo JSON no tiene un formato válido.");
     }
 
     $updated = 0;
 
-    foreach ($classes as $class) {
-        if (!isset($class['class_name'])) continue;
+    foreach ($entities as $entity) {
+        if (!isset($entity[$nameField])) continue;
 
-        $name = $class['class_name'];
-        $features = isset($class['features']) ? json_encode($class['features'], JSON_UNESCAPED_UNICODE) : null;
-        $traits = isset($class['traits']) ? json_encode($class['traits'], JSON_UNESCAPED_UNICODE) : null;
+        $name = $entity[$nameField];
+        $features = isset($entity['features']) ? json_encode($entity['features'], JSON_UNESCAPED_UNICODE) : null;
+        $traits = isset($entity['traits']) ? json_encode($entity['traits'], JSON_UNESCAPED_UNICODE) : null;
 
         $update = $dbConection->prepare("
-            UPDATE Classes 
-            SET class_features = :features, class_traits = :traits
-            WHERE class_name = :name
+            UPDATE $table 
+            SET $featuresField = :features, $traitsField = :traits
+            WHERE $nameField = :name
         ");
 
         $update->bindParam(':features', $features);
@@ -33,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
         }
     }
 
-    echo "Se actualizaron $updated clases con éxito.";
+    echo "Se actualizaron $updated registros en la tabla $table.";
 }
 ?>
 
@@ -42,8 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
     "multipart/form-data" divide el contenido del formulario en diferentes partes, 
     cada una con su propio tipo de contenido. Así el JSON se puede procesar y subir bien.
 -->
+<h2>Importar archivo JSON</h2>
 <form method="POST" enctype="multipart/form-data">
-    <label>Sube el archivo JSON con todas las clases:</label><br>
+    <label>Selecciona el archivo (debe llamarse "classes.json" o "species.json". No la líes que te conozco.):</label><br>
     <input type="file" name="jsonFile" accept=".json" required><br><br>
-    <button type="submit">Importar clases</button>
+    <button type="submit">Importar</button>
 </form>
