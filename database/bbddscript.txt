@@ -130,7 +130,7 @@ CREATE TABLE Characters (
     character_desc TEXT NOT NULL,
     character_owner INT,
     specie INT,
-    class_level JSON,
+    class_levels JSON,
     pb INT, 
     stats JSON,
     FOREIGN KEY (character_owner) REFERENCES Users (user_id) ON DELETE CASCADE,
