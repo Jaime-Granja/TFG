@@ -1,3 +1,4 @@
+<!-- Esta página es una página demo que sólo sirve para probar un script :) -->
 <form action="createCharacter.php" method="POST">
     <label>Nombre del personaje:</label>
     <input type="text" name="character_name" required>
