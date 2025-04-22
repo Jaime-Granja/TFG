@@ -25,6 +25,8 @@ $stats = json_decode($character['stats'], true);
 
 <h2>Editar personaje</h2>
 <form action="editCharacter.php" method="POST">
+    <input type="hidden" name="character_id" value="<?php echo $characterId; ?>">
+
     <label>Nombre:</label>
     <input type="text" name="character_name" value="<?php echo htmlspecialchars($character['character_name']); ?>" required><br>
 
