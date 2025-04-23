@@ -16,6 +16,17 @@ CREATE TABLE Campaigns (
     FOREIGN KEY (creator_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+-- Tabla Diario de Campaña
+CREATE TABLE Campaign_Diary/ (
+    entry_id INT PRIMARY KEY AUTO_INCREMENT,
+    campaign_id INT NOT NULL,
+    author_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (campaign_id) REFERENCES Campaigns(campaign_id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
 
 -- Tabla Usuarios_Campañas
 
