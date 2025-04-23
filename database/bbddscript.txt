@@ -17,7 +17,7 @@ CREATE TABLE Campaigns (
 );
 
 -- Tabla Diario de Campaña
-CREATE TABLE Campaign_Diary/ (
+CREATE TABLE Campaign_Diary (
     entry_id INT PRIMARY KEY AUTO_INCREMENT,
     campaign_id INT NOT NULL,
     author_id INT NOT NULL,
