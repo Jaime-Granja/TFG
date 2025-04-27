@@ -1,34 +1,35 @@
 <?php
-
 session_start();
+require 'conection.php'; 
 
-if( !isset($_SESSION["user_id"])){
-die("acceso denegado, inicia sesion");
-}  
-
-
-$archivo = 'diario.json';
-
-// leer entradas (guardados) existentes
-$entradas = [];
-if (file_exists($archivo)) {
-    $entradas = json_decode(file_get_contents($archivo), true) ?: [];
+if (!isset($_SESSION["user_id"])) {
+    die("Acceso denegado, inicia sesión.");
 }
 
-// Nuevo guardado 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nuevoGuardado = [
-        'fecha' => date('d/m/Y H:i'),
-        'titulo' => $_POST['titulo'],
-        'contenido' => $_POST['contenido']
-    ];
-    
-    $entradas[] = $nuevoGuardado;
-    file_put_contents($archivo, json_encode($entradas));
-    echo json_encode($nuevoGuardado); // Devuelve el guardado
-    exit;
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $entrada = trim($_POST["entrada"] ?? '');
 
-header('Content-Type: application/json');
-echo json_encode($entradas);
+    $userId = $_SESSION["user_id"];
+    $campaignId = $_SESSION["campaign_id"]; 
+
+    if (empty($entrada)) {
+        die("El contenido de la entrada no puede estar vacío.");
+    }
+
+    try {
+        $insert = $dbConection->prepare("INSERT INTO campaign_diary (campaign_id, author_id, title, content, created_at) 
+                                         VALUES (:campaignId, :authorId, '', :content, NOW())");
+        $insert->execute([
+            ':campaignId' => $campaignId,
+            ':authorId' => $userId,
+            ':content' => $entrada
+        ]);
+
+        echo "Entrada añadida correctamente.";
+    } catch (PDOException $e) {
+        echo "Error al guardar la entrada: " . $e->getMessage();
+    }
+} else {
+    echo "Acceso denegado.";
+}
 ?>
