@@ -3,34 +3,23 @@ session_start();
 require 'conection.php';
 
 if (!isset($_SESSION["user_id"])) {
-    die("Acceso denegado, inicia sesión.");
+    die("Acceso denegado. Debes iniciar sesión.");
 }
 
 if (!isset($_SESSION["campaign_id"])) {
-    die("Acceso denegado, no tienes una campaña activa.");
+    die("No tienes ninguna campaña activa.");
 }
-
+//campaña actual en la que esta el usuario
 $campaignId = $_SESSION["campaign_id"];
-
+//visualizar entradas
 try {
-    $select = $dbConection->prepare("SELECT title, content, created_at 
-                                     FROM campaign_diary 
-                                     WHERE campaign_id = :campaignId 
-                                     ORDER BY created_at DESC");
-    $select->execute([
-        ':campaignId' => $campaignId
-    ]);
-
-    $entradas = $select->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($entradas as $entrada) {
-        echo "<div class='diary-entry'>";
-        echo "<h3>" . htmlspecialchars($entrada["title"]) . "</h3>"; 
-        echo "<p>" . nl2br(htmlspecialchars($entrada["content"])) . "</p>";
-        echo "<small>Publicado el: " . htmlspecialchars($entrada["created_at"]) . "</small>";
-        echo "</div><hr>";
-    }
+    $select = $dbConection->prepare("SELECT title, content, created_at FROM campaign_diary WHERE campaign_id = :campaignId ORDER BY created_at DESC");
+    $select->execute([':campaignId' => $campaignId]);
+    $entries = $select->fetchAll(PDO::FETCH_ASSOC);
+  //devuelve los datos en Json
+    header('Content-Type: application/json');
+    echo json_encode($entries);
 } catch (PDOException $e) {
-    echo "Error al cargar las entradas: " . $e->getMessage();
+    echo "Error al obtener entradas del diario: " . $e->getMessage();
 }
 ?>
