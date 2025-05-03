@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Iniciamos la sesión y guardamos los datos
             $_SESSION["user_id"] = $user["user_id"];
             $_SESSION["username"] = $user["username"];
-            header('Location: ../front/public/home.html');
+            header('Location: home.php');
             ?>
             <form action="joinCampaign.php" method="POST">
                 <input type="text" name="inviteCode" placeholder="Código de invitación" required>
