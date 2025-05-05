@@ -95,6 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       ];
     }
 
+    // ===== EDITAR =====
+
+
+
+    // ===== BORRAR =====
+
 
   } catch (PDOException $e) {
     die("Error retrieving character: " . $e->getMessage());
