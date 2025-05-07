@@ -95,6 +95,60 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       ];
     }
 
+    // ===== SAVING THROWS =====
+
+    // Función para calcular el bono de competencia según el nivel
+    function getProficiencyBonus($level)
+    {
+      return 2 + floor(($level - 1) / 4);
+    }
+
+    // Obtenemos la primera clase del personaje porque es la que indica las competencias en salvaciones
+    $firstClassId = key($classLevels);
+
+    // Sacamos los traits de esa clase para sacar las competencias
+    $classSelect = $dbConection->prepare("SELECT class_traits FROM classes WHERE class_id = :id");
+    $classSelect->execute([':id' => $firstClassId]);
+    $classTraitsJson = $classSelect->fetchColumn();
+    
+    $proficiencies = [];
+    // Aquí sacamos las competencias de las tiradas de salvación 
+    if ($classTraitsJson) {
+      $classTraits = json_decode($classTraitsJson, true);
+      if (is_array($classTraits) && isset($classTraits['SavingThrowProficiencies'])) {
+        // Pasamos las competencias a minúsculas para quitarnos problemas después con la comparación
+        $proficiencies = array_map('strtolower', $classTraits['SavingThrowProficiencies']);
+      }
+    }
+
+    // Calculamos el bono de competencia usando la función creada previamente
+    $totalLevel = array_sum($classLevels);
+    $proficiencyBonus = getProficiencyBonus($totalLevel);
+
+    // Creamos un array en el que vamos a meter los cálculos que hagamos en el siguiente bucle para luego enseñarlos fácilmente
+    $savingThrows = [];
+
+    /*
+    En este bluque usamos las stats que ya teníamos mapeadas y traducidas de antes(statTranslations). 
+    Primero sacamos el modificador de cada star, después comprobamos que el pj tenga competencia en esa stat por la clase, se
+    suma el bono (si no tiene bono le suma 0) y luego guardamos los resultados en el array que creamos justo antes añadiendo 
+    también el nombre traducido, el total y si tiene competencia o no para poder indicarlo después.
+    */
+    foreach ($statTranslations as $stat => $translatedName) {
+      $baseMod = isset($statsWithModifiers[$stat]['modifier']) ? intval($statsWithModifiers[$stat]['modifier']) : 0;
+      $hasProficiency = in_array($stat, $proficiencies);
+      $total = $baseMod + ($hasProficiency ? $proficiencyBonus : 0);
+
+      $savingThrows[$stat] = [
+        'name' => $translatedName,
+        'total' => ($total >= 0 ? '+' : '') . $total,
+        'proficient' => $hasProficiency
+      ];
+    }
+
+
+
+
     // ===== EDITAR =====
 
 
@@ -140,7 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       <div id="characterName" class="characterInfo">
         <div id="characterNameTag">Nombre:</div>
         <div class="characterField" id="characterNameField">
-          <?php echo htmlspecialchars($character['character_name']); ?></div>
+          <?php echo htmlspecialchars($character['character_name']); ?>
+        </div>
       </div>
       <div id="characterClass" class="characterInfo">
         <div id="characterClassTag">Clase:</div>
@@ -235,37 +290,55 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
         <div class="globalStat" id="pb">
           <div id="pbName">Bonificador de Competencia</div>
-          <div id="pbNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="pbNum"> <?php echo $proficiencyBonus ?> </div>
         </div>
       </div>
     </div>
     <div id="tiradas">
       <div id="saves">
         <h2 id="savesTitle">Salvaciones</h2>
+
+        <?php foreach ($savingThrows as $stat => $data): ?>
+          <div id="statSave" class="save">
+            <?php if ($data['proficient']): ?>
+              <div id="statSaveProficiency">✦</div>
+            <?php else: ?>
+              <div id="statSaveProficiency">✧</div>
+            <?php endif; ?>
+            <div id="statSaveName"><?= htmlspecialchars($data['name']) ?></div>
+            <div id="statSaveNum"><?= htmlspecialchars($data['total']) ?></div>
+          </div>
+        <?php endforeach; ?>
+
+  
+
+
+        <!--
         <div id="strSave" class="save">
           <div id="strSaveName">Fue</div>
-          <div id="strSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="strSaveNum"></div>
         </div>
         <div id="dexSave" class="save">
           <div id="dexSaveName">Des</div>
-          <div id="dexSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="dexSaveNum"></div>
         </div>
         <div id="conSave" class="save">
           <div id="conSaveName">Con</div>
-          <div id="conSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="conSaveNum"></div>
         </div>
         <div id="intSave" class="save">
           <div id="intSaveName">Int</div>
-          <div id="intSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="intSaveNum"></div>
         </div>
         <div id="wisSave" class="save">
           <div id="wisSaveName">Sab</div>
-          <div id="wisSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="wisSaveNum"></div>
         </div>
         <div id="chaSave" class="save">
           <div id="chaSaveName">Car</div>
-          <div id="chaSaveNum"><!--AÑADIR MODIFICADOR--></div>
+          <div id="chaSaveNum"></div>
         </div>
+        -->
       </div>
       <div id="abilities">
         <h2 id="abilitiesTitle">Habilidades</h2>
@@ -274,7 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             <h3>Fuerza</h3>
             <div id="athletics" class="ability">
               <div id="athleticsTitle">Atletismo</div>
-              <div id="athleticsMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="athleticsMod"><?php echo htmlspecialchars($statsWithModifiers['strength']['total']) ?></div>
             </div>
           </div>
           <div id="abilitiesDex">
@@ -298,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             <h3>Inteligencia</h3>
             <div id="arcana" class="ability">
               <div id="arcanaTitle">Arcanos</div>
-              <div id="arcanaMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="arcanaMod">4</div>
             </div>
             <div id="history" class="ability">
               <div id="historyTitle">Historia</div>
