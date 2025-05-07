@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
   die("You must be logged in.");
 }
 
-$characterId = 2;
+$characterId = 1;
 // HAY QUE CAMBIAR EL !== A === 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     // Get character data
     $select = $dbConection->prepare("SELECT * FROM characters WHERE character_id = :id");
     $select->execute([':id' => $characterId]);
-    $character = $select->fetch(PDO::FETCH_ASSOC);
+    $character = $select->fetch(PDO::FETCH_ASSOC); 
 
     if (!$character) {
       die("Character not found.");
@@ -278,7 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
         <div class="globalStat" id="init">
           <div id="initName">Iniciativa</div>
-          <div id="initNum"><?php echo $stats['dexterity']; ?></div>
+          <div id="initNum"><?php echo htmlspecialchars($statsWithModifiers['dexterity']['modifier']) ?></div>
         </div>
         <div class="globalStat" id="speed">
           <div id="speedName">Velocidad</div>
@@ -347,22 +347,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             <h3>Fuerza</h3>
             <div id="athletics" class="ability">
               <div id="athleticsTitle">Atletismo</div>
-              <div id="athleticsMod"><?php echo htmlspecialchars($statsWithModifiers['strength']['total']) ?></div>
+              <div id="athleticsMod"><?php echo htmlspecialchars($statsWithModifiers['strength']['modifier']) ?></div>
             </div>
           </div>
           <div id="abilitiesDex">
             <h3>Destreza</h3>
             <div id="acrobatics" class="ability">
               <div id="acrobaticsTitle">Acrobacias</div>
-              <div id="acrobaticsMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="acrobaticsMod"><?php echo htmlspecialchars($statsWithModifiers['dexterity']['modifier']) ?></div>
             </div>
             <div id="sleightOfHand" class="ability">
               <div id="sleightOfHandTitle">Juego de Manos</div>
-              <div id="acrobaticsMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="acrobaticsMod"><?php echo htmlspecialchars($statsWithModifiers['dexterity']['modifier']) ?></div>
             </div>
             <div id="stealth" class="ability">
               <div id="stealthTitle">Sigilo</div>
-              <div id="acrobaticsMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="acrobaticsMod"><?php echo htmlspecialchars($statsWithModifiers['dexterity']['modifier']) ?></div>
             </div>
           </div>
         </div>
@@ -371,65 +371,65 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             <h3>Inteligencia</h3>
             <div id="arcana" class="ability">
               <div id="arcanaTitle">Arcanos</div>
-              <div id="arcanaMod">4</div>
+              <div id="arcanaMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
             </div>
             <div id="history" class="ability">
               <div id="historyTitle">Historia</div>
-              <div id="historyMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="historyMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
             </div>
             <div id="investigation" class="ability">
               <div id="investigationTitle">Investigación</div>
-              <div id="investigationMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="investigationMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
             </div>
             <div id="religion" class="ability">
               <div id="religionTitle">Religión</div>
-              <div id="religionMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="religionMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
             </div>
             <div id="nature" class="ability">
               <div id="natureTitle">Naturaleza</div>
-              <div id="natureMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="natureMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
             </div>
           </div>
           <div id="abilitiesWis">
             <h3>Sabiduría</h3>
             <div id="medicine" class="ability">
               <div id="medicineTitle">Medicina</div>
-              <div id="medicineMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="medicineMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
             </div>
             <div id="perception" class="ability">
               <div id="perceptionTitle">Percepción</div>
-              <div id="perceptionMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="perceptionMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
             </div>
             <div id="insight" class="ability">
               <div id="insightTitle">Perspicacia</div>
-              <div id="insightMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="insightMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
             </div>
             <div id="survival" class="ability">
               <div id="survivalTitle">Supervivencia</div>
-              <div id="survivalMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="survivalMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
             </div>
             <div id="animalHandling" class="ability">
               <div id="animalHandlingTitle">Trato con Animales</div>
-              <div id="animalHandlingMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="animalHandlingMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
             </div>
           </div>
           <div id="abilitiesCha">
             <h3>Carisma</h3>
             <div id="deception" class="ability">
               <div id="deceptionTitle">Engaño</div>
-              <div id="deceptionMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="deceptionMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?></div>
             </div>
             <div id="performance" class="ability">
               <div id="performanceTitle">Interpretación</div>
-              <div id="performanceMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="performanceMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?></div>
             </div>
             <div id="intimidation" class="ability">
               <div id="intimidationTitle">Intimidación</div>
-              <div id="intimidationMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="intimidationMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?></div>
             </div>
             <div id="persuasion" class="ability">
               <div id="persuasionTitle">Persuasión</div>
-              <div id="persuasionMod"><!--AÑADIR MODIFICADOR--></div>
+              <div id="persuasionMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?></div>
             </div>
           </div>
         </div>
