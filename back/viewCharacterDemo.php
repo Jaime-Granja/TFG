@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     // Get character data
     $select = $dbConection->prepare("SELECT * FROM characters WHERE character_id = :id");
     $select->execute([':id' => $characterId]);
-    $character = $select->fetch(PDO::FETCH_ASSOC); 
+    $character = $select->fetch(PDO::FETCH_ASSOC);
 
     if (!$character) {
       die("Character not found.");
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $classSelect = $dbConection->prepare("SELECT class_traits FROM classes WHERE class_id = :id");
     $classSelect->execute([':id' => $firstClassId]);
     $classTraitsJson = $classSelect->fetchColumn();
-    
+
     $proficiencies = [];
     // Aquí sacamos las competencias de las tiradas de salvación 
     if ($classTraitsJson) {
@@ -146,8 +146,49 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       ];
     }
 
+    // ===== FEATURES CLASE =====
 
+    // Creamos un array en el que vamos a meter las features para luego enseñarlas fácilmente
+    $allFeatures = [];
 
+    /*
+    Recorremos cada clase que del personaje. 
+    La variable $classLevels es un array asociativo donde la clave es el ID de la clase ($classId) y el valor es el nivel que 
+    tiene el personaje en esa clase.
+    */
+    foreach ($classLevels as $classId => $level) {
+      // Obtenmos las features de la clase
+      $classSelect = $dbConection->prepare("SELECT  class_features FROM classes WHERE class_id = :id");
+      $classSelect->execute([':id' => $classId]);
+      $classFeatures = $classSelect->fetch(PDO::FETCH_ASSOC);
+
+      // Decodificamos el JSON que contiene las features por nivel
+      $featuresJson = $classFeatures['class_features'];
+      $featuresByLevel = json_decode($featuresJson, true)['level'] ?? [];
+
+      // Inicializamos el array de las featurs de esta clase
+      $allFeatures[$className] = [];
+
+      // Recorremos cada entrada de nivel en las features
+      foreach ($featuresByLevel as $levelEntry) {
+        $featureLevel = intval($levelEntry[0]);
+
+        // Solo añadimos las features si el nivel del personaje alcanza el nivel de la feature 
+        if ($featureLevel <= $level) {
+          // El resto de los elementos del array son las habilidades de ese nivel
+          for ($i = 1; $i < count($levelEntry); $i++) {
+            $feature = $levelEntry[$i];
+
+            // Añadimos la feature al array que creamos antes añadiéndole su nombre, nivel y contenido (entries)
+            $allFeatures[$className][] = [
+              'level' => $featureLevel,
+              'name' => $feature['name'],
+              'entries' => $feature['entries']
+            ];
+          }
+        }
+      }
+    }
 
     // ===== EDITAR =====
 
@@ -173,13 +214,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="../front/src/styles/stylesSheet.css" />
-  <script src="../src/scripts/sheet.js"></script>
-  <link rel="shortcut icon" href="../src/img/D20.png" />
+  <script src="../front/src/scripts/sheet.js"></script>
+  <link rel="shortcut icon" href="../front/src/img/D20.png" />
 </head>
 
 <body>
   <div id="margin">
-    <img id="menuHamburguesa" src="../src/img/menu.png" />
+    <img id="menuHamburguesa" src="../front/src/img/menu.png" />
     <div id="menuHamburguesaBotones">
       <button id="mainPageBotton">Principal</button>
       <button id="backgroundBotton">Trasfondo</button>
@@ -310,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
           </div>
         <?php endforeach; ?>
 
-  
+
 
 
         <!--
@@ -379,11 +420,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </div>
             <div id="investigation" class="ability">
               <div id="investigationTitle">Investigación</div>
-              <div id="investigationMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
+              <div id="investigationMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?>
+              </div>
             </div>
             <div id="religion" class="ability">
               <div id="religionTitle">Religión</div>
-              <div id="religionMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></div>
+              <div id="religionMod"><?php echo htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?>
+              </div>
             </div>
             <div id="nature" class="ability">
               <div id="natureTitle">Naturaleza</div>
@@ -410,7 +453,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </div>
             <div id="animalHandling" class="ability">
               <div id="animalHandlingTitle">Trato con Animales</div>
-              <div id="animalHandlingMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?></div>
+              <div id="animalHandlingMod"><?php echo htmlspecialchars($statsWithModifiers['wisdom']['modifier']) ?>
+              </div>
             </div>
           </div>
           <div id="abilitiesCha">
@@ -425,7 +469,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </div>
             <div id="intimidation" class="ability">
               <div id="intimidationTitle">Intimidación</div>
-              <div id="intimidationMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?></div>
+              <div id="intimidationMod"><?php echo htmlspecialchars($statsWithModifiers['charisma']['modifier']) ?>
+              </div>
             </div>
             <div id="persuasion" class="ability">
               <div id="persuasionTitle">Persuasión</div>
@@ -490,16 +535,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         congue.
       </div>
       <h2>Rasgos de Clase</h2>
-      <h3>Mago</h3>
       <div>
-        Pellentesque ante nec sapien condimentum, eu ornare eros pellentesque.
-        Donec congue posuere quam, sed semper est aliquam ac. Sed vitae ligula
-        ut turpis ullamcorper cursus in quis dui. Nulla in pretium velit. Sed
-        semper mauris eget lectus egestas auctor. Nullam maximus eleifend
-        dignissim. Donec sit amet sapien eget mi hendrerit pretium. Sed
-        mattis, massa sodales pharetra gravida, leo enim venenatis nibh, non
-        scelerisque sem felis id massa. Fusce tempus lorem non porttitor
-        congue.
+        <!-- Recorremos el array $allFeatures para mostrar las features del personaje -->
+        <!-- Cada clave es el nombre de la clase y su valor es un array de las features de la misma -->
+        <?php foreach ($allFeatures as $className => $features): ?>
+          <!-- Mostramos el nombre de la clase como título. Usamos htmlspecialchars para evitar problemas con caracteres especiales o inyecciones -->
+          <h3>Clase: <?= htmlspecialchars($className) ?></h3>
+
+          <?php foreach ($features as $feature): ?>
+            <div class="feature">
+              <!-- Mostramos el nombre de la habilidad y el nivel en el que se obtiene para facilitar al usuario la búsqueda de lo que necesite -->
+              <h4>Nivel <?= $feature['level'] ?> - <?= htmlspecialchars($feature['name']) ?></h4>
+
+              <?php foreach ($feature['entries'] as $entry): ?>
+                <?php if (is_string($entry)): ?>
+                  <!-- nl2br convierte los saltos de línea (\n) en etiquetas <br> para mantener el formato -->
+                  <p><?= nl2br(htmlspecialchars($entry)) ?></p>
+
+                <!-- Si la entrada tiene un tipo "lista" y tiene "items", mostramos los ítems como una lista  -->  
+                <?php elseif (is_array($entry) && isset($entry['type']) && $entry['type'] === 'list' && isset($entry['items'])): ?>
+                  <ul>
+                    <?php foreach ($entry['items'] as $item): ?>
+                      <li><?= htmlspecialchars($item) ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </div>
+          <?php endforeach; ?>
+        <?php endforeach; ?>
+
+
       </div>
     </div>
   </div>
