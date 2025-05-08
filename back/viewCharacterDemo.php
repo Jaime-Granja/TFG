@@ -261,8 +261,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     <h2>Estadísticas</h2>
     <div id="stats">
 
+      <!-- Recorremos el array $statsWithModifiers para mostrar las estadísticas del personaje -->
+      <!-- Cada clave es el nombre de una estadística y su valor es un array de los datos de la misma (total y modificador) -->
       <?php
-
       foreach ($statsWithModifiers as $name => $info) {
         ?>
         <div class="stat">
@@ -278,7 +279,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
         <?php
       }
-
       ?>
       <!-- Versión antigua
         <div class="stat" id="str">
@@ -339,6 +339,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       <div id="saves">
         <h2 id="savesTitle">Salvaciones</h2>
 
+        <!-- Recorremos el array $savingThrows para mostrar las tiradas de salvación del personaje -->
+        <!-- Cada clave es el nombre de una estadística y su valor es un array de los datos de la misma ("level", "name" y "proficient") -->
         <?php foreach ($savingThrows as $stat => $data): ?>
           <div id="statSave" class="save">
             <?php if ($data['proficient']): ?>
