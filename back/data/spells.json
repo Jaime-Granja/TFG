@@ -1,0 +1,106 @@
+[
+    {
+        "name": "Saeta de Fuego",
+        "desc": [
+            "Lanzas una mota de fuego a una criatura u objeto dentro del alcance. Haz un ataque de conjuro a distancia contra el objetivo. Si aciertas, el objetivo recibe 1d10 de daño por fuego. Un objeto inflamable impactado por este conjuro se enciende si no está siendo llevado o transportado.",
+            "El daño de este hechizo aumenta en 1d10 cuando alcanzas el nivel 5 (2d10), nivel 11 (3d10), y nivel 17 (4d10)."
+        ],
+        "range": "120 pies",
+        "components": [
+            "V",
+            "S"
+        ],
+        "ritual": false,
+        "duration": "Instantáneo",
+        "concentration": false,
+        "casting_time": "1 acción",
+        "level": 0,
+        "attack_type": "a distancia",
+        "damage": {
+            "damage_type": "Fuego",
+            "damage_at_character_level": {
+                "1": "1d10",
+                "5": "2d10",
+                "11": "3d10",
+                "17": "4d10"
+            }
+        },
+        "school": "Evocación",
+        "classes": [
+            {
+                "name": "Hechicero"
+            },
+            {
+                "name": "Mago"
+            }
+        ]
+    },
+    {
+        "name": "Escudo",
+        "desc": [
+            "Aparece una barrera invisible de fuerza que te protege. Hasta el principio de tu siguiente turno tienes un bonificador de +5 a tu CA, incluido contra el ataque que activó el conjuro, y además no recibes ningún daño del conjuro proyectil mágico."
+        ],
+        "range": "Lanzador",
+        "components": [
+            "V",
+            "S"
+        ],
+        "ritual": false,
+        "duration": "1 ronda",
+        "concentration": false,
+        "casting_time": "1 reacción",
+        "level": 1,
+        "school": "Abjuración",
+        "classes": [
+            {
+                "name": "Hechicero"
+            },
+            {
+                "name": "Mago"
+            }
+        ],
+        "subclasses": [
+            {
+                "name": "Tradición del Conocimiento"
+            }
+        ]
+    },
+    {
+        "name": "Alterar el propio aspecto",
+        "desc": [
+            "Asumes un aspecto distinto. Al lanzar el hechizo, elige una de las siguientes opciones, cuyos efectos duran lo mismo que el hechizo. Mientras dura, puedes finalizar una opción como acción para obtener los beneficios de otra.",
+            {
+                "type": "list",
+                "items": [
+                    "***Adaptación acuática.*** Adaptas tu cuerpo a un medio acuático. Te crecen branquias y membranas entre los dedos. Puedes respirar bajo el agua y ganas una velocidad nadando igual a tu velocidad caminando.",
+                    "***Cambiar de aspecto.*** Transformas tu apariencia. Decide tu aspecto, especificando una altura, peso, rasgos faciales, timbre de voz, longitud del cabello, tono de piel y cualquier rasgo distintivo que quieras añadir.\n\nEres capaz de adoptar la apariencia de un miembro de otra raza, pero tu perfil no cambia. Tampoco puedes tomar el aspecto de una criatura de un tamaño que no sea el tuyo, ya que tu forma básica debe mantenerse; si eres bípedo, no puedes usar este conjuro para hacerte cuadrúpedo, por ejemplo. En cualquier momento, hasta el final de la duración del conjuro, puedes usar una acción para cambiar tu aspecto de nuevo mediante esta opción.",
+                    "***Armas naturales.*** Te crecen garras, colmillos, pinchos, cuernos u otra arma natural de tu elección. Tus ataques sin armas hacen 1d6 de daño contundente, perforante o cortante, de acuerdo al arma natural que escojas. Eres competente con esta arma, que es mágica y te proporciona un bonificador de +1 a las tiradas de ataque y de daño que hagas con ella."
+                ]
+            }
+        ],
+        "range": "Lanzador",
+        "components": [
+            "V",
+            "S"
+        ],
+        "ritual": false,
+        "duration": "Concentración, hasta 1 hora",
+        "concentration": true,
+        "casting_time": "1 acción",
+        "level": 2,
+        "school": "Transmutación",
+        "classes": [
+            {
+                "name": "Hechicero"
+            },
+            {
+                "name": "Mago"
+            }
+        ],
+        "subclasses": [
+            {
+                "name": "Saber"
+            }
+        ]
+    }
+]
