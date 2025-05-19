@@ -524,17 +524,31 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       <div>Arcanos y Español</div>
     </div>
     <div id="featuresPage">
-      <h2>Rasgos de Raza</h2>
-      <h3>Drow</h3>
+      <h2>Rasgos de <?= htmlspecialchars($specie['specie_name']); ?></h2>
       <div>
-        Pellentesque ante nec sapien condimentum, eu ornare eros pellentesque.
-        Donec congue posuere quam, sed semper est aliquam ac. Sed vitae ligula
-        ut turpis ullamcorper cursus in quis dui. Nulla in pretium velit. Sed
-        semper mauris eget lectus egestas auctor. Nullam maximus eleifend
-        dignissim. Donec sit amet sapien eget mi hendrerit pretium. Sed
-        mattis, massa sodales pharetra gravida, leo enim venenatis nibh, non
-        scelerisque sem felis id massa. Fusce tempus lorem non porttitor
-        congue.
+        <h3>Rasgos base</h3>
+        <h4> Tipo de Criatura </h4>
+        <p><?= htmlspecialchars($specieTraits['size']); ?></p>
+        <h4> Tamaño </h4>
+        <p><?= htmlspecialchars($specieTraits['size']); ?></p>
+        <h4> Velocidad </h4>
+        <p><?= htmlspecialchars($specieTraits['speed']); ?></p>
+        <h4> Edad </h4>
+        <p><?= htmlspecialchars($specieTraits['Age']); ?></p>
+        <h4> Idiomas </h4>
+        <p><?= htmlspecialchars($specieTraits['Languages']); ?></p>
+
+        <?php if (!empty($specieFeatures)): ?>
+          <h3>Habilidades especiales</h3>
+
+          <?php foreach ($specieFeatures as $featureName => $featureContent): ?>
+            <h4><strong><?= htmlspecialchars($featureName) ?>:</strong></h4>
+            <p><?= nl2br(htmlspecialchars($featureContent)) ?></p>
+          <?php endforeach; ?>
+
+        <?php endif; ?>
+
+
       </div>
       <h2>Rasgos de Clase</h2>
       <div>
@@ -554,7 +568,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                   <!-- nl2br convierte los saltos de línea (\n) en etiquetas <br> para mantener el formato -->
                   <p><?= nl2br(htmlspecialchars($entry)) ?></p>
 
-                <!-- Si la entrada tiene un tipo "lista" y tiene "items", mostramos los ítems como una lista  -->  
+                  <!-- Si la entrada tiene un tipo "lista" y tiene "items", mostramos los ítems como una lista  -->
                 <?php elseif (is_array($entry) && isset($entry['type']) && $entry['type'] === 'list' && isset($entry['items'])): ?>
                   <ul>
                     <?php foreach ($entry['items'] as $item): ?>
@@ -566,7 +580,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </div>
           <?php endforeach; ?>
         <?php endforeach; ?>
-
+     
 
       </div>
     </div>
