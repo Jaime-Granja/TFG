@@ -19,7 +19,7 @@ window.onload = function () {
   }
 
   function atras() {
-    window.location.href = "../front/public/index.html";
+    window.location.href = "logout.php";
   }
 
   function campaignFunction() {
