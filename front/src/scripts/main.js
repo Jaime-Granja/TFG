@@ -47,8 +47,8 @@ window.onload = function () {
     let New = document.getElementById("New");
     let Nosotros = document.getElementById("Nosotros");
     let Botones = document.getElementById("botones");
-    if ((window.location.href = "home.html")) {
-      window.location.href = "index.html";
+    if ((window.location.href = "home.php")) {
+      window.location.href = "index.php";
     }
     Texto.style.display = "block";
     Log.style.display = "none";
@@ -56,4 +56,16 @@ window.onload = function () {
     Nosotros.style.display = "none";
     Botones.style.display = "flex";
   }
+
+
+const popup = document.getElementById("popup");
+  if (popup && popup.textContent.trim() !== "") {
+    popup.style.display = "block";
+    popup.classList.add("show");
+    setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => (popup.style.display = "none"), 500);
+    }, 4000);
+  }
+
 };
