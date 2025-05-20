@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
   die("You must be logged in.");
 }
 
-$characterId = 2;
+$characterId = 1;
 // HAY QUE CAMBIAR EL !== A === 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
@@ -178,6 +178,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 ];
               }
             }
+          }
+        }
+      }
+    }
+
+    // == Table traits == 
+    $tableTraits = [];
+
+    foreach ($classList as $index => $classInfo) {
+      if ($classTraitsJson) {
+        $classTraits = json_decode($classTraitsJson, true);
+
+        foreach ($classTraits as $traitName => $traitData) {
+          if (is_array($traitData) && isset($traitData['type']) && $traitData['type'] === 'table' && isset($traitData['data']) && is_array($traitData['data'])) {
+            // Filtramos solo las filas cuyo nivel sea <= nivel del personaje
+            $filteredData = array_filter($traitData['data'], function ($entry) use ($level) {
+              return isset($entry['level']) && intval($entry['level']) <= $level;
+            });
+
+            // Guardamos los datos filtrados sin el nivel, si quieres eliminarlo
+            $cleanData = [];
+            foreach ($filteredData as $entry) {
+              $entryCopy = $entry;
+              unset($entryCopy['level']);
+              $cleanData[] = $entryCopy;
+            }
+
+            $tableTraits[$className][] = [
+              'name' => $traitName,
+              'data' => $cleanData
+            ];
           }
         }
       }
@@ -721,7 +752,71 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
           <div class="spell lvl3">Bola de Fuego</div>
         </div>
       </div>
+      <div>
+        <?php if (!empty($tableTraits)): ?>
+          <h2>Tablita magiquita</h2>
+          <?php
+          foreach ($tableTraits as $className => $traits):
+            $cantripsKnown = '-';
+            $spellSlots = [];
+
+            // Recorremos los traits de la clase
+            foreach ($traits as $trait) {
+              if ($trait['name'] === 'Cantrips') {
+                if (isset($trait['data'][0]['known'])) {
+                  $cantripsKnown = $trait['data'][0]['known'];
+                }
+              }
+
+              if ($trait['name'] === 'Spell_slots') {
+                if (isset($trait['data'][0]['slots'])) {
+                  $spellSlots = $trait['data'][0]['slots'];
+                }
+              }
+            }
+            ?>
+            <table border="1" cellpadding="5" cellspacing="10">
+              <tr>
+                
+                <th>Spellcasting Ability</th>
+                <th>Modificador de spellcasting</th>
+                <th>DC de Salvación</th>
+              </tr>
+              <tr>
+                
+                <td> Inteligencia </td>
+                <td><?= htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></td>
+                <td><?= 8 + htmlspecialchars($statsWithModifiers['intelligence']['modifier'] + $proficiencyBonus)  ?></td>
+              </tr>
+              <tr>
+                <th rowspan="2">Cantrips known</th>
+                <th colspan="9">Spell Slots</th>
+              </tr>
+              <tr>
+                <?php foreach ($spellSlots as $nivel => $cantidad): ?>
+                  <th><?= htmlspecialchars($nivel) ?></th>
+                <?php endforeach; ?>
+              </tr>
+              <tr>
+                <td><?= htmlspecialchars($cantripsKnown) ?></td>
+                <?php foreach ($spellSlots as $cantidad): ?>
+                  <td><?= htmlspecialchars($cantidad) ?></td>
+                <?php endforeach; ?>
+              </tr>
+            </table>
+
+          <?php endforeach; ?>
+
+        <?php endif; ?>
+
+      </div>
+
+
     </div>
+
+
+
+
   </div>
 </body>
 
