@@ -266,7 +266,7 @@
                 "goldAlternative": "2d4 × 10"
             },
             "Rages": {
-                "type": "table",
+                "type": "special",
                 "data": [
                     {
                         "level": "1",
