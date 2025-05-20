@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
   die("You must be logged in.");
 }
 
-$characterId = 1;
+$characterId = 2;
 // HAY QUE CAMBIAR EL !== A === 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       ];
     }
 
-    // ===== SAVING THROWS =====
+    // ===== SAVING THROWS Y SPECIAL TRAITS =====
 
     // Función para calcular el bono de competencia según el nivel
     function getProficiencyBonus($level)
@@ -144,6 +144,43 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         'total' => ($total >= 0 ? '+' : '') . $total,
         'proficient' => $hasProficiency
       ];
+    }
+
+
+    // == Special traits == 
+
+    // Creamos un array en el que vamos a meter los traits especiales (rages, sneak attack...) que capturemos en el siguiente 
+    // bucle para luego enseñarlos fácilmente. Si el pj no tiene de estos simplemente no se guarda nada.
+    $specialTraits = [];
+
+    foreach ($classList as $index => $classInfo) {
+      if ($classTraitsJson) {
+        // Como siempre, decodificamos el JSON recibido desde la base de datos a un array asociativo
+        $classTraits = json_decode($classTraitsJson, true);
+
+        // Recorremos cada trait del array
+        foreach ($classTraits as $traitName => $traitData) {
+          // Si el trait es un array, co ncampo "type": "special", y con data...
+          if (is_array($traitData) && isset($traitData['type']) && $traitData['type'] === 'special' && isset($traitData['data']) && is_array($traitData['data'])) {
+            // ... recorremos cada entrada de datos dentro del trait especial ...
+            foreach ($traitData['data'] as $entry) {
+              // ... y si la entrada tiene un campo 'level' y ese nivel es menor o igual al del pj, la aceptamos
+              if (isset($entry['level']) && intval($entry['level']) <= $level) {
+                // Quitamos el nivel para no almacenarlo
+                $entryWithoutLevel = $entry;
+                unset($entryWithoutLevel['level']);
+
+                // Guardamos el trait especial bajo el nombre de la clase correspondiente
+                // Cada trait contiene su nombre y los datos sin el campo 'level'
+                $specialTraits[$className][] = [
+                  'name' => $traitName,
+                  'data' => $entryWithoutLevel
+                ];
+              }
+            }
+          }
+        }
+      }
     }
 
     // ===== FEATURES CLASE =====
@@ -218,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   <link rel="shortcut icon" href="../front/src/img/D20.png" />
 </head>
 
-<body>
+<body id="body">
   <div id="margin">
     <img id="menuHamburguesa" src="../front/src/img/menu.png" />
     <div id="menuHamburguesaBotones">
@@ -580,8 +617,109 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </div>
           <?php endforeach; ?>
         <?php endforeach; ?>
-     
+      </div>
+      <div>
+        <?php if (!empty($specialTraits)): ?>
+          <h2>Special traits</h2>
+          <h3>Habilidades especiales por clase</h3>
 
+          <?php
+          // Comprobamos si hay más de una clase
+          $hasMultipleClasses = count($classList) > 1;
+          ?>
+
+          <?php foreach ($specialTraits as $className => $traits): ?>
+            <div class="special-trait">
+              <?php if ($hasMultipleClasses): ?>
+                <!-- Mostramos el nombre de la clase solo si hay más de una -->
+                <h4><?= htmlspecialchars($className) ?></h4>
+              <?php endif; ?>
+
+              <?php if (!empty($traits)): ?>
+                <ul>
+                  <?php foreach ($traits as $trait): ?>
+                    <li>
+                      <strong><?= htmlspecialchars($trait['name']) ?>:</strong><br>
+                      <?php foreach ($trait['data'] as $label => $value): ?>
+                        <strong><?= htmlspecialchars(ucwords(strtolower(preg_replace('/(?<!^)([A-Z])/', ' $1', $label)))) ?>
+                          :</strong> <?= htmlspecialchars($value) ?><br>
+                      <?php endforeach; ?>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              <?php else: ?>
+                <p>No hay datos disponibles.</p>
+              <?php endif; ?>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+
+
+
+
+      </div>
+
+    </div>
+    <div id="equipmentPage">
+      <h2>Equipamiento</h2>
+      <button id="addEquipmentBotton">Añadir Equipamiento</button>
+      <div id="equipmentItems">
+        <ul>
+          <li class="equipmentCategory">Armas
+            <ul>
+              <li class="equipmentItem">Espada</li>
+            </ul>
+          </li>
+          <li class="equipmentCategory">Armadura
+            <ul>
+              <li class="equipmentItem">Escudo</li>
+            </ul>
+          </li>
+          <li class="equipmentCategory">Otros
+            <ul>
+              <li class="equipmentItem">Flechas</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="spellbookPage">
+      <h2>Libro de Hechizos</h2>
+      <div id="spellStats">
+        <div class="spellStat" id="spellStat">
+          <h3>Característica de Lanzamiento de Conjuros</h3>
+          CAR
+        </div>
+        <div class="spellStat" id="spellMod">
+          <h3>Modificador de Lanzamiento de Conjuros</h3>
+          +6
+        </div>
+        <div class="spellStat" id="spellSave">
+          <h3>Salvación de Lanzamiento de Conjuros</h3>
+          14
+        </div>
+      </div>
+      <div id="spells">
+        <div id="cantrips">
+          <h3>Trucos</h3>
+          <div class="spell cantrip">Toque Gélido</div>
+          <div class="spell cantrip">Descarga de Fuego</div>
+        </div>
+        <div id="spells1">
+          <h3>Hechizos Nivel 1</h3>
+          <div class="spell lvl1">Alarma</div>
+          <div class="spell lvl1">Manos Ardientes</div>
+        </div>
+        <div id="spells2">
+          <h3>Hechizos Nivel 2</h3>
+          <div class="spell lvl2">No me acuerdo</div>
+          <div class="spell lvl2">Rayo Abrasador</div>
+        </div>
+        <div id="spells3">
+          <h3>Hechizos Nivel 3</h3>
+          <div class="spell lvl3">Contrahechizo</div>
+          <div class="spell lvl3">Bola de Fuego</div>
+        </div>
       </div>
     </div>
   </div>
