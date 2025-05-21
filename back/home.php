@@ -11,8 +11,10 @@ $selectCampaigns->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectCampaigns->execute();
 $campaigns = $selectCampaigns->fetchAll(PDO::FETCH_ASSOC);
 
-
-
+$selectCharacters = $dbConection->prepare("SELECT character_id, character_name, character_desc FROM characters WHERE character_owner = :userId");
+$selectCharacters->bindParam(':userId', $userId, PDO::PARAM_INT);
+$selectCharacters->execute();
+$characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,39 +57,17 @@ $campaigns = $selectCampaigns->fetchAll(PDO::FETCH_ASSOC);
             <button id="createSheet">Crear Ficha</button>
         </div>
         <div id="sheets">
-            <div class="sheet">1<br>Integer
-                pellentesque ante nec sapien condimentum, eu ornare eros pellentesque. Donec congue posuere quam, sed
-                semper
-                est aliquam ac. Sed vitae ligula ut turpis ullamcorper cursus in quis dui. Nulla in pretium velit. Sed
-                semper mauris eget
-                lectus egestas auctor. Nullam maximus eleifend dignissim. Donec sit amet sapien eget mi hendrerit
-                pretium.
-                Sed mattis, massa sodales pharetra gravida, leo enim venenatis nibh, non scelerisque sem felis id massa.
-                Fusce tempus lorem non porttitor congue. <br>
-                <button class="mas">+</button>
-            </div>
-            <div class="sheet">2<br>Integer
-                pellentesque ante nec sapien condimentum, eu ornare eros pellentesque. Donec congue posuere quam, sed
-                semper
-                est aliquam ac. Sed vitae ligula ut turpis ullamcorper cursus in quis dui. Nulla in pretium velit. Sed
-                semper mauris eget
-                lectus egestas auctor. Nullam maximus eleifend dignissim. Donec sit amet sapien eget mi hendrerit
-                pretium.
-                Sed mattis, massa sodales pharetra gravida, leo enim venenatis nibh, non scelerisque sem felis id massa.
-                Fusce tempus lorem non porttitor congue.<br>
-                <button class="mas">+</button>
-            </div>
-            <div class="sheet">3<br>Integer
-                pellentesque ante nec sapien condimentum, eu ornare eros pellentesque. Donec congue posuere quam, sed
-                semper
-                est aliquam ac. Sed vitae ligula ut turpis ullamcorper cursus in quis dui. Nulla in pretium velit. Sed
-                semper mauris eget
-                lectus egestas auctor. Nullam maximus eleifend dignissim. Donec sit amet sapien eget mi hendrerit
-                pretium.
-                Sed mattis, massa sodales pharetra gravida, leo enim venenatis nibh, non scelerisque sem felis id massa.
-                Fusce tempus lorem non porttitor congue.<br>
-                <button class="mas">+</button>
-            </div>
+            <?php if (count($characters) === 0): ?>
+                <p>No tienes ninguna ficha de personaje todavía.</p>
+            <?php else: ?>
+                <?php foreach ($characters as $character): ?>
+                    <div class="sheet">
+                        <h3><?php echo htmlspecialchars($character['character_name']); ?></h3><br>
+                        <?php echo nl2br(htmlspecialchars($character['character_desc'])); ?><br>
+                        <button class="mas" data-character-id="<?php echo $character['character_id']; ?>">+</button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
     <button id="logOut">Cerrar Sesión</button>
