@@ -5,10 +5,10 @@ require 'conection.php';
 if (!isset($_SESSION['user_id'])) {
   die("You must be logged in.");
 }
-
-$characterId = 1;
+$userId = $_SESSION["user_id"];
+$characterId = isset($_GET['id']) ? intval($_GET['id']) : null;
 // HAY QUE CAMBIAR EL !== A === 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
 
   try {
     // Get character data
@@ -260,10 +260,81 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
     // ===== EDITAR =====
 
+    if (isset($_POST['edit'])) {
+      // Comprobamos que el personaje pertenece al usuario
+      $check = $dbConection->prepare("SELECT * FROM Characters WHERE character_id = :id AND character_owner = :owner");
+      $check->execute([':id' => $characterId, ':owner' => $userId]);
 
+      // Si por cualquier motivo el personaje no le pertenece al usuario mandamos un mensaje de error
+      if ($check->rowCount() === 0) {
+        die("No tienes permiso para editar este personaje.");
+      } else { // En el caso normal, editaremos el personaje
+        // Recogemos los datos del formulario
+        $name = trim($_POST['character_name']);
+        $desc = trim($_POST['character_desc']);
+        $specie = (int) $_POST['specie'];
+
+        $stats = json_encode([
+          "strength" => (int) $_POST["strength"],
+          "dexterity" => (int) $_POST["dexterity"],
+          "constitution" => (int) $_POST["constitution"],
+          "intelligence" => (int) $_POST["intelligence"],
+          "wisdom" => (int) $_POST["wisdom"],
+          "charisma" => (int) $_POST["charisma"]
+        ], JSON_UNESCAPED_UNICODE);
+
+        try {
+          // Actualizamos los datos
+          $update = $dbConection->prepare("
+            UPDATE Characters 
+            SET character_name = :name,
+                character_desc = :desc,
+                specie = :specie,
+                stats = :stats
+            WHERE character_id = :id
+        ");
+
+          $update->execute([
+            ':name' => $name,
+            ':desc' => $desc,
+            ':specie' => $specie,
+            ':stats' => $stats,
+            ':id' => $characterId
+          ]);
+
+          echo "Personaje actualizado con éxito :D.";
+
+          // DESCOMENTAR EL HEADER DESPUÉS DE PROBAR EL SCRIPT
+          // header("Location: ../front/public/home.html");
+
+        } catch (PDOException $e) {
+          echo "Error al actualizar personaje: " . $e->getMessage();
+        }
+      }
+    }
 
     // ===== BORRAR =====
 
+    if (isset($_POST['delete'])) {
+      try {
+        $check = $dbConection->prepare("SELECT * FROM Characters WHERE character_id = :id AND character_owner = :owner");
+        $check->execute([':id' => $characterId, ':owner' => $userId]);
+
+        if ($check->rowCount() === 0) {
+          die("No tienes permiso para borrar este personaje.");
+        }
+
+        $delete = $dbConection->prepare("DELETE FROM Characters WHERE character_id = :id");
+        $delete->execute([':id' => $characterId]);
+
+        echo "Personaje borrado correctamente.";
+      } catch (PDOException $e) {
+        echo "Error al borrar personaje: " . $e->getMessage();
+      }
+
+    } else {
+      echo "Acción no permitida.";
+    }
 
   } catch (PDOException $e) {
     die("Error retrieving character: " . $e->getMessage());
@@ -326,6 +397,91 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
       </div>
     </div>
+
+    <!-- BOTON PARA MOSTRAR EL FORMULARIO  DE EDICIÓN -->
+
+    <button id="boton-editar" onclick="toggleFormulario()">Editar</button>
+
+    <!-- FORMULARIO DE EDICION -->
+
+    <div id="formulario-edicion" style="display: none;">
+      <?php
+      // Obtenemos los datos del personaje si pertenece al usuario
+      $select = $dbConection->prepare("SELECT * FROM Characters WHERE character_id = :id AND character_owner = :owner");
+      $select->execute([':id' => $characterId, ':owner' => $userId]);
+
+      if ($select->rowCount() === 0) {
+        die("Personaje no encontrado o no te pertenece.");
+      }
+
+      $character = $select->fetch(PDO::FETCH_ASSOC);
+      $stats = json_decode($character['stats'], true);
+      ?>
+
+      <h2>Editar personaje</h2>
+      <form method="POST">
+        <input type="hidden" name="character_id" value="<?php echo $characterId; ?>">
+
+        <label>Nombre:</label>
+        <input type="text" name="character_name" value="<?php echo htmlspecialchars($character['character_name']); ?>"
+          required><br>
+
+        <label>Descripción:</label>
+        <textarea name="character_desc"><?php echo htmlspecialchars($character['character_desc']); ?></textarea><br>
+
+        <label>Especie:</label>
+        <select name="specie">
+          <?php
+          $select = $dbConection->query("SELECT specie_id, specie_name FROM Species");
+          while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
+            $selected = ($character['specie'] == $row['specie_id']) ? "selected" : "";
+            echo "<option value='{$row['specie_id']}' $selected>{$row['specie_name']}</option>";
+          }
+          ?>
+        </select><br>
+
+        <label>Estadísticas:</label><br>
+        <input type="number" name="strength" value="<?php echo $stats['strength']; ?>" placeholder="Strength" required>
+        <input type="number" name="dexterity" value="<?php echo $stats['dexterity']; ?>" placeholder="Dexterity"
+          required>
+        <input type="number" name="constitution" value="<?php echo $stats['constitution']; ?>"
+          placeholder="Constitution" required>
+        <input type="number" name="intelligence" value="<?php echo $stats['intelligence']; ?>"
+          placeholder="Intelligence" required>
+        <input type="number" name="wisdom" value="<?php echo $stats['wisdom']; ?>" placeholder="Wisdom" required>
+        <input type="number" name="charisma" value="<?php echo $stats['charisma']; ?>" placeholder="Charisma"
+          required><br><br>
+
+        <input type="hidden" name="edit" value="1">
+        <button type="submit">Guardar cambios</button>
+      </form>
+    </div>
+
+
+
+    <script>
+      function toggleFormulario() {
+        const formulario = document.getElementById('formulario-edicion');
+        const boton = document.getElementById('boton-editar');
+
+        if (formulario.style.display === 'none' || formulario.style.display === '') {
+          formulario.style.display = 'block';
+          boton.textContent = 'Ocultar formulario';
+        } else {
+          formulario.style.display = 'none';
+          boton.textContent = 'Editar';
+        }
+      }
+    </script>
+
+    <!-- BOTON BORRAR -->
+    <form method="POST"
+      onsubmit="return confirm('¿Estás seguro de que quieres borrar este personaje? Esta acción no se puede deshacer.');">
+      <input type="hidden" name="delete" value="1">
+      <button type="submit" style="background-color: red; color: white;">Borrar personaje</button>
+    </form>
+
+
     <h2>Estadísticas</h2>
     <div id="stats">
 
@@ -777,16 +933,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             ?>
             <table border="1" cellpadding="5" cellspacing="10">
               <tr>
-                
+
                 <th>Spellcasting Ability</th>
                 <th>Modificador de spellcasting</th>
                 <th>DC de Salvación</th>
               </tr>
               <tr>
-                
+
                 <td> Inteligencia </td>
                 <td><?= htmlspecialchars($statsWithModifiers['intelligence']['modifier']) ?></td>
-                <td><?= 8 + htmlspecialchars($statsWithModifiers['intelligence']['modifier'] + $proficiencyBonus)  ?></td>
+                <td><?= 8 + htmlspecialchars($statsWithModifiers['intelligence']['modifier'] + $proficiencyBonus) ?></td>
               </tr>
               <tr>
                 <th rowspan="2">Cantrips known</th>
