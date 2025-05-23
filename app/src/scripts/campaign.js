@@ -57,12 +57,12 @@ window.onload = function () {
     /* Supongo que aquí iría el proceso de php */
   }
   function user() {
-    window.location.href = "user.html";
+    window.location.href = "../front/user.php";
   }
   function goBackFunction() {
-    window.location.href = "home.html";
+    window.location.href = "../front/home.php";
   }
   function logOutFunction() {
-    window.location.href = "index.html";
+    window.location.href = "../front/index.php";
   }
 };

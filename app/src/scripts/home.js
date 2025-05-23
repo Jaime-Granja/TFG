@@ -16,7 +16,7 @@ window.onload = function () {
     button.addEventListener("click", () => {
       const characterId = button.dataset.characterId;
       if (characterId) {
-        window.location.href = `viewCharacterDemo.php?id=${characterId}`;
+        window.location.href = `viewCharacter.php?id=${characterId}`;
       }
     });
   });
@@ -25,14 +25,14 @@ window.onload = function () {
   newCampaign.addEventListener("click", newCampaignFunction);
 
   function newCampaignFunction() {
-    window.location.href = "../front/public/newCampaign.html";
+    window.location.href = "../front/newCampaign.html";
   }
 
   function atras() {
-    window.location.href = "logout.php";
+    window.location.href = "../back/logout.php";
   }
 
   function campaignFunction() {
-    window.location.href = "campaign.php";
+    window.location.href = "../front/campaign.php";
   }
 };

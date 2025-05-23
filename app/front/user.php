@@ -129,7 +129,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
             </div>
         </div>
         <div id="changeInfo">
-            <form method="post" action="../../back/updateProfile.php">
+            <form method="post" action="../back/updateProfile.php">
                 <!--En action habrá que poner el nombre del php pertinente-->
                 <label for="email">EmailActual@hotmail.com</label>
                 <!-- Debemos sacar esta info de la BBDD -->

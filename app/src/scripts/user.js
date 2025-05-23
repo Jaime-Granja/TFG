@@ -29,7 +29,7 @@ window.onload = function () {
             changePassword.style.display = "none"
             changeInfo.style.display = "none"
         } else {
-            window.location.href = "home.html"
+            window.location.href = "../front/home.php"
         }
     }
 

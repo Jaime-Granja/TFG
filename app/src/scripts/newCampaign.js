@@ -31,6 +31,6 @@ window.onload = function () {
     formJoin.style.display = "none";
   }
   function goBack() {
-    window.location.href = "../back/home.php"
+    window.location.href = "../front/home.php";
   }
 };
