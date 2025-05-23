@@ -1,6 +1,7 @@
 window.onload = function () {
   let logOut = document.getElementById("logOut");
   let newCampaign = document.getElementById("newCampaignButton");
+  let newCharacter = document.getElementById("createSheet");
   let campaignButtons = document.querySelectorAll(".campaign .mas");
   let characterButtons = document.querySelectorAll(".sheet .mas");
   campaignButtons.forEach((button) => {
@@ -23,9 +24,14 @@ window.onload = function () {
 
   logOut.addEventListener("click", atras);
   newCampaign.addEventListener("click", newCampaignFunction);
+  newCharacter.addEventListener("click", newCharacterFunction);
 
   function newCampaignFunction() {
     window.location.href = "../front/newCampaign.html";
+  }
+
+  function newCharacterFunction() {
+    window.location.href = "../front/createCharacter.php";
   }
 
   function atras() {
