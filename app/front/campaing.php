@@ -138,13 +138,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['entrada'])) {
         <button id="journalButton" onclick="document.getElementById('newEntryForm').style.display='block'">Añadir Nueva Entrada</button><br />
 
         <!-- Formulario para añadir una nueva entrada -->
-        <div id="newEntryForm" style="display:none;">
-          <form method="POST" action="campaign.php">
-            <label for="entrada">Nueva entrada al diario:</label><br />
-            <textarea name="entrada" required></textarea><br />
-            <button type="submit">Añadir entrada</button>
-          </form>
-        </div>
+        <form method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+    <label for="entrada">Nueva entrada al diario:</label><br />
+    <textarea name="entrada" required></textarea><br />
+    <button type="submit">Añadir entrada</button>
+</form>
+
 
         <div id="journalPage">
           <?php
