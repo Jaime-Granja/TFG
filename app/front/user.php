@@ -82,7 +82,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Usuario: <?php echo $loggedUserData['username'] ?></title>
+    <title>Usuario: <?php echo htmlspecialchars($loggedUserData['username']) ?></title>
     <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesUser.css" />
     <script src="../src/scripts/user.js"></script>
@@ -102,16 +102,16 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
         </div>
     <?php endif; ?>
     <div id="body">
-        <h1>Página de Usuario de <?php echo $loggedUserData['username'] ?></h1>
+        <h1>Página de Usuario de <?php echo htmlspecialchars($loggedUserData['username']) ?></h1>
         <div id="infoUsuario">
             <img id="profilePic" src="../src/img/user.png" />
             <div id="personalData">
                 <h2 class="title">Datos Personales</h2>
                 <p>Nombre Usuario</p>
-                <p class="larger"><?php echo $loggedUserData['username'] ?></p>
+                <p class="larger"><?php echo htmlspecialchars($loggedUserData['username']) ?></p>
                 <!-- Debemos sacar esta info de la BBDD -->
                 <p>Correo Electrónico</p>
-                <p class="larger"><?php echo $loggedUserData['email'] ?></p>
+                <p class="larger"><?php echo htmlspecialchars($loggedUserData['email']) ?></p>
                 <!-- Debemos sacar esta info de la BBDD -->
                 <div class="botones">
                     <button id="edit">Editar</button>
@@ -131,15 +131,15 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
         <div id="changeInfo">
             <form method="post" action="../back/updateProfile.php">
                 <!--En action habrá que poner el nombre del php pertinente-->
-                <label for="email">EmailActual@hotmail.com</label>
+                <label for="email"><?= htmlspecialchars($loggedUserData['email']) ?></label>
                 <!-- Debemos sacar esta info de la BBDD -->
                 <input type="email" id="email" name="email" placeholder="Nuevo E-mail" />
-                <label for="user">Usuario Actual</label>
+                <label for="user"> <?= htmlspecialchars($loggedUserData['username']) ?> </label>
                 <!-- Debemos sacar esta info de la BBDD -->
                 <input type="text" id="newName" name="user" placeholder="Nuevo Usuario" />
                 <label for="pass">Contraseña</label>
                 <!-- Debemos comprobar esta info de la BBDD -->
-                <input type="password" id="newPass" name="pass" placeholder="Contraseña" required /><br />
+                <input type="password" id="newPass" name="password" placeholder="Contraseña" required /><br />
                 <button type="submit">Confirmar</button>
             </form>
         </div>
