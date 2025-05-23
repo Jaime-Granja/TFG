@@ -75,6 +75,7 @@ $getRoleCounts->bindParam(':user_id', $userId, PDO::PARAM_INT);
 $getRoleCounts->execute();
 $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 'Player' => 5]
 
+// ===== NIVEL PROMEDIO =====
 ?>
 <!DOCTYPE html>
 <html lang="en">
