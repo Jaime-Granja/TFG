@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nueva Campaña</title>
+    <link rel="stylesheet" href="../src/styles/stylesNewCampaign.css" />
+    <script src="../src/scripts/newCampaign.js"></script>
+    <link rel="shortcut icon" href="../src/img/D20.png" />
+  </head>
+  <body>
+    <div id="contenedor">
+      <h2>¿Quieres crear una campaña nueva o unirte a una existente?</h2>
+      <div class="botones">
+        <button id="create">Crear Campaña Nueva</button>
+        <button id="join">Unirme a una Campaña</button>
+      </div>
+      <div id="createCampaign">
+        <form action="../../back/createCampaigns.php" method="POST">
+          <label for="campaignName">Indique el nombre de la campaña:</label>
+          <input type="text" name="campaignName" placeholder="Nombre de la Campaña" required />
+
+          <label for="description">Descripción:</label>
+          <textarea name="description" placeholder="Breve descripción de la trama, temas o ambientación." required></textarea>
+
+          <button type="submit">Crear Campaña</button>
+        </form>
+      </div>
+      <div id="joinCampaign">
+        <form method="POST" action="../../back/joinCampaign.php">
+          <label for="inviteCode">Introduzca el código generado por su Director de Juego:</label>
+          <input type="text" name="inviteCode" placeholder="Código de invitación" required />
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+    <button id="goBackButton">Volver</button>
+  </body>
+</html>

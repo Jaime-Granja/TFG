@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #6874e8;
+    display: flex;
+    justify-content: center;
+}
+
+#body {
+    background-color: #B0A4FF;
+    padding: 1rem;
+    margin: 2rem 2rem 2rem 2rem;
+
+}
+#popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s, transform 0.5s;
+  z-index: 9999;
+  display: none;
+  border-left: 5px solid #e74c3c;
+  color: #e74c3c;
+  background-color: #fdecea;
+}
+
+#popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+h1 {
+    color: #bb0a21;
+    padding: 0.5em;
+    background-color: #FFEBCD;
+    border-radius: 0.5em;
+    text-align: center;
+}
+h1>img {
+    max-width: 80px;
+}
+div>img {
+    max-width: 90px;
+    padding: 1rem;
+}
+#titleLogIn {
+    font-family: 'Almendra', 'Cormorant Garamond', serif;
+    font-size: 3rem;
+  }
+#Texto {
+    display: block;
+    text-align: center;
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+    object-fit: cover;
+}
+#banner {
+    min-width: 40%;
+    height: 20rem;
+    overflow: hidden;
+}
+#Log {
+    display: none;
+}
+
+#New {
+    display: none;
+}
+
+#Nosotros {
+    display: none;
+}
+#Nosotros div {
+    display: block;
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.botones {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+button {
+    border-radius: 2em;
+    background-color: #ffebcd;
+}
+.submit {
+    margin: 1rem;
+}
+button:hover {
+    box-shadow: 0px 0px 4px 0px black;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#logOut {
+    margin: 1rem;
+    padding: 1rem;
+    height: 4rem;
+    width: 20rem;
+}
+
+footer {
+    padding: 1em;
+    color: #bb0a21;
+    background-color: #FFEBCD;
+    border-radius: 2em;
+}
+
+
+@media (min-width: 576px) {}
+
+
+@media (min-width: 992px) {}

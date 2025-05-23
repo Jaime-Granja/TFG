@@ -1,0 +1,991 @@
+[
+    {
+        "class_name": "Barbarian",
+        "features": {
+            "level": [
+                [
+                    "1",
+                    {
+                        "name": "Rage",
+                        "entries": [
+                            "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action.",
+                            "While raging, you gain the following benefits if you aren't wearing heavy armor:",
+                            {
+                                "type": "list",
+                                "items": [
+                                    "You have advantage on Strength checks and Strength saving throws.",
+                                    "When you make a melee weapon attack using Strength, you gain a +2 bonus to the damage roll. This bonus increases as you level.",
+                                    "You have resistance to bludgeoning, piercing, and slashing damage."
+                                ]
+                            },
+                            "If you are able to cast spells, you can't cast them or concentrate on them while raging.",
+                            "Your rage lasts for 1 minute. It ends early if you are knocked {@condition unconscious} or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action.",
+                            "Once you have raged the maximum number of times for your barbarian level, you must finish a long rest before you can rage again. You may rage 2 times at 1st level, 3 at 3rd, 4 at 6th, 5 at 12th, and 6 at 17th."
+                        ]
+                    },
+                    {
+                        "name": "Unarmored Defense",
+                        "entries": [
+                            "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
+                        ]
+                    }
+                ],
+                [
+                    "2",
+                    {
+                        "name": "Danger Sense",
+                        "entries": [
+                            "At 2nd level, you gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can't be {@condition blinded}, {@condition deafened}, or {@condition incapacitated}."
+                        ]
+                    },
+                    {
+                        "name": "Reckless Attack",
+                        "entries": [
+                            "Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn."
+                        ]
+                    }
+                ],
+                [
+                    "3",
+                    {
+                        "name": "Primal Path",
+                        "entries": [
+                            "At 3rd level, you choose a path that shapes the nature of your rage from the list of available paths. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+                        ],
+                        "gainSubclassFeature": true
+                    }
+                ],
+                [
+                    "4",
+                    {
+                        "name": "Ability Score Improvement",
+                        "entries": [
+                            "When you reach 4th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                            "If your DM allows the use of feats, you may instead take a feat."
+                        ]
+                    }
+                ],
+                [
+                    "5",
+                    {
+                        "name": "Extra Attack",
+                        "entries": [
+                            "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn."
+                        ]
+                    },
+                    {
+                        "name": "Fast Movement",
+                        "entries": [
+                            "Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor."
+                        ]
+                    }
+                ],
+                [
+                    "6",
+                    {
+                        "name": "Path Feature",
+                        "entries": [
+                            "At 6th level, you gain a feature from your Primal Path."
+                        ],
+                        "gainSubclassFeature": true
+                    }
+                ],
+                [
+                    "7",
+                    {
+                        "name": "Feral Instinct",
+                        "entries": [
+                            "By 7th level, your instincts are so honed that you have advantage on initiative rolls.",
+                            "Additionally, if you are surprised at the beginning of combat and aren't {@condition incapacitated}, you can act normally on your first turn, but only if you enter your rage before doing anything else on that turn."
+                        ]
+                    }
+                ],
+                [
+                    "8",
+                    {
+                        "name": "Ability Score Improvement",
+                        "entries": [
+                            "When you reach 8th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                            "If your DM uses the optional Feats, you can instead take a feat."
+                        ]
+                    }
+                ],
+                [
+                    "9",
+                    {
+                        "name": "Brutal Critical (1 die)",
+                        "entries": [
+                            "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack.",
+                            "This increases to two additional dice at 13th level and three additional dice at 17th level."
+                        ]
+                    }
+                ],
+                [
+                    "10",
+                    {
+                        "name": "Path feature",
+                        "entries": [
+                            "At 10th level, you gain a feature from your Primal Path."
+                        ],
+                        "gainSubclassFeature": true
+                    }
+                ],
+                [
+                    "11",
+                    {
+                        "name": "Relentless Rage",
+                        "entries": [
+                            "Starting at 11th level, your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you're raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead.",
+                            "Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10."
+                        ]
+                    }
+                ],
+                [
+                    "12",
+                    {
+                        "name": "Ability Score Improvement",
+                        "entries": [
+                            "When you reach 12th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                            "If your DM uses the optional Feats, you can instead take a feat."
+                        ]
+                    }
+                ],
+                [
+                    "13",
+                    {
+                        "name": "Brutal Critical (2 dice)",
+                        "entries": [
+                            "You now roll two additional weapon damage dice when determining the extra damage for a critical hit with a melee attack."
+                        ]
+                    }
+                ],
+                [
+                    "14",
+                    {
+                        "name": "Path feature",
+                        "entries": [
+                            "At 14th level, you gain a feature from your Primal Path."
+                        ],
+                        "gainSubclassFeature": true
+                    }
+                ],
+                [
+                    "15",
+                    {
+                        "name": "Persistent Rage",
+                        "entries": [
+                            "Beginning at 15th level, your rage is so fierce that it ends early only if you fall {@condition unconscious} or if you choose to end it."
+                        ]
+                    }
+                ],
+                [
+                    "16",
+                    {
+                        "name": "Ability Score Improvement",
+                        "entries": [
+                            "When you reach 16th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                            "If your DM uses the optional Feats, you can instead take a feat."
+                        ]
+                    }
+                ],
+                [
+                    "17",
+                    {
+                        "name": "Brutal Critical (3 dice)",
+                        "entries": [
+                            "You now roll three additional weapon damage dice when determining the extra damage for a critical hit with a melee attack."
+                        ]
+                    }
+                ],
+                [
+                    "18",
+                    {
+                        "name": "Indomitable Might",
+                        "entries": [
+                            "Beginning at 18th level, if your total for a Strength check is less than your Strength score, you can use that score in place of the total."
+                        ]
+                    }
+                ],
+                [
+                    "19",
+                    {
+                        "name": "Ability Score Improvement",
+                        "entries": [
+                            "When you reach 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                            "If your DM uses the optional Feats, you can instead take a feat."
+                        ]
+                    }
+                ],
+                [
+                    "20",
+                    {
+                        "name": "Primal Champion",
+                        "entries": [
+                            "At 20th level, you embody the power of the wilds. Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24."
+                        ]
+                    }
+                ]
+            ]
+        },
+        "traits": {
+            "HitPointDie": "1d12 per Barbarian level",
+            "HitPointsLevel1": "12 + Constitution modifier",
+            "HitPointsAdditionalLevel": "1d12 (or 7) + Constitution modifier per Barbarian level after 1st",
+            "SavingThrowProficiencies": [
+                "Strength",
+                "Constitution"
+            ],
+            "startingProficiencies": {
+                "armor": [
+                    "light",
+                    "medium",
+                    "shields"
+                ],
+                "weapons": [
+                    "simple",
+                    "martial"
+                ],
+                "skills": {
+                    "choose": 2,
+                    "from": [
+                        "Animal Handling",
+                        "Athletics",
+                        "Intimidation",
+                        "Nature",
+                        "Perception",
+                        "Survival"
+                    ]
+                }
+            },
+            "startingEquipment": {
+                "default": [
+                    "(a) a greataxe or (b) any martial melee weapon",
+                    "(a) two handaxes or (b) any simple weapon",
+                    "An explorer's pack, and four javelins"
+                ],
+                "goldAlternative": "2d4 × 10"
+            },
+            "Rages": {
+                "type": "special",
+                "data": [
+                    {
+                        "level": "1",
+                        "timesPerDay": "2",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "2",
+                        "timesPerDay": "2",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "3",
+                        "timesPerDay": "3",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "4",
+                        "timesPerDay": "3",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "5",
+                        "timesPerDay": "3",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "6",
+                        "timesPerDay": "4",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "7",
+                        "timesPerDay": "4",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "8",
+                        "timesPerDay": "4",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "9",
+                        "timesPerDay": "4",
+                        "bonus": "2"
+                    },
+                    {
+                        "level": "10",
+                        "timesPerDay": "4",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "11",
+                        "timesPerDay": "4",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "12",
+                        "timesPerDay": "5",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "13",
+                        "timesPerDay": "5",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "14",
+                        "timesPerDay": "5",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "15",
+                        "timesPerDay": "5",
+                        "bonus": "3"
+                    },
+                    {
+                        "level": "16",
+                        "timesPerDay": "5",
+                        "bonus": "4"
+                    },
+                    {
+                        "level": "17",
+                        "timesPerDay": "6",
+                        "bonus": "4"
+                    },
+                    {
+                        "level": "18",
+                        "timesPerDay": "6",
+                        "bonus": "4"
+                    },
+                    {
+                        "level": "19",
+                        "timesPerDay": "6",
+                        "bonus": "4"
+                    },
+                    {
+                        "level": "20",
+                        "timesPerDay": "Unlimited",
+                        "bonus": "4"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "class_name": "Wizard",
+        "features": {
+            "level": [
+                [
+                    "1",
+                    {
+                        "name": "Arcane Recovery",
+                        "entries": [
+                            "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.",
+                            "For example, if you're a 4th-level wizard, you can recover up to two levels worth of spell slots.",
+                            "You can recover either a 2nd-level spell slot or two 1st-level spell slots."
+                        ]
+                    },
+                    {
+                        "name": "Spellcasting",
+                        "entries": [
+                            "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power. See chapter 10 for the general rules of spellcasting and chapter 11 for the wizard spell list.",
+                            {
+                                "type": "entries",
+                                "name": "Cantrips",
+                                "entries": [
+                                    "At 1st level, you know three cantrips of your choice from the wizard spell list. You learn additional wizard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Wizard table."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Spellbook",
+                                "entries": [
+                                    "At 1st level, you have a spellbook containing six 1st-level wizard spells of your choice. Your spellbook is the repository of the wizard spells you know, except your cantrips, which are fixed in your mind."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Preparing and Casting Spells",
+                                "entries": [
+                                    "The Wizard table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.",
+                                    "You prepare the list of wizard spells that are available for you to cast. To do so, choose a number of wizard spells from your spellbook equal to your Intelligence modifier + your wizard level (minimum of one spell). The spells must be of a level for which you have spell slots.",
+                                    "For example, if you're a 3rd-level wizard, you have four 1st-level and two 2nd-level spell slots. With an Intelligence of 16, your list of prepared spells can include six spells of 1st or 2nd level, in any combination, chosen from your spellbook. If you prepare the 1st-level spell {@spell magic missile}, you can cast it using a 1st-level or a 2nd-level slot. Casting the spell doesn't remove it from your list of prepared spells.",
+                                    "You can change your list of prepared spells when you finish a long rest. Preparing a new list of wizard spells requires time spent studying your spellbook and memorizing the incantations and gestures you must make to cast the spell: at least 1 minute per spell level for each spell on your list."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Spellcasting Ability",
+                                "entries": [
+                                    "Intelligence is your spellcasting ability for your wizard spells, since you learn your spells through dedicated study and memorization. You use your Intelligence whenever a spell refers to your spellcasting ability. In addition, you use your Intelligence modifier when setting the saving throw DC for a wizard spell you cast and when making an attack roll with one."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Ritual Casting",
+                                "entries": [
+                                    "You can cast a wizard spell as a ritual if that spell has the ritual tag and you have the spell in your spellbook. You don't need to have the spell prepared."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Spellcasting Focus",
+                                "entries": [
+                                    "You can use an arcane focus (found in chapter 5) as a spellcasting focus for your wizard spells."
+                                ]
+                            },
+                            {
+                                "type": "entries",
+                                "name": "Learning Spells of 1st Level and Higher",
+                                "entries": [
+                                    "Each time you gain a wizard level, you can add two wizard spells of your choice to your spellbook. Each of these spells must be of a level for which you have spell slots, as shown on the Wizard table. On your adventures, you might find other spells that you can add to your spellbook (see \"Your Spellbook\")."
+                                ]
+                            },
+                            {
+                                "type": "inset",
+                                "name": "Your Spellbook",
+                                "entries": [
+                                    "The spells that you add to your spellbook as you gain levels reflect the arcane research you conduct on your own, as well as intellectual breakthroughs you have had about the nature of the multiverse. You might find other spells during your adventures. You could discover a spell recorded on a scroll in an evil wizard's chest, for example, or in a dusty tome in an ancient library.",
+                                    "A spellbook doesn't contain cantrips.",
+                                    {
+                                        "type": "entries",
+                                        "entries": [
+                                            {
+                                                "type": "entries",
+                                                "name": "Copying a Spell into the Book",
+                                                "entries": [
+                                                    "When you find a wizard spell of 1st level or higher, you can add it to your spellbook if it is of a spell level you can prepare and if you can spare the time to decipher and copy it.",
+                                                    "Copying a spell into your spellbook involves reproducing the basic form of the spell, then deciphering the unique system of notation used by the wizard who wrote it. You must practice the spell until you understand the sounds or gestures required, then transcribe it into your spellbook using your own notation.",
+                                                    "For each level of the spell, the process takes 2 hours and costs 50 gp. The cost represents material components you expend as you experiment with the spell to master it, as well as the fine inks you need to record it. Once you have spent this time and money, you can prepare the spell just like your other spells.",
+                                                    "A wizard spell on a spell scroll can be copied just as spells in spellbooks can be copied. When you copy a spell from a spell scroll, you must succeed on an Intelligence (Arcana) check with a DC equal to 10 + the spell's level. If the check succeeds, the spell is successfully copied. Whether the check succeeds or fails, the spell scroll is destroyed."
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "entries",
+                                        "entries": [
+                                            {
+                                                "type": "entries",
+                                                "name": "Replacing the Book",
+                                                "entries": [
+                                                    "You can copy a spell from your own spellbook into another book\u2014for example, if you want to make a backup copy of your spellbook. This is just like copying a new spell into your spellbook, but faster and easier, since you understand your own notation and already know how to cast the spell. You need spend only 1 hour and 10 gp for each level of the copied spell.",
+                                                    "If you lose your spellbook, you can use the same procedure to transcribe the spells that you have prepared into a new spellbook. Filling out the remainder of your spellbook requires you to find new spells to do so, as normal. For this reason, many wizards keep backup spellbooks in a safe place."
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "entries",
+                                        "entries": [
+                                            {
+                                                "type": "entries",
+                                                "name": "The Book's Appearance",
+                                                "entries": [
+                                                    "Your spellbook is a unique compilation of spells, with its own decorative flourishes and margin notes. It might be a plain, functional leather volume that you received as a gift from your master, a finely bound gilt-edged tome you found in an ancient library, or even a loose collection of notes scrounged together after you lost your previous spellbook in a mishap."
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                [
+                    "2",
+                    {
+                        "name": "Arcane Tradition",
+                        "entries": [
+                            "When you reach 2nd level, you choose an arcane tradition from the list of available traditions, shaping your practice of magic. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level."
+                        ],
+                        "gainSubclassFeature": true
+                    }
+                ],
+                [
+                    "3",
+                    {}
+                ],
+                [
+                    "4",
+                    {}
+                ],
+                [
+                    "5",
+                    {},
+                    {}
+                ],
+                [
+                    "6",
+                    {}
+                ],
+                [
+                    "7",
+                    {}
+                ],
+                [
+                    "8",
+                    {}
+                ],
+                [
+                    "9",
+                    {}
+                ],
+                [
+                    "10",
+                    {}
+                ],
+                [
+                    "11",
+                    {}
+                ],
+                [
+                    "12",
+                    {}
+                ],
+                [
+                    "13",
+                    {}
+                ],
+                [
+                    "14",
+                    {}
+                ],
+                [
+                    "15",
+                    {}
+                ],
+                [
+                    "16",
+                    {}
+                ],
+                [
+                    "17",
+                    {}
+                ],
+                [
+                    "18",
+                    {}
+                ],
+                [
+                    "19",
+                    {}
+                ],
+                [
+                    "20",
+                    {}
+                ]
+            ]
+        },
+        "traits": {
+            "HitPointDie": "1d6 per Wizard level",
+            "HitPointsLevel1": "6 + Constitution modifier",
+            "HitPointsAdditionalLevel": "1d6 (or 4) + Constitution modifier per Barbarian level after 1st",
+            "SavingThrowProficiencies": [
+                "Intelligence",
+                "Wisdom"
+            ],
+            "startingProficiencies": {
+                "armor": [],
+                "weapons": [
+                    "daggers",
+                    "darts",
+                    "slings",
+                    "quarterstaffs",
+                    "light crossbows"
+                ],
+                "skills": {
+                    "choose": 2,
+                    "from": [
+                        "Arcana",
+                        "History",
+                        "Insight",
+                        "Investigation",
+                        "Medicine",
+                        "Religion"
+                    ]
+                }
+            },
+            "startingEquipment": {
+                "default": [
+                    "(a) a quarterstaff or (b) a dagger",
+                    "(a) a component pouch or (b) an arcane focus",
+                    "(a) a scholar's pack or (b) an explorer's pack",
+                    "A spellbook"
+                ],
+                "goldAlternative": "4d4 × 10"
+            },
+            "Cantrips": {
+                "type": "table",
+                "data": [
+                    {
+                        "level": 1,
+                        "known": 3
+                    },
+                    {
+                        "level": 2,
+                        "known": 3
+                    },
+                    {
+                        "level": 3,
+                        "known": 3
+                    },
+                    {
+                        "level": 4,
+                        "known": 4
+                    },
+                    {
+                        "level": 5,
+                        "known": 4
+                    },
+                    {
+                        "level": 6,
+                        "known": 4
+                    },
+                    {
+                        "level": 7,
+                        "known": 4
+                    },
+                    {
+                        "level": 8,
+                        "known": 4
+                    },
+                    {
+                        "level": 9,
+                        "known": 4
+                    },
+                    {
+                        "level": 10,
+                        "known": 5
+                    },
+                    {
+                        "level": 11,
+                        "known": 5
+                    },
+                    {
+                        "level": 12,
+                        "known": 5
+                    },
+                    {
+                        "level": 13,
+                        "known": 5
+                    },
+                    {
+                        "level": 14,
+                        "known": 5
+                    },
+                    {
+                        "level": 15,
+                        "known": 5
+                    },
+                    {
+                        "level": 16,
+                        "known": 5
+                    },
+                    {
+                        "level": 17,
+                        "known": 5
+                    },
+                    {
+                        "level": 18,
+                        "known": 5
+                    },
+                    {
+                        "level": 19,
+                        "known": 5
+                    },
+                    {
+                        "level": 20,
+                        "known": 5
+                    }
+                ]
+            },
+            "Spell_slots": {
+                "type": "table",
+                "data": [
+                    {
+                        "level": 1,
+                        "slots": {
+                            "1st": 2,
+                            "2nd": 0,
+                            "3rd": 0,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 2,
+                        "slots": {
+                            "1st": 3,
+                            "2nd": 0,
+                            "3rd": 0,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 3,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 2,
+                            "3rd": 0,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 4,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 0,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 5,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 2,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 6,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 0,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 7,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 1,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 8,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 2,
+                            "5th": 0,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 9,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 1,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 10,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 0,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 11,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 12,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 0,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 13,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 14,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 0,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 15,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 1,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 16,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 1,
+                            "9th": 0
+                        }
+                    },
+                    {
+                        "level": 17,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 2,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 1,
+                            "9th": 1
+                        }
+                    },
+                    {
+                        "level": 18,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 3,
+                            "6th": 1,
+                            "7th": 1,
+                            "8th": 1,
+                            "9th": 1
+                        }
+                    },
+                    {
+                        "level": 19,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 3,
+                            "6th": 2,
+                            "7th": 1,
+                            "8th": 1,
+                            "9th": 1
+                        }
+                    },
+                    {
+                        "level": 20,
+                        "slots": {
+                            "1st": 4,
+                            "2nd": 3,
+                            "3rd": 3,
+                            "4th": 3,
+                            "5th": 3,
+                            "6th": 2,
+                            "7th": 2,
+                            "8th": 1,
+                            "9th": 1
+                        }
+                    }
+                ]
+            }
+        }
+    }
+]
