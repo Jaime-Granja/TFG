@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conection.php';
+require '../back/conection.php';
 
 if (!isset($_SESSION['user_id'])) {
   die("You must be logged in.");
@@ -305,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
           echo "Personaje actualizado con éxito :D.";
 
           // DESCOMENTAR EL HEADER DESPUÉS DE PROBAR EL SCRIPT
-          // header("Location: ../front/public/home.html");
+          // header("Location: ../public/home.html");
 
         } catch (PDOException $e) {
           echo "Error al actualizar personaje: " . $e->getMessage();
@@ -352,14 +352,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="../front/src/styles/stylesSheet.css" />
-  <script src="../front/src/scripts/sheet.js"></script>
-  <link rel="shortcut icon" href="../front/src/img/D20.png" />
+  <link rel="stylesheet" href="../src/styles/stylesSheet.css" />
+  <script src="../src/scripts/sheet.js"></script>
+  <link rel="shortcut icon" href="../src/img/D20.png" />
 </head>
 
 <body id="body">
   <div id="margin">
-    <img id="menuHamburguesa" src="../front/src/img/menu.png" />
+    <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
       <button id="mainPageBotton">Principal</button>
       <button id="backgroundBotton">Trasfondo</button>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conection.php';
+require '../back/conection.php';
 
 $msgError = "";
 if (isset($_SESSION['error'])) {
@@ -90,9 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Almendra&family=Cormorant+Garamond:wght@700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../front/src/styles/styles.css" />
-    <script src="../front/src/scripts/main.js"></script>
-    <link rel="shortcut icon" href="../front/src/img/logo.png" />
+    <link rel="stylesheet" href="../src/styles/styles.css" />
+    <script src="../src/scripts/main.js"></script>
+    <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
 <body>
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif;?>
     <div id="body">
         <header>
-            <h1 id="titleLogIn"> <img src="../front/src/img/logo.png" alt="Logo" class="title-icon" /> La Biblioteca del
+            <h1 id="titleLogIn"> <img src="../src/img/logo.png" alt="Logo" class="title-icon" /> La Biblioteca del
                 Dragón</h1>
         </header>
         <div id="Texto">
@@ -118,18 +118,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             con las reglas de D&D 5.0 <br>
             Ya sea que estés dando vida a un nuevo héroe o llevando el control de una épica campaña, aquí encontrarás
             todo lo necesario para que tu historia cobre vida. <br />
-            <img src="../front/src/img/book.png" alt="logoLibro" class="DMSection" /><br> Si eres un director de juego,
+            <img src="../src/img/book.png" alt="logoLibro" class="DMSection" /><br> Si eres un director de juego,
             en La Biblioteca del Dragón podrás encontrar un gestor de campañas que te permitirá tener tus campañas bien
             organizadas, además de tener acceso a las fichas de tus jugadores, a un tirador de dados y al log de
             campaña, donde tanto tú como tus jugadores podréis ir escribiendo todo lo que suceda en esa historia que
             tenías pensada desde hace tiempo y que no sobrevivió al encuentro con tus jugadores.<br>
-            <img src="../front/src/img/sword.png" alt="logoEspada" class="playerSection" /><br> Si, por otro lado, has
+            <img src="../src/img/sword.png" alt="logoEspada" class="playerSection" /><br> Si, por otro lado, has
             logrado que otra persona dirija tus partidas. En esta página podrás unirte a las campañas que tu DM haya
             creado, pero más importante, podrás crear tus propias fichas de personaje en nuestro editor de fichas. Ya
             juegues en formato presencial u on-line, esta página te permitirá tirar dados para pasar esas tiradas de
             habilidad o acertar tus ataques contra cualquier monstruo que tu director de juego decida poner en tu
             camino.<br>
-            <img id="banner" src="../front/src/img/dados.jpg" alt="bannerDados">
+            <img id="banner" src="../src/img/dados.jpg" alt="bannerDados">
         </div>
         <div>
 

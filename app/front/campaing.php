@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conection.php'; 
+require '../back/conection.php'; 
 
 if (!isset($_SESSION["user_id"])) {
     die("Acceso denegado. Debes iniciar sesión.");

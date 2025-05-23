@@ -9,7 +9,7 @@
     <label>Especie:</label>
     <select name="specie" required>
         <?php
-        require 'conection.php';
+        require '../back/conection.php';
         $select = $dbConection->query("SELECT specie_id, specie_name FROM Species");
         while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
             echo "<option value='{$row['specie_id']}'>{$row['specie_name']}</option>";

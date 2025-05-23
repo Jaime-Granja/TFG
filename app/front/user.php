@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conection.php';
+require '../back/conection.php';
 $msgPassword = "";
 // Aquí comprobamos que el usuario tenga la sesión iniciada, por lo que pueda pasar...
 if (!isset($_SESSION["user_id"])) {
@@ -84,9 +84,9 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Usuario: <?php echo $loggedUserData['username'] ?></title>
     <!-- <link rel="stylesheet" href="./styles.css"> -->
-    <link rel="stylesheet" href="../front/src/styles/stylesUser.css" />
-    <script src="../front/src/scripts/user.js"></script>
-    <link rel="shortcut icon" href="../front/src/img/D20.png" />
+    <link rel="stylesheet" href="../src/styles/stylesUser.css" />
+    <script src="../src/scripts/user.js"></script>
+    <link rel="shortcut icon" href="../src/img/D20.png" />
 </head>
 
 <body>
@@ -104,7 +104,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
     <div id="body">
         <h1>Página de Usuario de <?php echo $loggedUserData['username'] ?></h1>
         <div id="infoUsuario">
-            <img id="profilePic" src="../front/src/img/user.png" />
+            <img id="profilePic" src="../src/img/user.png" />
             <div id="personalData">
                 <h2 class="title">Datos Personales</h2>
                 <p>Nombre Usuario</p>
