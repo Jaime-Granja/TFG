@@ -31,7 +31,7 @@ window.onload = function () {
   }
 
   function newCharacterFunction() {
-    window.location.href = "../front/createCharacter.php";
+    window.location.href = "../front/createCharacterView.php";
   }
 
   function atras() {
