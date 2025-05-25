@@ -7,13 +7,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 $userId = $_SESSION["user_id"];
 $characterId = isset($_GET['id']) ? intval($_GET['id']) : null;
-<<<<<<< HEAD
 // HAY QUE CAMBIAR EL !== A ===
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
-=======
-// HAY QUE CAMBIAR EL !== A === 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
->>>>>>> 427f75cd862c76771a64f764e0be8de682b72e82
 
   try {
     // Get character data
@@ -339,11 +334,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         echo "Error al borrar personaje: " . $e->getMessage();
       }
 
-<<<<<<< HEAD
     } else {
       // echo "Acción no permitida.";
-=======
->>>>>>> 427f75cd862c76771a64f764e0be8de682b72e82
     }
 
   } catch (PDOException $e) {
