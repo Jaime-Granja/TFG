@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION["user_id"];
 $characterId = isset($_GET['id']) ? intval($_GET['id']) : null;
 // HAY QUE CAMBIAR EL !== A === 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
 
   try {
     // Get character data
@@ -304,8 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 
           echo "Personaje actualizado con éxito :D.";
 
-          // DESCOMENTAR EL HEADER DESPUÉS DE PROBAR EL SCRIPT
-          // header("Location: ../public/home.html");
+          header("Location: viewCharacter.php?id=" . $characterId);
 
         } catch (PDOException $e) {
           echo "Error al actualizar personaje: " . $e->getMessage();
@@ -328,12 +327,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         $delete->execute([':id' => $characterId]);
 
         echo "Personaje borrado correctamente.";
+        
+        header("Location: ../front/home.php");
+
       } catch (PDOException $e) {
         echo "Error al borrar personaje: " . $e->getMessage();
       }
 
-    } else {
-      echo "Acción no permitida.";
     }
 
   } catch (PDOException $e) {
