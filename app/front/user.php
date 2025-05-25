@@ -1,14 +1,14 @@
 <?php
 session_start();
 require '../back/conection.php';
-$msgPassword = "";
+$msgPopUp = "";
 // Aquí comprobamos que el usuario tenga la sesión iniciada, por lo que pueda pasar...
 if (!isset($_SESSION["user_id"])) {
     die("Acceso denegado. Debes iniciar sesión.");
 }
 $userId = $_SESSION["user_id"];
 //Proceso para cambiar la contraseña
-$msgPassword = "";
+$msgPopUp = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     if ($action === 'changePassword') {
@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newPassword = $_POST['newPassword'];
 
     if (empty($currentPassword) || empty($newPassword)) {
-        $_SESSION['msgPassword'] = "Todos los campos son obligatorios.";
-        $_SESSION['msgPasswordType'] = "error";
+        $_SESSION['msgPopUp'] = "Todos los campos son obligatorios.";
+        $_SESSION['msgPopUpType'] = "error";
         header("Location: user.php");
         exit;
 
@@ -37,21 +37,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ':password' => $newHashedPassword,
                     ':user_id' => $userId
                 ]);
-                $_SESSION['msgPassword'] = "Contraseña cambiada con éxito.";
-                $_SESSION['msgPasswordType'] = "success";
+                $_SESSION['msgPopUp'] = "Contraseña cambiada con éxito.";
+                $_SESSION['msgPopUpType'] = "success";
                 header("Location: user.php");
                 exit;
 
             } else {
-                $_SESSION['msgPassword'] = "Contraseña actual incorrecta.";
-                $_SESSION['msgPasswordType'] = "error";
+                $_SESSION['msgPopUp'] = "Contraseña actual incorrecta.";
+                $_SESSION['msgPopUpType'] = "error";
                 header("Location: user.php");
                 exit;
 
             }
         } catch (PDOException $e) {
-            $_SESSION['msgPassword'] = "Error interno al cambiar la contraseña.";
-            $_SESSION['msgPasswordType'] = "error";
+            $_SESSION['msgPopUp'] = "Error interno al cambiar la contraseña.";
+            $_SESSION['msgPopUpType'] = "error";
             header("Location: user.php");
             exit;
 
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     } else if ($action === 'updateProfile') {
-$newEmail = trim($_POST['email']);
+    $newEmail = trim($_POST['email']);
     $newUsername = trim($_POST['user']);
     $password = trim($_POST['password']);
 
@@ -82,15 +82,18 @@ $newEmail = trim($_POST['email']);
             ':username' => $newUsername,
             ':user_id' => $userId
             ]);
-            echo "Perfil actualizado correctamente.";
+            $_SESSION['msgPopUp'] = "Perfil actualizado correctamente.";
+            $_SESSION['msgPopUpType'] = "success";
         } else {
-            echo "La contraseña es incorrecta.";
+            $_SESSION['msgPopUp'] = "La contraseña es incorrecta.";
+            $_SESSION['msgPopUpType'] = "error";
         }
         
 
         
     } catch (PDOException $e) {
-        echo "Error al actualizar perfil: " . $e->getMessage();
+        $_SESSION['msgPopUp'] = "Error al actualizar perfil: " . $e->getMessage();
+        $_SESSION['msgPopUpType'] = "error";
     }
 }
 }
@@ -133,14 +136,14 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
 
 <body>
     <?php
-    if (isset($_SESSION['msgPassword'])) {
-        $msgPassword = $_SESSION['msgPassword'];
-        $msgPasswordType = $_SESSION['msgPasswordType'] ?? 'info';
-        unset($_SESSION['msgPassword'], $_SESSION['msgPasswordType']);
+    if (isset($_SESSION['msgPopUp'])) {
+        $msgPopUp = $_SESSION['msgPopUp'];
+        $msgPopUpType = $_SESSION['msgPopUpType'] ?? 'info';
+        unset($_SESSION['msgPopUp'], $_SESSION['msgPopUpType']);
     }    
-    if (!empty($msgPassword)): ?>
-        <div id="popup" class="popup <?php echo $msgPasswordType; ?>">
-            <?php echo htmlspecialchars($msgPassword); ?>
+    if (!empty($msgPopUp)): ?>
+        <div id="popup" class="popup <?php echo $msgPopUpType; ?>">
+            <?php echo htmlspecialchars($msgPopUp); ?>
         </div>
     <?php endif; ?>
     <div id="body">

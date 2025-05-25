@@ -104,6 +104,39 @@ label {
     text-align: center;
     margin-top: 1em;
 }
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s, transform 0.5s;
+  z-index: 9999;
+  display: none;
+}
+
+.popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.popup.error {
+  border-left: 5px solid #e74c3c;
+  color: #e74c3c;
+  background-color: #fdecea;
+}
+
+.popup.success {
+  border-left: 5px solid #27ae60;
+  color: #27ae60;
+  background-color: #e9f8f0;
+}
 
 @media (min-width: 576px) {
 
