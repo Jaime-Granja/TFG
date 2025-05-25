@@ -9,7 +9,9 @@ if (!isset($_SESSION["user_id"])) {
 $userId = $_SESSION["user_id"];
 //Proceso para cambiar la contraseña
 $msgPassword = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $action = $_POST['action'] ?? '';
+    if ($action === 'changePassword') {
     $currentPassword = $_POST['password'];
     $newPassword = $_POST['newPassword'];
 
@@ -56,7 +58,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
             // Opcional: log error $e->getMessage() en un archivo
         }
     }
+    } else if ($action === 'updateProfile') {
+$newEmail = trim($_POST['email']);
+    $newUsername = trim($_POST['user']);
+    $password = trim($_POST['password']);
+
+
+    if (empty($newEmail) || empty($newUsername) || empty($password)) {
+        die("Todos los campos son obligatorios.");
+    }
+
+    try {
+        $select = "SELECT password FROM Users WHERE user_id = :user_id";
+        $result = $dbConection->prepare($select);
+        $result ->execute([':user_id' => $userId]);
+        $correctPassword = $result->fetch(PDO::FETCH_ASSOC);
+
+        if ($correctPassword && password_verify($password, $correctPassword['password']) ) {
+            $sql = "UPDATE Users SET email = :email, username = :username WHERE user_id = :user_id";
+            $stmt = $dbConection->prepare($sql);
+            $stmt->execute([
+            ':email' => $newEmail,
+            ':username' => $newUsername,
+            ':user_id' => $userId
+            ]);
+            echo "Perfil actualizado correctamente.";
+        } else {
+            echo "La contraseña es incorrecta.";
+        }
+        
+
+        
+    } catch (PDOException $e) {
+        echo "Error al actualizar perfil: " . $e->getMessage();
+    }
 }
+}
+
+//Método para actualizar el perfil
+
+
 
 //Queremos sacar quién es el usuario loggeado.
 $getUserData = $dbConection->prepare("SELECT username, email FROM Users WHERE user_id = :user_id");
@@ -130,7 +171,8 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
             </div>
         </div>
         <div id="changeInfo">
-            <form method="post" action="../back/updateProfile.php">
+            <form method="post" action="user.php">
+                <input type="hidden" name="action" value="updateProfile">
                 <!--En action habrá que poner el nombre del php pertinente-->
                 <label for="email"><?= htmlspecialchars($loggedUserData['email']) ?></label>
                 <!-- Debemos sacar esta info de la BBDD -->
@@ -146,6 +188,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
         </div>
         <div id="changePassword">
             <form method="post" action="user.php">
+                <input type="hidden" name="action" value="changePassword">
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="Contraseña" required /><br />
                 <!-- Debemos comprobar esta info de la BBDD -->
