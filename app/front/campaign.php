@@ -10,12 +10,20 @@ $userId = $_SESSION["user_id"];
 $campaignId = isset($_GET['id']) ? intval($_GET['id']) : null;
 $message = "";
 
+//Con este código determninamos si el acceso es desde newCampaign o no
+$isFromNewCampaign = false;
+
+if (!empty($_SESSION['fromNewCampaign'])) {
+    $isFromNewCampaign = true;
+    unset($_SESSION['fromNewCampaign']);
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POST['description'])) {
     $newName = trim($_POST['campaignName']);
     $newDesc = trim($_POST['description']);
 
     if ($newName === "" || $newDesc === "") {
-        $message = "<p style='color:red;'>Por favor, completa todos los campos.</p>";
+        $_SESSION['message'] = "Por favor, completa todos los campos.";
     } else {
         try {
             $update = $dbConection->prepare("UPDATE Campaigns SET campaign_name = :name, campaign_desc = :desc WHERE campaign_id = :id");
@@ -30,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POS
             $select->execute();
             $campaign = $select->fetch(PDO::FETCH_ASSOC);
 
-            $message = "<p style='color:green;'>Campaña actualizada correctamente.</p>";
+            $_SESSION['message'] = "Campaña actualizada correctamente.";
         } catch (PDOException $e) {
-            $message = "<p style='color:red;'>Error al actualizar la campaña: " . $e->getMessage() . "</p>";
+            $_SESSION['message'] = "Error al actualizar la campaña: " . $e->getMessage();
         }
     }
 }
@@ -61,26 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['entrada'])) {
 
 if (isset($_POST['campaignDelete'])) {
     try {
-        // Obtener la campaña que el usuario ha creado
-        $select = $dbConection->prepare("SELECT campaign_id FROM Campaigns WHERE creator_id = :userId");
-        $select->execute([':userId' => $userId]);
-        $campaign = $select->fetch(PDO::FETCH_ASSOC);
-    
-        if ($campaign) {
-            $campaignId = $campaign["campaign_id"];
-    
-            // Borrar la relacion del usuario con la campaña
-            $deleteUsers = $dbConection->prepare("DELETE FROM Users_Campaigns WHERE campaign_id = :campaignId");
-            $deleteUsers->execute([':campaignId' => $campaignId]);
-    
-            // Borrar la campaña
-            $deleteCampaign = $dbConection->prepare("DELETE FROM Campaigns WHERE campaign_id = :campaignId");
-            $deleteCampaign->execute([':campaignId' => $campaignId]);
-    
-            echo "Campaña eliminada con éxito.";
-        } else {
-            echo "No tienes campañas creadas.";
-        }
+        // Borrar la relacion del usuario con la campaña
+        $deleteUsers = $dbConection->prepare("DELETE FROM Users_Campaigns WHERE campaign_id = :campaignId");
+        $deleteUsers->execute([':campaignId' => $campaignId]);
+        // Borrar la campaña
+        $deleteCampaign = $dbConection->prepare("DELETE FROM Campaigns WHERE campaign_id = :campaignId");
+        $deleteCampaign->execute([':campaignId' => $campaignId]);
+        header("Location: home.php");
+        echo "Campaña eliminada con éxito.";
     } catch (PDOException $e) {
         echo "Error al eliminar la campaña: " . $e->getMessage();
     }
@@ -118,7 +114,20 @@ try {
         <link rel="shortcut icon" href="../src/img/D20.png" />
     </head>
 
-    <body>
+    <body> <?php
+    if ($isFromNewCampaign == true) {
+        if ($loggedUserData['role'] == "Master") {
+            ?>
+                <div id="popup" class="popup">
+                    Campaña Creada con Éxito
+                </div> <?php
+        } else if ($loggedUserData['role'] == "Player") {
+            ?>
+                    <div id="popup" class="popup">
+                        Te has Unido a la Campaña con Éxito
+                    </div> <?php
+        }
+    } ?>
         <div id="contenedor">
             <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->
             <?php
@@ -151,6 +160,7 @@ try {
                         <div id="journalPage">
                             <?php if (isset($diaryMessage)) {
                                 echo "<p style='color:green;font-weight:bold;'>$diaryMessage</p>";
+
                             } ?>
 
                             <form method="POST">
@@ -201,7 +211,18 @@ try {
                         ?>
                     </div>
                     <div id="campaignForm">
-                        <?php echo $message; ?>
+
+                    <!-- Intento de creación de pop-ups para Edición de Campañas -->
+                        <!-- if (isset($_SESSION['message'])) {
+                            $message = $_SESSION['message'];
+                            unset($_SESSION['message']);
+                        }
+                        if (!empty($message)): ?>
+                            <div id="popup" class="popup">
+                            <?php echo htmlspecialchars($message); ?>
+                        </div>
+                         endif;  -->
+
                         <form method="POST" action="">
                             <label for="campaignName">Indique el nuevo nombre de la campaña:</label>
                             <input type="text" name="campaignName"
