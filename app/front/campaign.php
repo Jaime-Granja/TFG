@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_id"])) {
     die("Acceso denegado. Debes iniciar sesión.");
 }
 $userId = $_SESSION["user_id"];
-$campaignId =isset($_GET['id']) ? intval($_GET['id']) : null;
+$campaignId = isset($_GET['id']) ? intval($_GET['id']) : null;
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POST['description'])) {
@@ -59,6 +59,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['entrada'])) {
     }
 }
 
+if (isset($_POST['campaignDelete'])) {
+    try {
+        // Obtener la campaña que el usuario ha creado
+        $select = $dbConection->prepare("SELECT campaign_id FROM Campaigns WHERE creator_id = :userId");
+        $select->execute([':userId' => $userId]);
+        $campaign = $select->fetch(PDO::FETCH_ASSOC);
+    
+        if ($campaign) {
+            $campaignId = $campaign["campaign_id"];
+    
+            // Borrar la relacion del usuario con la campaña
+            $deleteUsers = $dbConection->prepare("DELETE FROM Users_Campaigns WHERE campaign_id = :campaignId");
+            $deleteUsers->execute([':campaignId' => $campaignId]);
+    
+            // Borrar la campaña
+            $deleteCampaign = $dbConection->prepare("DELETE FROM Campaigns WHERE campaign_id = :campaignId");
+            $deleteCampaign->execute([':campaignId' => $campaignId]);
+    
+            echo "Campaña eliminada con éxito.";
+        } else {
+            echo "No tienes campañas creadas.";
+        }
+    } catch (PDOException $e) {
+        echo "Error al eliminar la campaña: " . $e->getMessage();
+    }
+}
+
+
 
 try {
     //Con esta select sacamos la información de la campaña
@@ -80,6 +108,7 @@ try {
     ?>
     <!DOCTYPE html>
     <html lang="es">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -96,10 +125,11 @@ try {
             if ($campaign) {
                 ?>
                 <div campaignInfo>
-                <form id="deleteForm" method="POST" action="../back/deleteCampaign.php" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
-                <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
-                 <button type="submit" id="campaignDelete">Eliminar Campaña</button>
-                </form>
+                    <form id="deleteForm" method="POST"
+                        onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
+                        <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
+                        <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
+                    </form>
                     <button id="campaignButton">Editar</button>
                     <h1 id="campaignName" class="title"><?php echo $campaign['campaign_name'] ?></h1>
                     <!-- $campaignName de la base de datos-->
@@ -115,43 +145,43 @@ try {
                         <button id="sheetButton">Editar</button><br />
                         <div id="sheetPage">Espacio para la Ficha</div>
                     </div>
-                     <div id="journal">
-                     <h2 id="journalTitle">Diario de Campaña</h2>
-                     <button id="journalButton">Editar</button><br />
-                     <div id="journalPage">
-                      <?php if (isset($diaryMessage)) {
-                         echo "<p style='color:green;font-weight:bold;'>$diaryMessage</p>";
-                         } ?>
+                    <div id="journal">
+                        <h2 id="journalTitle">Diario de Campaña</h2>
+                        <button id="journalButton">Editar</button><br />
+                        <div id="journalPage">
+                            <?php if (isset($diaryMessage)) {
+                                echo "<p style='color:green;font-weight:bold;'>$diaryMessage</p>";
+                            } ?>
 
-                         <form method="POST">
-                        <label for="entrada">Nueva entrada al diario:</label><br />
-                         <textarea name="entrada" required></textarea><br />
-                         <button type="submit">Añadir entrada</button>
-                        </form>
+                            <form method="POST">
+                                <label for="entrada">Nueva entrada al diario:</label><br />
+                                <textarea name="entrada" required></textarea><br />
+                                <button type="submit">Añadir entrada</button>
+                            </form>
                             <hr />
-        <?php
-        try {
-            $selectEntries = $dbConection->prepare("SELECT title, content, created_at FROM campaign_diary WHERE campaign_id = :campaignId ORDER BY created_at DESC");
-            $selectEntries->execute([':campaignId' => $campaignId]);
-            $entries = $selectEntries->fetchAll(PDO::FETCH_ASSOC);
+                            <?php
+                            try {
+                                $selectEntries = $dbConection->prepare("SELECT title, content, created_at FROM campaign_diary WHERE campaign_id = :campaignId ORDER BY created_at DESC");
+                                $selectEntries->execute([':campaignId' => $campaignId]);
+                                $entries = $selectEntries->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($entries) {
-                echo "<h3>Entradas del Diario:</h3>";
-                foreach ($entries as $entry) {
-                    echo "<div class='entry'>";
-                    echo "<h3>" . htmlspecialchars($entry['title']) . "</h3>";
-                    echo "<p>" . nl2br(htmlspecialchars($entry['content'])) . "</p>";
-                    echo "<small>" . $entry['created_at'] . "</small>";
-                    echo "</div><br />";
-                }
-            } else {
-                echo "<p>No hay entradas aún.</p>";
-            }
-        } catch (PDOException $e) {
-            echo "<p>Error cargando entradas: " . $e->getMessage() . "</p>";
-        }
-        ?>
-                 </div>
+                                if ($entries) {
+                                    echo "<h3>Entradas del Diario:</h3>";
+                                    foreach ($entries as $entry) {
+                                        echo "<div class='entry'>";
+                                        echo "<h3>" . htmlspecialchars($entry['title']) . "</h3>";
+                                        echo "<p>" . nl2br(htmlspecialchars($entry['content'])) . "</p>";
+                                        echo "<small>" . $entry['created_at'] . "</small>";
+                                        echo "</div><br />";
+                                    }
+                                } else {
+                                    echo "<p>No hay entradas aún.</p>";
+                                }
+                            } catch (PDOException $e) {
+                                echo "<p>Error cargando entradas: " . $e->getMessage() . "</p>";
+                            }
+                            ?>
+                        </div>
                     </div>
                     <div id="participants">
                         <h2 id="participantsTittle">Participantes</h2>
@@ -170,18 +200,20 @@ try {
 
                         ?>
                     </div>
-                <div id="campaignForm">
-                 <?php echo $message; ?>
-                    <form method="POST" action="">
-                    <label for="campaignName">Indique el nuevo nombre de la campaña:</label>
-                    <input type="text" name="campaignName" placeholder="<?php echo htmlspecialchars($campaign['campaign_name']); ?>" required />
+                    <div id="campaignForm">
+                        <?php echo $message; ?>
+                        <form method="POST" action="">
+                            <label for="campaignName">Indique el nuevo nombre de la campaña:</label>
+                            <input type="text" name="campaignName"
+                                placeholder="<?php echo htmlspecialchars($campaign['campaign_name']); ?>" required />
 
-                     <label for="description">Edite la descripción de la campaña:</label>
-                    <textarea name="description" placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>" required></textarea>
+                            <label for="description">Edite la descripción de la campaña:</label>
+                            <textarea name="description"
+                                placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>" required></textarea>
 
-                     <button type="submit">Editar Campaña</button>
-                     </form>
-                </div>
+                            <button type="submit">Editar Campaña</button>
+                        </form>
+                    </div>
                 </div>
 
             </div>
