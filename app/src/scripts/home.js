@@ -27,7 +27,7 @@ window.onload = function () {
   newCharacter.addEventListener("click", newCharacterFunction);
 
   function newCampaignFunction() {
-    window.location.href = "../front/newCampaign.html";
+    window.location.href = "../front/newCampaign.php";
   }
 
   function newCharacterFunction() {
