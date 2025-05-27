@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 $userId = $_SESSION["user_id"];
 $characterId = isset($_GET['id']) ? intval($_GET['id']) : null;
-// HAY QUE CAMBIAR EL !== A === 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
 
   try {
