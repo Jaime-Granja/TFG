@@ -233,7 +233,7 @@ try {
 
                             <label for="description">Edite la descripción de la campaña:</label>
                             <textarea name="description"
-                                placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>"></textarea>
+                                placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>" required></textarea>
 
                             <button type="submit">Editar Campaña</button>
                         </form>
