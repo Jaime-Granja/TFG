@@ -117,6 +117,19 @@ form {
   opacity: 1;
   transform: translateY(0);
 }
+
+.popup.error {
+  border-left: 5px solid #e74c3c;
+  color: #e74c3c;
+  background-color: #fdecea;
+}
+
+.popup.success {
+  border-left: 5px solid #27ae60;
+  color: #27ae60;
+  background-color: #e9f8f0;
+}
+
 @media (min-width: 576px) {
   #contenido {
     display: grid;

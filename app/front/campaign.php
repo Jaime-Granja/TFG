@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POS
 
     if ($newName === "" || $newDesc === "") {
         $_SESSION['message'] = "Por favor, completa todos los campos.";
+        $_SESSION['messageType'] = "error";
     } else {
         try {
             $update = $dbConection->prepare("UPDATE Campaigns SET campaign_name = :name, campaign_desc = :desc WHERE campaign_id = :id");
@@ -39,8 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POS
             $campaign = $select->fetch(PDO::FETCH_ASSOC);
 
             $_SESSION['message'] = "Campaña actualizada correctamente.";
+            $_SESSION['messageType'] = "success";
         } catch (PDOException $e) {
             $_SESSION['message'] = "Error al actualizar la campaña: " . $e->getMessage();
+            $_SESSION['messageType'] = "error";
         }
     }
 }
@@ -127,7 +130,19 @@ try {
                         Te has Unido a la Campaña con Éxito
                     </div> <?php
         }
-    } ?>
+    }
+    // Intento de creación de pop-ups para Edición de Campañas
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        $messageType = $_SESSION['messageType'] ?? 'info';
+        unset($_SESSION['message'], $_SESSION['messageType']);
+        if (!empty($message)): ?>
+                <div id="popup" class="popup <?php echo $messageType; ?>">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php endif;
+    }
+    ?>
         <div id="contenedor">
             <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->
             <?php
@@ -211,18 +226,6 @@ try {
                         ?>
                     </div>
                     <div id="campaignForm">
-
-                    <!-- Intento de creación de pop-ups para Edición de Campañas -->
-                        <!-- if (isset($_SESSION['message'])) {
-                            $message = $_SESSION['message'];
-                            unset($_SESSION['message']);
-                        }
-                        if (!empty($message)): ?>
-                            <div id="popup" class="popup">
-                            <?php echo htmlspecialchars($message); ?>
-                        </div>
-                         endif;  -->
-
                         <form method="POST" action="">
                             <label for="campaignName">Indique el nuevo nombre de la campaña:</label>
                             <input type="text" name="campaignName"
@@ -230,7 +233,7 @@ try {
 
                             <label for="description">Edite la descripción de la campaña:</label>
                             <textarea name="description"
-                                placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>" required></textarea>
+                                placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>"></textarea>
 
                             <button type="submit">Editar Campaña</button>
                         </form>
