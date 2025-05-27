@@ -9,7 +9,7 @@ body {
 }
 #contenedor {
   margin-top: 2rem;
-  background-color: #d4c0a7;
+  background-color: #ffebcd;
   padding: 2rem;
 }
 .botones {
@@ -30,6 +30,6 @@ form {
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #ffebcd;
+  background-color: #d4c0a7;
   border-radius: 0.5em;
 }

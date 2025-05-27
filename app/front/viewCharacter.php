@@ -7,8 +7,13 @@ if (!isset($_SESSION['user_id'])) {
 }
 $userId = $_SESSION["user_id"];
 $characterId = isset($_GET['id']) ? intval($_GET['id']) : null;
+<<<<<<< HEAD
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
+=======
+// HAY QUE CAMBIAR EL !== A ===
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GET' && $characterId !== null)) {
+>>>>>>> e1821bfeb54011fb9bfa171413eadbca5b8d69fa
 
   try {
     // Get character data
@@ -33,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     $specieTraits = json_decode($specie['specie_traits'], true);
     $specieFeatures = json_decode($specie['specie_features'], true);
 
-    /* 
+    /*
     Obtenemos los nombres de las clases, porque ahora sólo tenemos su id. Como el usuario puede haber hecho
     una multiclase metemos los nombres en un array. Sí sólo hay una clase, el array no nos da ningún problema
     */
@@ -67,10 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 
     /*
     Este bucle calcula y añade todos los datos de las estadísticas del personaje que necesitamos añadir al
-    array que acabamos de crear. Lo hace sumando los bonificadores de la especie a las stats base y 
+    array que acabamos de crear. Lo hace sumando los bonificadores de la especie a las stats base y
     calculando el modificador correspondiente para cada estadística.
 
-    Lo primero que hace el bucle es recorrer el array $stats y, en cada iteración, pasar por el nombre y 
+    Lo primero que hace el bucle es recorrer el array $stats y, en cada iteración, pasar por el nombre y
     el valor base de la estadística del pj.
     */
     foreach ($stats as $statName => $base) {
@@ -85,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
       de forma sencilla. La estructura sería así:
       [
         'strength' => ['total' => 16, 'modifier' => '+3'],
-        'dexterity' => ['total' => 14, 'modifier' => '+2'],  
+        'dexterity' => ['total' => 14, 'modifier' => '+2'],
         etc
       ]
       */
@@ -112,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     $classTraitsJson = $classSelect->fetchColumn();
 
     $proficiencies = [];
-    // Aquí sacamos las competencias de las tiradas de salvación 
+    // Aquí sacamos las competencias de las tiradas de salvación
     if ($classTraitsJson) {
       $classTraits = json_decode($classTraitsJson, true);
       if (is_array($classTraits) && isset($classTraits['SavingThrowProficiencies'])) {
@@ -129,9 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     $savingThrows = [];
 
     /*
-    En este bluque usamos las stats que ya teníamos mapeadas y traducidas de antes(statTranslations). 
+    En este bluque usamos las stats que ya teníamos mapeadas y traducidas de antes(statTranslations).
     Primero sacamos el modificador de cada star, después comprobamos que el pj tenga competencia en esa stat por la clase, se
-    suma el bono (si no tiene bono le suma 0) y luego guardamos los resultados en el array que creamos justo antes añadiendo 
+    suma el bono (si no tiene bono le suma 0) y luego guardamos los resultados en el array que creamos justo antes añadiendo
     también el nombre traducido, el total y si tiene competencia o no para poder indicarlo después.
     */
     foreach ($statTranslations as $stat => $translatedName) {
@@ -147,9 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     }
 
 
-    // == Special traits == 
+    // == Special traits ==
 
-    // Creamos un array en el que vamos a meter los traits especiales (rages, sneak attack...) que capturemos en el siguiente 
+    // Creamos un array en el que vamos a meter los traits especiales (rages, sneak attack...) que capturemos en el siguiente
     // bucle para luego enseñarlos fácilmente. Si el pj no tiene de estos simplemente no se guarda nada.
     $specialTraits = [];
 
@@ -183,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
       }
     }
 
-    // == Table traits == 
+    // == Table traits ==
     $tableTraits = [];
 
     foreach ($classList as $index => $classInfo) {
@@ -220,8 +225,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     $allFeatures = [];
 
     /*
-    Recorremos cada clase que del personaje. 
-    La variable $classLevels es un array asociativo donde la clave es el ID de la clase ($classId) y el valor es el nivel que 
+    Recorremos cada clase que del personaje.
+    La variable $classLevels es un array asociativo donde la clave es el ID de la clase ($classId) y el valor es el nivel que
     tiene el personaje en esa clase.
     */
     foreach ($classLevels as $classId => $level) {
@@ -241,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
       foreach ($featuresByLevel as $levelEntry) {
         $featureLevel = intval($levelEntry[0]);
 
-        // Solo añadimos las features si el nivel del personaje alcanza el nivel de la feature 
+        // Solo añadimos las features si el nivel del personaje alcanza el nivel de la feature
         if ($featureLevel <= $level) {
           // El resto de los elementos del array son las habilidades de ese nivel
           for ($i = 1; $i < count($levelEntry); $i++) {
@@ -286,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         try {
           // Actualizamos los datos
           $update = $dbConection->prepare("
-            UPDATE Characters 
+            UPDATE Characters
             SET character_name = :name,
                 character_desc = :desc,
                 specie = :specie,
@@ -334,6 +339,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         echo "Error al borrar personaje: " . $e->getMessage();
       }
 
+    } else {
+      // echo "Acción no permitida.";
     }
 
   } catch (PDOException $e) {
@@ -377,6 +384,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
           <?php echo htmlspecialchars($character['character_name']); ?>
         </div>
       </div>
+      <div id="characterRace" class="characterInfo">
+        <div id="characterRaceTag">Raza:</div>
+        <div class="characterField" id="characterRaceField"><?php echo htmlspecialchars($specie['specie_name']); ?>
+        </div>
+      </div>
       <div id="characterClass" class="characterInfo">
         <div id="characterClassTag">Clase:</div>
         <div class="characterField" id="characterClassField">
@@ -385,17 +397,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
           <?php endforeach; ?>
         </div>
       </div>
-      <div id="characterRace" class="characterInfo">
-        <div id="characterRaceTag">Raza:</div>
-        <div class="characterField" id="characterRaceField"><?php echo htmlspecialchars($specie['specie_name']); ?>
-        </div>
-      </div>
-      <div id="characterBackground" class="characterInfo">
+
+      <!-- <div id="characterBackground" class="characterInfo">
         <div id="characterBackgroundTag">Trasfondo:</div>
         <div class="characterField" id="characterBackgroundField">
           <?php echo htmlspecialchars($character['character_desc']); ?>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- BOTON PARA MOSTRAR EL FORMULARIO  DE EDICIÓN -->
@@ -659,7 +667,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
   <div id="contenedorSecundario">
     <div id="backgroundPage">
       <h2>Trasfondo</h2>
-      <h3>Profesor de Español</h3>
+      <h3>Profesor Arcano</h3>
       <div>
         Pellentesque ante nec sapien condimentum, eu ornare eros pellentesque.
         Donec congue posuere quam, sed semper est aliquam ac. Sed vitae ligula
