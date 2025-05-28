@@ -300,13 +300,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
             ':stats' => $stats,
             ':id' => $characterId
           ]);
-
-          echo "Personaje actualizado con éxito :D.";
-
+          $_SESSION['message'] = "Personaje Editado con Éxito";
+          $_SESSION['messageType'] = "success";
           header("Location: viewCharacter.php?id=" . $characterId);
-
+          exit;
         } catch (PDOException $e) {
-          echo "Error al actualizar personaje: " . $e->getMessage();
+          $_SESSION['message'] = "Error al actualizar personaje: " . $e->getMessage();
+          $_SESSION['messageType'] = "error";
         }
       }
     }
@@ -325,24 +325,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         $delete = $dbConection->prepare("DELETE FROM Characters WHERE character_id = :id");
         $delete->execute([':id' => $characterId]);
 
-        echo "Personaje borrado correctamente.";
+        $_SESSION['message'] = "Personaje borrado correctamente.";
+        $_SESSION['messageType'] = "success";
         
         header("Location: ../front/home.php");
 
       } catch (PDOException $e) {
-        echo "Error al borrar personaje: " . $e->getMessage();
+        $_SESSION['message'] = "Error al borrar personaje: " . $e->getMessage();
+        $_SESSION['messageType'] = "error";
       }
 
-    } else {
-      // echo "Acción no permitida.";
     }
-
   } catch (PDOException $e) {
     die("Error retrieving character: " . $e->getMessage());
   }
 
 } else {
-  echo "Acceso denegado. Tira pa casa pringao.";
+  $_SESSION['message'] = "Acceso denegado. Tira pa casa pringao.";
+  $_SESSION['messageType'] = "error";
+}
+
+$isFromNewCharacter = false;
+
+if (!empty($_SESSION['fromNewCharacter'])) {
+    $isFromNewCharacter = true;
+    unset($_SESSION['fromNewCharacter']);
 }
 ?>
 
@@ -358,7 +365,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
   <link rel="shortcut icon" href="../src/img/D20.png" />
 </head>
 
-<body id="body">
+<body id="body"> <?php
+if ($isFromNewCharacter == true) {
+            ?>
+                <div id="popup" class="popup">
+                    Personaje Creado con Éxito
+                </div> <?php
+    }
+    
+  if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        $messageType = $_SESSION['messageType'] ?? 'info';
+        unset($_SESSION['message'], $_SESSION['messageType']);
+        if (!empty($message)): ?>
+                <div id="popup" class="popup <?php echo $messageType; ?>">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php endif;
+            } ?>
   <div id="margin">
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
@@ -906,5 +930,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
     </div>
   </div>
 </body>
-
+                
 </html>

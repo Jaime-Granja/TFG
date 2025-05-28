@@ -44,8 +44,9 @@ if (isset($_POST['createCharacter'])) {
             ':stats' => $stats,
             ':classLevels' => $classLevels
         ]);
-
-        echo "Personaje creado con éxito :).";
+        $_SESSION['fromNewCharacter'] = true;
+        //He puesto este header para testear los pop-ups. Está hardcodeada para ir siempre al character 11. Hay que sacar el characterId que toque.
+        header("Location: viewCharacter.php?id=11");
     } catch (PDOException $e) {
         echo "Error al crear personaje: " . $e->getMessage() . " Eres un liante macho.";
     }
@@ -95,12 +96,12 @@ if (isset($_POST['createCharacter'])) {
                 ?>
             </select>
             <label id="stats">Puntos de estadística:</label>
-            <input type="number" class="stat" min="8" max="15" name="strength" placeholder="Strength" required>
-            <input type="number" class="stat" min="8" max="15" name="dexterity" placeholder="Dexterity" required>
-            <input type="number" class="stat" min="8" max="15" name="constitution" placeholder="Constitution" required>
-            <input type="number" class="stat" min="8" max="15" name="intelligence" placeholder="Intelligence" required>
-            <input type="number" class="stat" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
-            <input type="number" class="stat" min="8" max="15" name="charisma" placeholder="Charisma" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma" required>
             <!-- <p>Puntos Restantes: <span id="remaining">27</span> </p>  Si habilitamos compra de puntos, esto estará por aquí.-->
             <button type="submit" name="createCharacter">Crear personaje</button>
         </form>

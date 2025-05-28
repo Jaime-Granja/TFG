@@ -134,4 +134,13 @@ window.onload = function () {
     equipamientoTexto.style.display = "none";
     hechizosTexto.style.display = "block"
   }
+  const popup = document.getElementById("popup");
+  if (popup && popup.textContent.trim() !== "") {
+    popup.style.display = "block";
+    popup.classList.add("show");
+    setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => (popup.style.display = "none"), 500);
+    }, 4000);
+  }
 };
