@@ -95,8 +95,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
-<body>
-    <?php
+<body> <?php
+    if (isset($_COOKIE['logOutMessage'])) {
+            ?>
+                <div id="popup" class="popup">
+                    Sesión Cerrada
+                </div> <?php
+        setcookie("logOutMessage", "", time() - 3600, "/");        
+    }
     if (isset($_SESSION['error'])) {
         $msgError = $_SESSION['error'];
     }
