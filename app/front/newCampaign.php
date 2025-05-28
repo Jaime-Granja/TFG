@@ -53,7 +53,7 @@ if (isset($_POST['createCampaign'])) {
         ':creatorId' => $creatorId,
         ':campaignId' => $campaignId
       ]);
-      
+
       // echo "Te has unido a la campaña.";
       header("Location: campaign.php?id=$campaignId");
       exit;
@@ -77,17 +77,27 @@ if (isset($_POST['joinCampaign'])) {
 
   if ($campaign) {
     $campaignId = $campaign["campaign_id"];
-
-    // Insertamos los datos en la tabla usuarios_campañas para añadir al usuario a la campaña
-    $insert = $dbConection->prepare("INSERT INTO Users_Campaigns (user_id, campaign_id, role) VALUES (:userId, :campaignId, 'Player')");
-    $insert->execute([
-      ':userId' => $userId,
-      ':campaignId' => $campaignId
+    $verify = $dbConection->prepare("SELECT COUNT(*) FROM Users_Campaigns WHERE campaign_id = :campaignId AND user_id = :userId");
+    $verify->execute([
+      ':campaignId' => $campaignId,
+      ':userId' => $userId
     ]);
-    $_SESSION['fromNewCampaign'] = true;
-    header("Location: campaign.php?id=$campaignId");
+    $alreadyJoined = $verify->fetchColumn();
+    if ($alreadyJoined) {
+      $_SESSION['alreadyInCampaign'] = true;
+      header("Location: campaign.php?id=$campaignId");
       exit;
-    // echo "Te has unido a la campaña.";
+    } else {
+      // Insertamos los datos en la tabla usuarios_campañas para añadir al usuario a la campaña
+      $insert = $dbConection->prepare("INSERT INTO Users_Campaigns (user_id, campaign_id, role) VALUES (:userId, :campaignId, 'Player')");
+      $insert->execute([
+        ':userId' => $userId,
+        ':campaignId' => $campaignId
+      ]);
+      $_SESSION['fromNewCampaign'] = true;
+      header("Location: campaign.php?id=$campaignId");
+      exit;
+    }
   } else {
     echo "Código de invitación incorrecto.";
   }

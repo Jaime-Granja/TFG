@@ -17,6 +17,12 @@ if (!empty($_SESSION['fromNewCampaign'])) {
     $isFromNewCampaign = true;
     unset($_SESSION['fromNewCampaign']);
 }
+$alreadyJoined = false;
+
+if (!empty($_SESSION['alreadyInCampaign'])) {
+    $alreadyJoined = true;
+    unset($_SESSION['alreadyInCampaign']);
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['campaignName'], $_POST['description'])) {
     $newName = trim($_POST['campaignName']);
@@ -116,7 +122,7 @@ try {
         <script src="../src/scripts/campaign.js"></script>
         <link rel="shortcut icon" href="../src/img/D20.png" />
     </head>
-
+    <!-- Comprobamos si el usuario viene de crear la campaña o unirse a ella por primera vez para generar el pop-up de bienvenida -->
     <body> <?php
     if ($isFromNewCampaign == true) {
         if ($loggedUserData['role'] == "Master") {
@@ -130,6 +136,12 @@ try {
                         Te has Unido a la Campaña con Éxito
                     </div> <?php
         }
+    }  
+    if ($alreadyJoined == true) {
+        ?>
+                <div id="popup" class="popup">
+                    Ya Estabas Unido a Esta Campaña
+                </div> <?php
     }
     // Intento de creación de pop-ups para Edición de Campañas
     if (isset($_SESSION['message'])) {
