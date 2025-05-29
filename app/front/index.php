@@ -219,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 El contenido presentado tiene fines educativos y de entretenimiento.
             </p>
             <p>
-                Diseño y desarrollo por [Tu Nombre o Alias]. Para contacto o sugerencias, escribe a tuemail@ejemplo.com.
+                Diseño y desarrollo por Jorge Pulgar, Jaime Granja y Alejandro Valencia. Para contacto o sugerencias, escribe a BibliotecaDragon@gmail.com.
             </p>
         </footer>
     </div>
