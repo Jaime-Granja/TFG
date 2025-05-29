@@ -97,6 +97,7 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     <button id="logOut">Cerrar Sesión</button>
+    <button id="userProfile">Perfil de Usuario</button>
 </body>
 
 </html>
