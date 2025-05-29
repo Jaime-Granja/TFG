@@ -12,90 +12,90 @@ $msgPopUp = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     if ($action === 'changePassword') {
-    $currentPassword = $_POST['password'];
-    $newPassword = $_POST['newPassword'];
+        $currentPassword = $_POST['password'];
+        $newPassword = $_POST['newPassword'];
 
-    if (empty($currentPassword) || empty($newPassword)) {
-        $_SESSION['msgPopUp'] = "Todos los campos son obligatorios.";
-        $_SESSION['msgPopUpType'] = "error";
-        header("Location: user.php");
-        exit;
-
-    } else {
-        try {
-            $sql = "SELECT password FROM Users WHERE user_id = :user_id";
-            $selectPassword = $dbConection->prepare($sql);
-            $selectPassword->execute([':user_id' => $userId]);
-            $user = $selectPassword->fetch(PDO::FETCH_ASSOC);
-
-            if ($user && password_verify($currentPassword, $user['password'])) {
-                $newHashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-
-                $updateSql = "UPDATE Users SET password = :password WHERE user_id = :user_id";
-                $updatePassword = $dbConection->prepare($updateSql);
-                $updatePassword->execute([
-                    ':password' => $newHashedPassword,
-                    ':user_id' => $userId
-                ]);
-                $_SESSION['msgPopUp'] = "Contraseña cambiada con éxito.";
-                $_SESSION['msgPopUpType'] = "success";
-                header("Location: user.php");
-                exit;
-
-            } else {
-                $_SESSION['msgPopUp'] = "Contraseña actual incorrecta.";
-                $_SESSION['msgPopUpType'] = "error";
-                header("Location: user.php");
-                exit;
-
-            }
-        } catch (PDOException $e) {
-            $_SESSION['msgPopUp'] = "Error interno al cambiar la contraseña.";
+        if (empty($currentPassword) || empty($newPassword)) {
+            $_SESSION['msgPopUp'] = "Todos los campos son obligatorios.";
             $_SESSION['msgPopUpType'] = "error";
             header("Location: user.php");
             exit;
 
-            // Opcional: log error $e->getMessage() en un archivo
-        }
-    }
-    } else if ($action === 'updateProfile') {
-    $newEmail = trim($_POST['email']);
-    $newUsername = trim($_POST['user']);
-    $password = trim($_POST['password']);
-
-
-    if (empty($newEmail) || empty($newUsername) || empty($password)) {
-        die("Todos los campos son obligatorios.");
-    }
-
-    try {
-        $select = "SELECT password FROM Users WHERE user_id = :user_id";
-        $result = $dbConection->prepare($select);
-        $result ->execute([':user_id' => $userId]);
-        $correctPassword = $result->fetch(PDO::FETCH_ASSOC);
-
-        if ($correctPassword && password_verify($password, $correctPassword['password']) ) {
-            $sql = "UPDATE Users SET email = :email, username = :username WHERE user_id = :user_id";
-            $stmt = $dbConection->prepare($sql);
-            $stmt->execute([
-            ':email' => $newEmail,
-            ':username' => $newUsername,
-            ':user_id' => $userId
-            ]);
-            $_SESSION['msgPopUp'] = "Perfil actualizado correctamente.";
-            $_SESSION['msgPopUpType'] = "success";
         } else {
-            $_SESSION['msgPopUp'] = "La contraseña es incorrecta.";
+            try {
+                $sql = "SELECT password FROM Users WHERE user_id = :user_id";
+                $selectPassword = $dbConection->prepare($sql);
+                $selectPassword->execute([':user_id' => $userId]);
+                $user = $selectPassword->fetch(PDO::FETCH_ASSOC);
+
+                if ($user && password_verify($currentPassword, $user['password'])) {
+                    $newHashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+
+                    $updateSql = "UPDATE Users SET password = :password WHERE user_id = :user_id";
+                    $updatePassword = $dbConection->prepare($updateSql);
+                    $updatePassword->execute([
+                        ':password' => $newHashedPassword,
+                        ':user_id' => $userId
+                    ]);
+                    $_SESSION['msgPopUp'] = "Contraseña cambiada con éxito.";
+                    $_SESSION['msgPopUpType'] = "success";
+                    header("Location: user.php");
+                    exit;
+
+                } else {
+                    $_SESSION['msgPopUp'] = "Contraseña actual incorrecta.";
+                    $_SESSION['msgPopUpType'] = "error";
+                    header("Location: user.php");
+                    exit;
+
+                }
+            } catch (PDOException $e) {
+                $_SESSION['msgPopUp'] = "Error interno al cambiar la contraseña.";
+                $_SESSION['msgPopUpType'] = "error";
+                header("Location: user.php");
+                exit;
+
+                // Opcional: log error $e->getMessage() en un archivo
+            }
+        }
+    } else if ($action === 'updateProfile') {
+        $newEmail = trim($_POST['email']);
+        $newUsername = trim($_POST['user']);
+        $password = trim($_POST['password']);
+
+
+        if (empty($newEmail) || empty($newUsername) || empty($password)) {
+            die("Todos los campos son obligatorios.");
+        }
+
+        try {
+            $select = "SELECT password FROM Users WHERE user_id = :user_id";
+            $result = $dbConection->prepare($select);
+            $result->execute([':user_id' => $userId]);
+            $correctPassword = $result->fetch(PDO::FETCH_ASSOC);
+
+            if ($correctPassword && password_verify($password, $correctPassword['password'])) {
+                $sql = "UPDATE Users SET email = :email, username = :username WHERE user_id = :user_id";
+                $stmt = $dbConection->prepare($sql);
+                $stmt->execute([
+                    ':email' => $newEmail,
+                    ':username' => $newUsername,
+                    ':user_id' => $userId
+                ]);
+                $_SESSION['msgPopUp'] = "Perfil actualizado correctamente.";
+                $_SESSION['msgPopUpType'] = "success";
+            } else {
+                $_SESSION['msgPopUp'] = "La contraseña es incorrecta.";
+                $_SESSION['msgPopUpType'] = "error";
+            }
+
+
+
+        } catch (PDOException $e) {
+            $_SESSION['msgPopUp'] = "Error al actualizar perfil: " . $e->getMessage();
             $_SESSION['msgPopUpType'] = "error";
         }
-        
-
-        
-    } catch (PDOException $e) {
-        $_SESSION['msgPopUp'] = "Error al actualizar perfil: " . $e->getMessage();
-        $_SESSION['msgPopUpType'] = "error";
     }
-}
 }
 
 //Método para actualizar el perfil
@@ -120,13 +120,44 @@ $getRoleCounts->execute();
 $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 'Player' => 5]
 
 // ===== NIVEL PROMEDIO =====
+$avgLevel = 0;
+try {
+    // Sacamos los datos de los niveles de los personajes del usuario 
+    $select = $dbConection->prepare("SELECT class_levels FROM characters WHERE character_owner = :user_id");
+    $select->execute([':user_id' => $userId]);
+    $characters = $select->fetchAll(PDO::FETCH_COLUMN);
+
+    // Creamos una variable para almacenar el nivel total y el número de personajes
+    $totalLevel = 0;
+    $characterCount = count($characters);
+
+    // Iteramos sobre los personajes y sumamos sus niveles
+    foreach ($characters as $classLevelsJson) {
+        $classLevels = json_decode($classLevelsJson, true);
+
+        if (is_array($classLevels)) {
+            // Sumamos todos los niveles del personaje en sus distintas clases
+            $levelSum = array_sum($classLevels);
+            $totalLevel += $levelSum;
+        }
+    }
+
+    // Hacemos la media 
+    if ($characterCount > 0) {
+        $avgLevel = round($totalLevel / $characterCount, 2);
+    }
+} catch (PDOException $e) {
+    $avgLevel = 0;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Usuario: <?php echo htmlspecialchars($loggedUserData['username']) ?></title>
     <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesUser.css" />
@@ -140,7 +171,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
         $msgPopUp = $_SESSION['msgPopUp'];
         $msgPopUpType = $_SESSION['msgPopUpType'] ?? 'info';
         unset($_SESSION['msgPopUp'], $_SESSION['msgPopUpType']);
-    }    
+    }
     if (!empty($msgPopUp)): ?>
         <div id="popup" class="popup <?php echo $msgPopUpType; ?>">
             <?php echo htmlspecialchars($msgPopUp); ?>
@@ -169,7 +200,7 @@ $roleCounts = $getRoleCounts->fetchAll(PDO::FETCH_KEY_PAIR); // ['Master' => 3, 
                 <p><?php echo ($roleCounts['Master'] ?? 0) . '/' . ($roleCounts['Player'] ?? 0); ?></p>
                 <!-- Debemos sacar esta info de la BBDD -->
                 <p>Nivel Promedio de PJs</p>
-                <p>4</p>
+                <p><?= $avgLevel ?></p>
                 <!-- Debemos sacar esta info de la BBDD -->
             </div>
         </div>
