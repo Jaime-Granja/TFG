@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $_SESSION["user_id"] = $dbConection->lastInsertId();
                     $_SESSION["username"] = $username;
-                    setcookie("RegisterMessage", "Te has Registrado Correctamente", time() + 5, "/");
+                    setcookie("registerMessage", "Te has Registrado Correctamente", time() + 5, "/");
                     header("Location: home.php");
                     exit;
                 }

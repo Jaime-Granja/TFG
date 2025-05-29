@@ -36,13 +36,24 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
                     Sesión Iniciada Correctamente
                 </div> <?php
         setcookie("logInMessage", "", time() - 3600, "/");        
-    } 
-    if (isset($_COOKIE['RegisterMessage'])) {
+    } else if (isset($_COOKIE['registerMessage'])) {
             ?>
                 <div id="popup" class="popup">
                     Usuario Registrado Correctamente
                 </div> <?php
-        setcookie("logInMessage", "", time() - 3600, "/");        
+        setcookie("registerMessage", "", time() - 3600, "/");        
+    } else if (isset($_COOKIE['deletedCharMessage'])) {
+            ?>
+                <div id="popup" class="popup">
+                    Personaje Eliminado Correctamente
+                </div> <?php
+        setcookie("deletedCharMessage", "", time() - 3600, "/");   
+    } else if (isset($_COOKIE['deletedCampaignMessage'])) {
+            ?>
+                <div id="popup" class="popup">
+                    Campaña Eliminada Correctamente
+                </div> <?php
+        setcookie("deletedCampaignMessage", "", time() - 3600, "/");   
     } 
     ?>
     <div id="body">

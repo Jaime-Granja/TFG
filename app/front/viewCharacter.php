@@ -325,9 +325,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         $delete = $dbConection->prepare("DELETE FROM Characters WHERE character_id = :id");
         $delete->execute([':id' => $characterId]);
 
-        $_SESSION['message'] = "Personaje borrado correctamente.";
-        $_SESSION['messageType'] = "success";
+         setcookie("deletedCharMessage", "Personaje Eliminado Correctamente", time() + 5, "/");
         
+
         header("Location: ../front/home.php");
 
       } catch (PDOException $e) {

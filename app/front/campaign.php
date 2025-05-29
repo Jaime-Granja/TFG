@@ -84,8 +84,8 @@ if (isset($_POST['campaignDelete'])) {
         // Borrar la campaña
         $deleteCampaign = $dbConection->prepare("DELETE FROM Campaigns WHERE campaign_id = :campaignId");
         $deleteCampaign->execute([':campaignId' => $campaignId]);
+        setcookie("deletedCampaignMessage", "Campaña Eliminada Correctamente", time() + 5, "/");
         header("Location: home.php");
-        echo "Campaña eliminada con éxito.";
     } catch (PDOException $e) {
         echo "Error al eliminar la campaña: " . $e->getMessage();
     }
