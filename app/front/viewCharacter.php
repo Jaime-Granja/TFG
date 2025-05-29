@@ -325,8 +325,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
         $delete = $dbConection->prepare("DELETE FROM Characters WHERE character_id = :id");
         $delete->execute([':id' => $characterId]);
 
-         setcookie("deletedCharMessage", "Personaje Eliminado Correctamente", time() + 5, "/");
-        
+        setcookie("deletedCharMessage", "Personaje Eliminado Correctamente", time() + 5, "/");
+
 
         header("Location: ../front/home.php");
 
@@ -348,8 +348,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 $isFromNewCharacter = false;
 
 if (!empty($_SESSION['fromNewCharacter'])) {
-    $isFromNewCharacter = true;
-    unset($_SESSION['fromNewCharacter']);
+  $isFromNewCharacter = true;
+  unset($_SESSION['fromNewCharacter']);
 }
 ?>
 
@@ -367,22 +367,22 @@ if (!empty($_SESSION['fromNewCharacter'])) {
 
 <body id="body"> <?php
 if ($isFromNewCharacter == true) {
-            ?>
-                <div id="popup" class="popup">
-                    Personaje Creado con Éxito
-                </div> <?php
-    }
-    
-  if (isset($_SESSION['message'])) {
-        $message = $_SESSION['message'];
-        $messageType = $_SESSION['messageType'] ?? 'info';
-        unset($_SESSION['message'], $_SESSION['messageType']);
-        if (!empty($message)): ?>
-                <div id="popup" class="popup <?php echo $messageType; ?>">
-                    <?php echo htmlspecialchars($message); ?>
-                </div>
-            <?php endif;
-            } ?>
+  ?>
+    <div id="popup" class="popup">
+      Personaje Creado con Éxito
+    </div> <?php
+}
+
+if (isset($_SESSION['message'])) {
+  $message = $_SESSION['message'];
+  $messageType = $_SESSION['messageType'] ?? 'info';
+  unset($_SESSION['message'], $_SESSION['messageType']);
+  if (!empty($message)): ?>
+      <div id="popup" class="popup <?php echo $messageType; ?>">
+        <?php echo htmlspecialchars($message); ?>
+      </div>
+    <?php endif;
+} ?>
   <div id="margin">
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
@@ -391,6 +391,8 @@ if ($isFromNewCharacter == true) {
       <button id="featuresBotton">Rasgos</button>
       <button id="equipmentBotton">Equipo</button>
       <button id="spellbookBotton">Libro de Hechizos</button>
+      <button id="logOut">Cerrar Sesión</button>
+      <button id="userProfile">Perfil de Usuario</button>
     </div>
   </div>
   <div id="contenedorPrincipal">
@@ -929,8 +931,7 @@ if ($isFromNewCharacter == true) {
       </div>
     </div>
   </div>
-    <button id="logOut">Cerrar Sesión</button>
-    <button id="userProfile">Perfil de Usuario</button>
+
 </body>
-                
+
 </html>
