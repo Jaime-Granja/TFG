@@ -1,8 +1,10 @@
 window.onload = function () {
+   let logOut = document.getElementById("logOut");
   let join = document.getElementById("join");
   let create = document.getElementById("create");
   let goBackButton = document.getElementById("goBackButton")
 
+  logOut.addEventListener("click", atras);
   join.addEventListener("click", joinCampaign);
   create.addEventListener("click", createCampaign);
   goBackButton.addEventListener("click", goBack)
@@ -33,4 +35,9 @@ window.onload = function () {
   function goBack() {
     window.location.href = "../front/home.php";
   }
+
+    function atras() {
+    window.location.href = "../back/logout.php";
+  }
+  
 };
