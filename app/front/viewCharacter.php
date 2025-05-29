@@ -929,6 +929,8 @@ if ($isFromNewCharacter == true) {
       </div>
     </div>
   </div>
+    <button id="logOut">Cerrar Sesión</button>
+    <button id="userProfile">Perfil de Usuario</button>
 </body>
                 
 </html>
