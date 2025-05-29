@@ -141,6 +141,7 @@ if (isset($_POST['joinCampaign'])) {
       </form>
     </div>
   </div>
+  <button id="logOut">Cerrar Sesión</button>
   <button id="goBackButton">Volver</button>
 </body>
 
