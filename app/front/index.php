@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Iniciamos la sesión y guardamos los datos
                     $_SESSION["user_id"] = $user["user_id"];
                     $_SESSION["username"] = $user["username"];
+                    // Establecemos una variable de sesión para el pop-up en home.
+                    setcookie("logInMessage", "Has iniciado sesión correctamente", time() + 5, "/");
                     header('Location: home.php');
                     exit;
                 } else {
@@ -69,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $_SESSION["user_id"] = $dbConection->lastInsertId();
                     $_SESSION["username"] = $username;
+                    setcookie("RegisterMessage", "Te has Registrado Correctamente", time() + 5, "/");
                     header("Location: home.php");
                     exit;
                 }
@@ -98,8 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body> <?php
     if (isset($_COOKIE['logOutMessage'])) {
             ?>
-                <div id="popup" class="popup">
-                    Sesión Cerrada
+                <div id="popup" class="popup error">
+                    Sesión Cerrada Correctamente
                 </div> <?php
         setcookie("logOutMessage", "", time() - 3600, "/");        
     }

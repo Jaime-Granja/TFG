@@ -29,7 +29,22 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
     <link rel="shortcut icon" href="../src/img/D20.png" />
 </head>
 
-<body>
+<body> <?php
+    if (isset($_COOKIE['logInMessage'])) {
+            ?>
+                <div id="popup" class="popup">
+                    Sesión Iniciada Correctamente
+                </div> <?php
+        setcookie("logInMessage", "", time() - 3600, "/");        
+    } 
+    if (isset($_COOKIE['RegisterMessage'])) {
+            ?>
+                <div id="popup" class="popup">
+                    Usuario Registrado Correctamente
+                </div> <?php
+        setcookie("logInMessage", "", time() - 3600, "/");        
+    } 
+    ?>
     <div id="body">
         <h1>Bienvenido, <?php echo htmlspecialchars($user['username']); ?></h1>
         <h2>Campañas</h2>

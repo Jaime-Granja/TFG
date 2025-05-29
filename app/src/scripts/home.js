@@ -41,4 +41,13 @@ window.onload = function () {
   function campaignFunction() {
     window.location.href = "../front/campaign.php";
   }
+  const popup = document.getElementById("popup");
+  if (popup && popup.textContent.trim() !== "") {
+    popup.style.display = "block";
+    popup.classList.add("show");
+    setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => (popup.style.display = "none"), 500);
+    }, 4000);
+  }
 };
