@@ -103,7 +103,7 @@ if (isset($_POST['createCharacter'])) {
             <input type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
             <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma" required>
             <!-- <p>Puntos Restantes: <span id="remaining">27</span> </p>  Si habilitamos compra de puntos, esto estará por aquí.-->
-            <button type="submit" name="createCharacter">Crear personaje</button>
+             <button onclick="window.location.href='viewCharacter.php'">Crear personaje</button>
         </form>
     </div>
 </body>
