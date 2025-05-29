@@ -1,4 +1,5 @@
 window.onload = function () {
+  let userBotton = document.getElementById("userProfile");
   let logOut = document.getElementById("logOut");
   let newCampaign = document.getElementById("newCampaignButton");
   let newCharacter = document.getElementById("createSheet");
@@ -21,7 +22,7 @@ window.onload = function () {
       }
     });
   });
-
+ userBotton.addEventListener("click", user);
   logOut.addEventListener("click", atras);
   newCampaign.addEventListener("click", newCampaignFunction);
   newCharacter.addEventListener("click", newCharacterFunction);
@@ -36,6 +37,10 @@ window.onload = function () {
 
   function atras() {
     window.location.href = "../back/logout.php";
+  }
+
+   function user() {
+    window.location.href = "../front/user.php";
   }
 
   function campaignFunction() {
