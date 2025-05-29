@@ -1,4 +1,6 @@
 window.onload = function () {
+  let userBotton = document.getElementById("userProfile");
+  let logOut = document.getElementById("logOut");
   let menu = document.getElementById("menuHamburguesa");
   let body = document.getElementById("body");
   let fondo = document.getElementById("contenedorPrincipal");
@@ -15,6 +17,8 @@ window.onload = function () {
   let equipamientoTexto = document.getElementById("equipmentPage");
   let hechizosTexto = document.getElementById("spellbookPage");
 
+  userBotton.addEventListener("click", user);
+  logOut.addEventListener("click", atras);
   main.addEventListener("click", mainPage);
   trasfondo.addEventListener("click", trasfondoMenu);
   rasgos.addEventListener("click", rasgosMenu);
@@ -143,4 +147,13 @@ window.onload = function () {
       setTimeout(() => (popup.style.display = "none"), 500);
     }, 4000);
   }
+
+  function atras() {
+    window.location.href = "../back/logout.php";
+  }
+
+ function user() {
+    window.location.href = "../front/user.php";
+  }
+
 };
