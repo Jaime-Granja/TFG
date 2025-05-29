@@ -46,15 +46,21 @@ if (isset($_POST['createCharacter'])) {
         ]);
         $_SESSION['fromNewCharacter'] = true;
         //He puesto este header para testear los pop-ups. Está hardcodeada para ir siempre al character 11. Hay que sacar el characterId que toque.
-        header("Location: viewCharacter.php?id=11");
+        $select = $dbConection->prepare("SELECT MAX(character_id) AS max_id FROM Characters WHERE character_owner = $owner");
+        $select->execute();
+
+        $row = $select->fetch(PDO::FETCH_ASSOC);
+        $id = $row['max_id'];
+
+        header("Location: viewCharacter.php?id=" . $id);
+        exit;
+
     } catch (PDOException $e) {
         echo "Error al crear personaje: " . $e->getMessage() . " Eres un liante macho.";
     }
 }
 
 ?>
-
-<!-- Esta página es una página demo que sólo sirve para probar un script :) -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +68,6 @@ if (isset($_POST['createCharacter'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/styles/stylesCreateCharacter.css" />
-    <!-- <script src="../src/scripts/createCharacterView.js"></script>  Si no tenemos compra de puntos, no es necesario.-->
     <title>Document</title>
 </head>
 
@@ -96,14 +101,19 @@ if (isset($_POST['createCharacter'])) {
                 ?>
             </select>
             <label id="stats">Puntos de estadística:</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength" required>
-            <input type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity" required>
-            <input type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution" required>
-            <input type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength"
+                required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity"
+                required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution"
+                required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence"
+                required>
             <input type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
-            <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma" required>
+            <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma"
+                required>
             <!-- <p>Puntos Restantes: <span id="remaining">27</span> </p>  Si habilitamos compra de puntos, esto estará por aquí.-->
-             <button onclick="window.location.href='viewCharacter.php'">Crear personaje</button>
+            <button type="submit" name="createCharacter">Crear personaje</button>
         </form>
     </div>
 </body>
