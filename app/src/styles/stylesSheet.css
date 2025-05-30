@@ -83,12 +83,9 @@ div div h1 {
   margin-top: 5rem;
   margin-left: 4rem;
 }
-#sheetTabs:last-child {
-  right: 0%;
-}
 .tab {
   padding: 0.5rem 1rem 0rem 1rem;
-  background-color: #ffebcd;
+  background-color: #c8c3b4;
   border: 1px solid #ccc;
   border-bottom: none;
   border-top-left-radius: 6px;
@@ -96,40 +93,51 @@ div div h1 {
   margin-right: 0.3rem;
   cursor: pointer;
   font-weight: bold;
+  height: 2rem;
 }
 
-.tab:hover {
+.tab:hover, #dropButton:hover {
   background-color: #d0d0d0;
 }
 
 .tab.active {
-  background-color: #fffacd;
+  height: 3rem;
+  background-color: #ffebcd;
   border-bottom: 2px solid #ffebcd;
 }
-.dropdown {
+#dropdown {
   position: relative;
-  
-  display: inline-block;
+  float: right;
+  margin-right: 4rem;
 }
-.dropdown-content {
+#dropButton {
+  position: relative;
+  height: 3rem;
+  background-color: #c8c3b4;
+}
+#dropContent {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 160px;
-  z-index: 5
+  z-index: 10;
+  border-top-right-radius: 6px;
+  background-color: #ffebcd;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  min-width: 8rem;
 }
 
-.dropdown-content button {
+#dropContent button {
+  margin-bottom: 0.5rem;
   display: block;
   background-color: #ffebcd;
 }
 
-.dropdown-content button:hover {
+#dropContent button:hover {
   background-color: #f0f0f0;
 }
 
-.dropdown:hover .dropdown-content {
+#dropContent.show {
   display: block;
 }
 

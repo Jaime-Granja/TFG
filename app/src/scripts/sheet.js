@@ -18,7 +18,11 @@ window.onload = function () {
   let hechizosTexto = document.getElementById("spellbookPage");
   let formulario = document.getElementById("editForm");
   let editButton = document.getElementById("editButton");
+  let toggle = document.getElementById("dropButton");
+  let goBack = document.getElementById("goBack");
 
+  goBack.addEventListener("click", goBackFunction);
+  toggle.addEventListener("click", showDrop);
   userBotton.addEventListener("click", user);
   logOut.addEventListener("click", atras);
   main.addEventListener("click", mainPage);
@@ -146,8 +150,6 @@ window.onload = function () {
     }, 4000);
   }
 
-  let goBack = document.getElementById("goBack");
-  goBack.addEventListener("click", goBackFunction);
   function goBackFunction() {
     window.location.href = "../front/home.php";
   }
@@ -166,9 +168,30 @@ window.onload = function () {
     ) {
       formulario.style.display = "block";
       editButton.textContent = "Ocultar formulario";
+      main.classList.add("active");
+      //Redirección a Página Principal.
+      //Pestañas
+      trasfondo.classList.remove("active");
+      rasgos.classList.remove("active");
+      equipamientos.classList.remove("active");
+      hechizos.classList.remove("active");
+      //Fondos
+      fondo.style.display = "block";
+      fondoSecundario.style.display = "none";
+
+      //Textos
+      trasfondoTexto.style.display = "none";
+      rasgosTexto.style.display = "none";
+      equipamientoTexto.style.display = "none";
+      hechizosTexto.style.display = "none";
     } else {
       formulario.style.display = "none";
       editButton.textContent = "Editar";
     }
+  }
+  function showDrop() {
+    console.log("Funciona?");
+    let content = document.getElementById("dropContent");
+    content.classList.toggle("show");
   }
 };

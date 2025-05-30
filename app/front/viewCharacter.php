@@ -399,9 +399,9 @@ if (isset($_SESSION['message'])) {
     <button class="tab" id="equipmentBotton">Equipo</button>
     <button class="tab" id="spellbookBotton">Libro de Hechizos</button>
     <!-- Intento de menú desplegable para edición de PJ -->
-    <div class="tab dropdown">
-      <button class="tab dropbtn">Modificar</button>
-      <div class="dropdown-content">
+    <div id="dropdown" >
+      <button id="dropButton" class="tab">Modificar</button>
+      <div id="dropContent">
         <button id="editButton" onclick="toggleFormulario()">Editar</button>
         <!-- BOTON BORRAR -->
         <form method="POST"
