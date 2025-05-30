@@ -386,18 +386,22 @@ if (isset($_SESSION['message'])) {
   <div id="margin">
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
-      <div id="sheetInfo">
-        <h1>Información Adicional de la Ficha</h1>
-        <button id="mainPageBotton">Principal</button>
-        <button id="backgroundBotton">Trasfondo</button>
-        <button id="featuresBotton">Rasgos</button>
-        <button id="equipmentBotton">Equipo</button>
-        <button id="spellbookBotton">Libro de Hechizos</button>
-      </div>
-      <div id="sheetChanges">
-        <h1>Modificar Ficha</h1>
-        <!-- BOTON PARA MOSTRAR EL FORMULARIO  DE EDICIÓN -->
-
+      <h1>Navegación</h1>
+      <button id="goBack">Retroceder</button>
+      <button id="logOut">Cerrar Sesión</button>
+      <button id="userProfile">Perfil de Usuario</button>
+    </div>
+  </div>
+  <div id="sheetTabs">
+    <button class="tab active" id="mainPageBotton">Principal</button>
+    <button class="tab" id="backgroundBotton">Trasfondo</button>
+    <button class="tab" id="featuresBotton">Rasgos</button>
+    <button class="tab" id="equipmentBotton">Equipo</button>
+    <button class="tab" id="spellbookBotton">Libro de Hechizos</button>
+    <!-- Intento de menú desplegable para edición de PJ -->
+    <div class="tab dropdown">
+      <button class="tab dropbtn">Modificar</button>
+      <div class="dropdown-content">
         <button id="editButton" onclick="toggleFormulario()">Editar</button>
         <!-- BOTON BORRAR -->
         <form method="POST"
@@ -405,12 +409,6 @@ if (isset($_SESSION['message'])) {
           <input type="hidden" name="delete" value="1">
           <button id="deleteButton" type="submit" style="background-color: red; color: white;">Borrar personaje</button>
         </form>
-      </div>
-      <div id="navigation">
-        <h1>Navegación</h1>
-        <button id="goBack">Retroceder</button>
-        <button id="logOut">Cerrar Sesión</button>
-        <button id="userProfile">Perfil de Usuario</button>
       </div>
     </div>
   </div>

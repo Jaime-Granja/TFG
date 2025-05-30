@@ -17,7 +17,7 @@ window.onload = function () {
   let equipamientoTexto = document.getElementById("equipmentPage");
   let hechizosTexto = document.getElementById("spellbookPage");
   let formulario = document.getElementById("editForm");
-  let boton = document.getElementById("editButton");
+  let editButton = document.getElementById("editButton");
 
   userBotton.addEventListener("click", user);
   logOut.addEventListener("click", atras);
@@ -27,6 +27,7 @@ window.onload = function () {
   equipamientos.addEventListener("click", equipamientoMenu);
   hechizos.addEventListener("click", hechizosMenu);
   menu.addEventListener("click", abrirMenu);
+  editButton.addEventListener("click", editCharacter);
   document.addEventListener("click", function (event) {
     cerrarMenu(event);
   });
@@ -50,16 +51,15 @@ window.onload = function () {
     }
   }
   function mainPage() {
+    //Tab
+    main.classList.add("active");
+    trasfondo.classList.remove("active");
+    rasgos.classList.remove("active");
+    equipamientos.classList.remove("active");
+    hechizos.classList.remove("active");
     //Fondos
     fondo.style.display = "block";
     fondoSecundario.style.display = "none";
-
-    //Botones
-    main.style.display = "none";
-    trasfondo.style.display = "block";
-    rasgos.style.display = "block";
-    equipamientos.style.display = "block";
-    hechizos.style.display = "block";
 
     //Textos
     trasfondoTexto.style.display = "none";
@@ -68,16 +68,15 @@ window.onload = function () {
     hechizosTexto.style.display = "none";
   }
   function trasfondoMenu() {
+    //Tab
+    trasfondo.classList.add("active");
+    main.classList.remove("active");
+    rasgos.classList.remove("active");
+    equipamientos.classList.remove("active");
+    hechizos.classList.remove("active");
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
-    //Botones
-    main.style.display = "block";
-    trasfondo.style.display = "none";
-    rasgos.style.display = "block";
-    equipamientos.style.display = "block";
-    hechizos.style.display = "block";
 
     //Textos
     trasfondoTexto.style.display = "block";
@@ -86,16 +85,15 @@ window.onload = function () {
     hechizosTexto.style.display = "none";
   }
   function rasgosMenu() {
+    //Tab
+    rasgos.classList.add("active");
+    trasfondo.classList.remove("active");
+    main.classList.remove("active");
+    equipamientos.classList.remove("active");
+    hechizos.classList.remove("active");
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
-    //Botones
-    main.style.display = "block";
-    trasfondo.style.display = "block";
-    rasgos.style.display = "none";
-    equipamientos.style.display = "block";
-    hechizos.style.display = "block";
 
     //Textos
     trasfondoTexto.style.display = "none";
@@ -104,16 +102,15 @@ window.onload = function () {
     hechizosTexto.style.display = "none";
   }
   function equipamientoMenu() {
+    //Tab
+    equipamientos.classList.add("active");
+    trasfondo.classList.remove("active");
+    rasgos.classList.remove("active");
+    main.classList.remove("active");
+    hechizos.classList.remove("active");
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
-    //Botones
-    main.style.display = "block";
-    trasfondo.style.display = "block";
-    rasgos.style.display = "block";
-    equipamientos.style.display = "none";
-    hechizos.style.display = "block";
 
     //Textos
     trasfondoTexto.style.display = "none";
@@ -123,16 +120,15 @@ window.onload = function () {
   }
 
   function hechizosMenu() {
+    //Tab
+    hechizos.classList.add("active");
+    trasfondo.classList.remove("active");
+    rasgos.classList.remove("active");
+    equipamientos.classList.remove("active");
+    main.classList.remove("active");
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
-    //Botones
-    main.style.display = "block";
-    trasfondo.style.display = "block";
-    rasgos.style.display = "block";
-    equipamientos.style.display = "block";
-    hechizos.style.display = "none";
 
     //Textos
     trasfondoTexto.style.display = "none";
@@ -169,10 +165,10 @@ window.onload = function () {
       formulario.style.display === ""
     ) {
       formulario.style.display = "block";
-      boton.textContent = "Ocultar formulario";
+      editButton.textContent = "Ocultar formulario";
     } else {
       formulario.style.display = "none";
-      boton.textContent = "Editar";
+      editButton.textContent = "Editar";
     }
   }
 };

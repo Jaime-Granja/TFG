@@ -76,22 +76,81 @@ div div h1 {
   gap: 4rem;
   margin-top: 5rem;
 }
-#sheetInfo, #sheetChanges, #navigation {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+#menuHamburguesaBotones button {
+  padding: 1rem;
 }
-#sheetInfo, #sheetChanges {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+#sheetTabs {
+  margin-top: 5rem;
+  margin-left: 4rem;
 }
-#mainPageBotton {
+#sheetTabs:last-child {
+  right: 0%;
+}
+.tab {
+  padding: 0.5rem 1rem 0rem 1rem;
+  background-color: #ffebcd;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  margin-right: 0.3rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tab:hover {
+  background-color: #d0d0d0;
+}
+
+.tab.active {
+  background-color: #fffacd;
+  border-bottom: 2px solid #ffebcd;
+}
+.dropdown {
+  position: relative;
+  
+  display: inline-block;
+}
+.dropdown-content {
   display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  z-index: 5
 }
+
+.dropdown-content button {
+  display: block;
+  background-color: #ffebcd;
+}
+
+.dropdown-content button:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #contenedorPrincipal, #contenedorSecundario {
   text-align: center;
   margin: 4% auto;
+  margin-top: 0%;
   padding: 1em;
   width: calc(100% - 4rem);
   color: #bb0a21;
