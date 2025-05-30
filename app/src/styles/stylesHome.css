@@ -1,39 +1,53 @@
 body {
-display: flex;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background-color: #6874e8;
+  display: flex;
+  justify-content: center;
 }
 #body {
-    margin: 0rem 0rem 0rem 7rem;
-    color: #bb0a21;
+  margin: 0rem 0rem 0rem 7rem;
+  color: #bb0a21;
+  background-color: #b0a4ff;
+  padding: 1rem;
 }
 p {
-    background-color: #ffebcd;
-    padding: 1.5em;
+  background-color: #ffebcd;
+  padding: 1.5em;
 }
-h2 {
+h1, h2 {
+    color: #bb0a21;
+    padding: 0.5em;
+    background-color: #FFEBCD;
+    border-radius: 0.5em;
     text-align: center;
 }
-.newCampaign , .newSheet  {
-    display: flex;
-    justify-content: end;
+.newCampaign,
+.newSheet {
+  display: flex;
+  justify-content: end;
 }
 
-#campaigns, #sheets {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+#campaigns,
+#sheets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.campaign, .sheet {
-    margin-top: 2rem;
-    padding: 1rem;
-    text-align: center;
-    width: 27%;
-    background-color: #ffebcd;
+.campaign,
+.sheet {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  width: 27%;
+  background-color: #ffebcd;
 }
 
 .mas {
-    background-color: #fcd7ad;
-    margin-top: 1rem;
+  background-color: #fcd7ad;
+  margin-top: 1rem;
 }
 .popup {
   position: fixed;
@@ -59,11 +73,37 @@ h2 {
   opacity: 1;
   transform: translateY(0);
 }
-
-
-
 .popup.success {
   border-left: 5px solid #27ae60;
   color: #27ae60;
   background-color: #e9f8f0;
+}
+button {
+    border-radius: 2em;
+    background-color: #ffebcd;
+}
+button:hover {
+    box-shadow: 0px 0px 4px 0px black;
+}
+#logOut {
+    background-color: #bb0a21;
+}
+#margin {
+  padding: 2rem;
+  position: absolute;
+  left: 0;
+  margin-left: 0.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+#menuHamburguesa {
+  width: 4rem;
+}
+#menuHamburguesaBotones {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 5rem;
 }

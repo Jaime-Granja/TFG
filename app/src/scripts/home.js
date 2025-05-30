@@ -22,11 +22,42 @@ window.onload = function () {
       }
     });
   });
- userBotton.addEventListener("click", user);
+  userBotton.addEventListener("click", user);
   logOut.addEventListener("click", atras);
   newCampaign.addEventListener("click", newCampaignFunction);
   newCharacter.addEventListener("click", newCharacterFunction);
 
+  let menu = document.getElementById("menuHamburguesa");
+  let botones = document.getElementById("menuHamburguesaBotones");
+  let margen = document.getElementById("margin");
+  let fondo = document.getElementById("body");
+  menu.addEventListener("click", abrirMenu);
+  document.addEventListener("click", function (event) {
+    cerrarMenu(event);
+  });
+  goBack.addEventListener("click", goBackFunction);
+  logOut.addEventListener("click", logOutFunction);
+  userBotton.addEventListener("click", user);
+  editCampaign.addEventListener("click", editCampaignFunction);
+  campaignDelete.addEventListener("click", campaignDeleteFunction);
+
+  function abrirMenu() {
+    botones.style.display = "flex";
+    menu.style.display = "none";
+    fondo.style.opacity = "50%";
+    margen.style.height = window.getComputedStyle(fondo).height;
+    margen.style.backgroundColor = "black";
+    margen.style.opacity = "90%";
+  }
+
+  function cerrarMenu(event) {
+    if (!margen.contains(event.target) && event.target !== menu) {
+      botones.style.display = "none";
+      menu.style.display = "block";
+      fondo.style.opacity = "100%";
+      margen.style.backgroundColor = "transparent";
+    }
+  }
   function newCampaignFunction() {
     window.location.href = "../front/newCampaign.php";
   }
@@ -39,7 +70,7 @@ window.onload = function () {
     window.location.href = "../back/logout.php";
   }
 
-   function user() {
+  function user() {
     window.location.href = "../front/user.php";
   }
 

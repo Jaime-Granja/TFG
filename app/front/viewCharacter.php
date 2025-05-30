@@ -386,13 +386,32 @@ if (isset($_SESSION['message'])) {
   <div id="margin">
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
-      <button id="mainPageBotton">Principal</button>
-      <button id="backgroundBotton">Trasfondo</button>
-      <button id="featuresBotton">Rasgos</button>
-      <button id="equipmentBotton">Equipo</button>
-      <button id="spellbookBotton">Libro de Hechizos</button>
-      <button id="logOut">Cerrar Sesión</button>
-      <button id="userProfile">Perfil de Usuario</button>
+      <div id="sheetInfo">
+        <h1>Información Adicional de la Ficha</h1>
+        <button id="mainPageBotton">Principal</button>
+        <button id="backgroundBotton">Trasfondo</button>
+        <button id="featuresBotton">Rasgos</button>
+        <button id="equipmentBotton">Equipo</button>
+        <button id="spellbookBotton">Libro de Hechizos</button>
+      </div>
+      <div id="sheetChanges">
+        <h1>Modificar Ficha</h1>
+        <!-- BOTON PARA MOSTRAR EL FORMULARIO  DE EDICIÓN -->
+
+        <button id="editButton" onclick="toggleFormulario()">Editar</button>
+        <!-- BOTON BORRAR -->
+        <form method="POST"
+          onsubmit="return confirm('¿Estás seguro de que quieres borrar este personaje? Esta acción no se puede deshacer.');">
+          <input type="hidden" name="delete" value="1">
+          <button id="deleteButton" type="submit" style="background-color: red; color: white;">Borrar personaje</button>
+        </form>
+      </div>
+      <div id="navigation">
+        <h1>Navegación</h1>
+        <button id="goBack">Retroceder</button>
+        <button id="logOut">Cerrar Sesión</button>
+        <button id="userProfile">Perfil de Usuario</button>
+      </div>
     </div>
   </div>
   <div id="contenedorPrincipal">
@@ -426,13 +445,11 @@ if (isset($_SESSION['message'])) {
       </div> -->
     </div>
 
-    <!-- BOTON PARA MOSTRAR EL FORMULARIO  DE EDICIÓN -->
 
-    <button id="boton-editar" onclick="toggleFormulario()">Editar</button>
 
     <!-- FORMULARIO DE EDICION -->
 
-    <div id="formulario-edicion" style="display: none;">
+    <div id="editForm" style="display: none;">
       <?php
       // Obtenemos los datos del personaje si pertenece al usuario
       $select = $dbConection->prepare("SELECT * FROM Characters WHERE character_id = :id AND character_owner = :owner");
@@ -486,28 +503,6 @@ if (isset($_SESSION['message'])) {
     </div>
 
 
-
-    <script>
-      function toggleFormulario() {
-        const formulario = document.getElementById('formulario-edicion');
-        const boton = document.getElementById('boton-editar');
-
-        if (formulario.style.display === 'none' || formulario.style.display === '') {
-          formulario.style.display = 'block';
-          boton.textContent = 'Ocultar formulario';
-        } else {
-          formulario.style.display = 'none';
-          boton.textContent = 'Editar';
-        }
-      }
-    </script>
-
-    <!-- BOTON BORRAR -->
-    <form method="POST"
-      onsubmit="return confirm('¿Estás seguro de que quieres borrar este personaje? Esta acción no se puede deshacer.');">
-      <input type="hidden" name="delete" value="1">
-      <button type="submit" style="background-color: red; color: white;">Borrar personaje</button>
-    </form>
 
 
     <h2>Estadísticas</h2>

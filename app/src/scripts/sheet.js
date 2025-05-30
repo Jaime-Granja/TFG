@@ -16,6 +16,8 @@ window.onload = function () {
   let rasgosTexto = document.getElementById("featuresPage");
   let equipamientoTexto = document.getElementById("equipmentPage");
   let hechizosTexto = document.getElementById("spellbookPage");
+  let formulario = document.getElementById("editForm");
+  let boton = document.getElementById("editButton");
 
   userBotton.addEventListener("click", user);
   logOut.addEventListener("click", atras);
@@ -136,7 +138,7 @@ window.onload = function () {
     trasfondoTexto.style.display = "none";
     rasgosTexto.style.display = "none";
     equipamientoTexto.style.display = "none";
-    hechizosTexto.style.display = "block"
+    hechizosTexto.style.display = "block";
   }
   const popup = document.getElementById("popup");
   if (popup && popup.textContent.trim() !== "") {
@@ -148,12 +150,29 @@ window.onload = function () {
     }, 4000);
   }
 
+  let goBack = document.getElementById("goBack");
+  goBack.addEventListener("click", goBackFunction);
+  function goBackFunction() {
+    window.location.href = "../front/home.php";
+  }
   function atras() {
     window.location.href = "../back/logout.php";
   }
 
- function user() {
+  function user() {
     window.location.href = "../front/user.php";
   }
 
+  function editCharacter() {
+    if (
+      formulario.style.display === "none" ||
+      formulario.style.display === ""
+    ) {
+      formulario.style.display = "block";
+      boton.textContent = "Ocultar formulario";
+    } else {
+      formulario.style.display = "none";
+      boton.textContent = "Editar";
+    }
+  }
 };

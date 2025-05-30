@@ -23,39 +23,46 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../src/styles/styles.css">
+    <!-- <link rel="stylesheet" href="../src/styles/styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesHome.css">
     <script src="../src/scripts/home.js"></script>
     <link rel="shortcut icon" href="../src/img/D20.png" />
 </head>
 
 <body> <?php
-    if (isset($_COOKIE['logInMessage'])) {
-            ?>
-                <div id="popup" class="popup">
-                    Sesión Iniciada Correctamente
-                </div> <?php
-        setcookie("logInMessage", "", time() - 3600, "/");        
-    } else if (isset($_COOKIE['registerMessage'])) {
-            ?>
-                <div id="popup" class="popup">
-                    Usuario Registrado Correctamente
-                </div> <?php
-        setcookie("registerMessage", "", time() - 3600, "/");        
-    } else if (isset($_COOKIE['deletedCharMessage'])) {
-            ?>
+if (isset($_COOKIE['logInMessage'])) {
+    ?>
+        <div id="popup" class="popup">
+            Sesión Iniciada Correctamente
+        </div> <?php
+        setcookie("logInMessage", "", time() - 3600, "/");
+} else if (isset($_COOKIE['registerMessage'])) {
+    ?>
+            <div id="popup" class="popup">
+                Usuario Registrado Correctamente
+            </div> <?php
+            setcookie("registerMessage", "", time() - 3600, "/");
+} else if (isset($_COOKIE['deletedCharMessage'])) {
+    ?>
                 <div id="popup" class="popup">
                     Personaje Eliminado Correctamente
                 </div> <?php
-        setcookie("deletedCharMessage", "", time() - 3600, "/");   
-    } else if (isset($_COOKIE['deletedCampaignMessage'])) {
-            ?>
-                <div id="popup" class="popup">
-                    Campaña Eliminada Correctamente
-                </div> <?php
-        setcookie("deletedCampaignMessage", "", time() - 3600, "/");   
-    } 
+                setcookie("deletedCharMessage", "", time() - 3600, "/");
+} else if (isset($_COOKIE['deletedCampaignMessage'])) {
     ?>
+                    <div id="popup" class="popup">
+                        Campaña Eliminada Correctamente
+                    </div> <?php
+                    setcookie("deletedCampaignMessage", "", time() - 3600, "/");
+}
+?>
+    <div id="margin">
+        <img id="menuHamburguesa" src="../src/img/menu.png" />
+        <div id="menuHamburguesaBotones">
+            <button id="userProfile">Perfil de Usuario</button>
+            <button id="logOut">Cerrar Sesión</button>
+        </div>
+    </div>
     <div id="body">
         <h1>Bienvenido, <?php echo htmlspecialchars($user['username']); ?></h1>
         <h2>Campañas</h2>
@@ -96,8 +103,6 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
     </div>
-    <button id="logOut">Cerrar Sesión</button>
-    <button id="userProfile">Perfil de Usuario</button>
 </body>
 
 </html>

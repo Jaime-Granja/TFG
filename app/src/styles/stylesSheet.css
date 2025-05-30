@@ -66,12 +66,25 @@ h2 {
   position: relative;
   left: -35%;
 }
-
+div div h1 {
+  color: #ccc;
+}
 #menuHamburguesaBotones {
   display: none;
   flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-evenly;
+  gap: 4rem;
   margin-top: 5rem;
+}
+#sheetInfo, #sheetChanges, #navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#sheetInfo, #sheetChanges {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 #mainPageBotton {
   display: none;
