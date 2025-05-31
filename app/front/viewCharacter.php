@@ -393,14 +393,14 @@ if (isset($_SESSION['message'])) {
     </div>
   </div>
   <div id="sheetTabs">
-    <button class="tab active" id="mainPageBotton">Principal</button>
-    <button class="tab" id="backgroundBotton">Trasfondo</button>
-    <button class="tab" id="featuresBotton">Rasgos</button>
-    <button class="tab" id="equipmentBotton">Equipo</button>
-    <button class="tab" id="spellbookBotton">Libro de Hechizos</button>
+    <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage"> Principal</button>
+    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage"> Trasfondo</button>
+    <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
+    <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
+    <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de Hechizos</button>
     <!-- Intento de menú desplegable para edición de PJ -->
     <div id="dropdown" >
-      <button id="dropButton" class="tab">Modificar</button>
+      <button id="dropButton" class="tab">Modificar ∇</button>
       <div id="dropContent">
         <button id="editButton" onclick="toggleFormulario()">Editar</button>
         <!-- BOTON BORRAR -->
