@@ -121,7 +121,7 @@ try {
         <title>Document</title>
         <link rel="stylesheet" href="../src/styles/stylesCampaign.css" />
         <script src="../src/scripts/campaign.js"></script>
-        <link rel="shortcut icon" href="../src/img/D20.png" />
+        <link rel="shortcut icon" href="../src/img/logo.png" />
     </head>
     <!-- Comprobamos si el usuario viene de crear la campaña o unirse a ella por primera vez para generar el pop-up de bienvenida -->
     <body> <?php

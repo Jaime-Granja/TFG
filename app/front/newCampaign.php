@@ -111,7 +111,7 @@ if (isset($_POST['joinCampaign'])) {
   <title>Nueva Campaña</title>
   <link rel="stylesheet" href="../src/styles/stylesNewCampaign.css" />
   <script src="../src/scripts/newCampaign.js"></script>
-  <link rel="shortcut icon" href="../src/img/D20.png" />
+  <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
 <body>

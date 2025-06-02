@@ -79,7 +79,12 @@ div div h1 {
 #menuHamburguesaBotones button {
   padding: 1rem;
 }
-
+#logOut {
+  background-color: #bb0a21;
+}
+#logOut:hover {
+  background-color: #e74c3c;
+}
 
 #sheetTabs {
   margin-top: 5rem;

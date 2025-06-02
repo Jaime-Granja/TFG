@@ -162,7 +162,7 @@ try {
     <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesUser.css" />
     <script src="../src/scripts/user.js"></script>
-    <link rel="shortcut icon" href="../src/img/D20.png" />
+    <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
 <body>

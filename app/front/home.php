@@ -26,7 +26,7 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
     <!-- <link rel="stylesheet" href="../src/styles/styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesHome.css">
     <script src="../src/scripts/home.js"></script>
-    <link rel="shortcut icon" href="../src/img/D20.png" />
+    <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
 <body> <?php

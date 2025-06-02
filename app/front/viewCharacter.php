@@ -359,10 +359,10 @@ if (!empty($_SESSION['fromNewCharacter'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Ficha</title>
   <link rel="stylesheet" href="../src/styles/stylesSheet.css" />
   <script src="../src/scripts/sheet.js"></script>
-  <link rel="shortcut icon" href="../src/img/D20.png" />
+  <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
 <body id="body"> <?php
@@ -388,8 +388,8 @@ if (isset($_SESSION['message'])) {
     <div id="menuHamburguesaBotones">
       <h1>Navegación</h1>
       <button id="goBack">Retroceder</button>
-      <button id="logOut">Cerrar Sesión</button>
       <button id="userProfile">Perfil de Usuario</button>
+      <button id="logOut">Cerrar Sesión</button>
     </div>
   </div>
   <div id="sheetTabs">
