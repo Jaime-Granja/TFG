@@ -54,6 +54,7 @@ window.onload = function () {
     if (!margen.contains(event.target) && event.target !== menu) {
       botones.style.display = "none";
       menu.style.display = "block";
+      margen.style.height = 0;
       fondo.style.opacity = "100%";
       margen.style.backgroundColor = "transparent";
     }

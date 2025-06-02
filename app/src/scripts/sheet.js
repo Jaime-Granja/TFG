@@ -49,6 +49,7 @@ window.onload = function () {
     if (!margen.contains(event.target) && event.target !== menu) {
       botones.style.display = "none";
       menu.style.display = "block";
+      margen.style.height = 0;
       fondo.style.opacity = "100%";
       fondoSecundario.style.opacity = "100%";
       margen.style.backgroundColor = "transparent";
@@ -193,5 +194,6 @@ window.onload = function () {
     console.log("Funciona?");
     let content = document.getElementById("dropContent");
     content.classList.toggle("show");
+    
   }
 };
