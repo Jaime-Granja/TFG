@@ -3,7 +3,8 @@ CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    profile_pic VARCHAR(255)
 );
 
 -- Tabla Campañas
@@ -12,6 +13,7 @@ CREATE TABLE Campaigns (
     campaign_name VARCHAR(50) NOT NULL,
     campaign_desc TEXT NOT NULL,
     creator_id INT NOT NULL,
+    campaign_pic VARCHAR(255),
     invite_code VARCHAR(10) UNIQUE,
     FOREIGN KEY (creator_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
@@ -144,6 +146,7 @@ CREATE TABLE Characters (
     class_levels JSON,
     pb INT, 
     stats JSON,
+    character_pic VARCHAR(255),
     FOREIGN KEY (character_owner) REFERENCES Users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (specie) REFERENCES Species (specie_id) ON DELETE CASCADE
 );

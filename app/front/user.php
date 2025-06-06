@@ -150,7 +150,24 @@ try {
     $avgLevel = 0;
 }
 
+//===== IMAGEN DE PERFIL =====
+$profilePic = '../src/img/user.png'; // Imagen por defecto
 
+if ($userId) {
+    $select = $dbConection->prepare("SELECT profile_pic FROM users WHERE user_id = :id");
+    $select->execute([':id' => $userId]);
+    $result = $select->fetch(PDO::FETCH_ASSOC);
+
+    if (!empty($result['profile_pic'])) {
+        // Elimina cualquier '../' inicial para evitar rutas incorrectas
+        $relativePath = ltrim($result['profile_pic'], '/');
+        $absolutePath = realpath(__DIR__ . '/../' . $relativePath);
+
+        if ($absolutePath && file_exists($absolutePath)) {
+            $profilePic = $result['profile_pic'];
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -180,7 +197,7 @@ try {
     <div id="body">
         <h1>Página de Usuario de <?php echo htmlspecialchars($loggedUserData['username']) ?></h1>
         <div id="infoUsuario">
-            <img id="profilePic" src="../src/img/user.png" />
+            <img id="profilePic" src="<?= htmlspecialchars("../" . $profilePic) ?>" alt="Profile picture" />
             <div id="personalData">
                 <h2 class="title">Datos Personales</h2>
                 <p>Nombre Usuario</p>
@@ -230,6 +247,16 @@ try {
                 <button type="submit" name="change_password">Confirmar</button>
             </form>
         </div>
+
+        <div id="uploadPic">
+            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                <label for="user_photo">Subir foto de perfil:</label><br>
+                <input type="file" name="user_photo" id="user_photo" accept="image/*" required>
+                <input type="hidden" name="user_id" value="<?= htmlspecialchars($userId) ?>">
+                <input type="submit" name="upload_user_photo" value="Subir foto de perfil">
+            </form>
+        </div>
+
 
         <button id="goBackUser">Retroceder</button>
     </div>
