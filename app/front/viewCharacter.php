@@ -345,6 +345,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
   $_SESSION['messageType'] = "error";
 }
 
+//===== Character Image =====
+$characterPic = '../src/img/barbarian.png'; // Imagen por defecto
+
+if ($userId) {
+    $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_owner = :id");
+    $select->execute([':id' => $userId]);
+    $result = $select->fetch(PDO::FETCH_ASSOC);
+
+    if (!empty($result['character_pic'])) {
+        // Elimina cualquier '../' inicial para evitar rutas incorrectas
+        $relativePath = ltrim($result['character_pic'], '/');
+        $absolutePath = realpath(__DIR__ . '/../' . $relativePath);
+
+        if ($absolutePath && file_exists($absolutePath)) {
+            $characterPic = $result['character_pic'];
+        }
+    }
+}
+
+// ===== Detectar si viene de crear el pj =====
 $isFromNewCharacter = false;
 
 if (!empty($_SESSION['fromNewCharacter'])) {
@@ -389,17 +409,25 @@ if (isset($_SESSION['message'])) {
       <h1>Navegación</h1>
       <button id="goBack">Retroceder</button>
       <button id="userProfile">Perfil de Usuario</button>
+      <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+        <label for="character_photo">Subir imagen de personaje:</label><br>
+        <input type="file" name="character_photo" id="character_photo" accept="image/*" required>
+        <input type="hidden" name="character_id" value="<?= htmlspecialchars($characterId) ?>">
+        <input type="submit" name="upload_character_photo" value="Subir imagen de personaje">
+      </form>
       <button id="logOut">Cerrar Sesión</button>
     </div>
   </div>
   <div id="sheetTabs">
     <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage"> Principal</button>
-    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage"> Trasfondo</button>
+    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage">
+      Trasfondo</button>
     <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
     <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
-    <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de Hechizos</button>
+    <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de
+      Hechizos</button>
     <!-- Intento de menú desplegable para edición de PJ -->
-    <div id="dropdown" >
+    <div id="dropdown">
       <button id="dropButton" class="tab">Modificar ∇</button>
       <div id="dropContent">
         <button id="editButton" onclick="toggleFormulario()">Editar</button>
@@ -680,6 +708,9 @@ if (isset($_SESSION['message'])) {
   <div id="contenedorSecundario">
     <div id="backgroundPage">
       <h2>Trasfondo</h2>
+
+      <img id="characterPic" src="<?= htmlspecialchars("../" . $characterPic) ?>" alt="Character picture" />
+
       <h3>Profesor Arcano</h3>
       <div>
         Pellentesque ante nec sapien condimentum, eu ornare eros pellentesque.
