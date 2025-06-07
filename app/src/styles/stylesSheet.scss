@@ -1,18 +1,38 @@
+// Mixins para media queries
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == small {
+    @media (min-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == large {
+    @media (min-width: 992px) {
+      @content;
+    }
+  } @else if $breakpoint == xlarge {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
 body {
-  margin: 0;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0 2rem 0;
   padding: 0;
   width: 100%;
   height: 100%;
   background-color: #6874e8;
   position: absolute;
 }
+
 .popup {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #fff;
+  background-color: #e9f8f0;
   border-radius: 8px;
   padding: 16px 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -25,25 +45,25 @@ body {
   display: none;
   border-left: 5px solid #27ae60;
   color: #27ae60;
-  background-color: #e9f8f0;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.error {
+    border-left-color: #e74c3c;
+    color: #e74c3c;
+    background-color: #fdecea;
+  }
+
+  &.success {
+    border-left-color: #27ae60;
+    color: #27ae60;
+    background-color: #e9f8f0;
+  }
 }
 
-.popup.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.popup.error {
-  border-left: 5px solid #e74c3c;
-  color: #e74c3c;
-  background-color: #fdecea;
-}
-
-.popup.success {
-  border-left: 5px solid #27ae60;
-  color: #27ae60;
-  background-color: #e9f8f0;
-}
 h2 {
   text-decoration: underline;
 }
@@ -51,8 +71,8 @@ h2 {
 #margin {
   margin-top: 0;
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 0;
+  left: 0;
   width: 40%;
   z-index: 1;
   padding: 1rem;
@@ -61,37 +81,48 @@ h2 {
   align-items: center;
   gap: 1rem;
 }
+
 #menuHamburguesa {
   width: 3.8rem;
   position: relative;
   left: -35%;
 }
-div div h1 {
-  color: #ccc;
+
+div {
+  div {
+    h1 {
+      color: #ccc;
+    }
+  }
 }
+
 #menuHamburguesaBotones {
   display: none;
   flex-direction: column;
   justify-content: space-evenly;
   gap: 4rem;
   margin-top: 5rem;
+
+  button {
+    padding: 1rem;
+  }
 }
-#menuHamburguesaBotones button {
-  padding: 1rem;
-}
+
 #logOut {
   background-color: #bb0a21;
-}
-#logOut:hover {
-  background-color: #e74c3c;
+
+  &:hover {
+    background-color: #e74c3c;
+  }
 }
 
 #sheetTabs {
   margin-top: 5rem;
   margin-left: 4rem;
 }
+
 .tab {
-  padding: 0.5rem 1rem 0rem 1rem;
+  padding: 0.5rem 1rem 0 1rem;
   background-color: #c8c3b4;
   border: 1px solid #ccc;
   border-bottom: none;
@@ -102,29 +133,38 @@ div div h1 {
   font-weight: bold;
   font-size: large;
   height: 3rem;
+
+  &:hover {
+    background-color: #d0d0d0;
+  }
+
+  &.active {
+    height: 3.5rem;
+    background-color: #ffebcd;
+    border-bottom: 2px solid #ffebcd;
+  }
 }
 
-.tab:hover, #dropButton:hover {
-  background-color: #d0d0d0;
-}
-.tab.active {
-  height: 3.5rem;
-  background-color: #ffebcd;
-  border-bottom: 2px solid #ffebcd;
-}
 button img {
   max-width: 1.5rem;
 }
+
 #dropdown {
   position: relative;
   float: right;
   margin-right: 4rem;
 }
+
 #dropButton {
   position: relative;
   height: 3rem;
   background-color: #c8c3b4;
+
+  &:hover {
+    background-color: #d0d0d0;
+  }
 }
+
 #dropContent {
   display: none;
   position: absolute;
@@ -133,28 +173,28 @@ button img {
   background-color: #ffebcd;
   border: 1px solid #ccc;
   padding: 5px 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   min-width: 8rem;
+
+  &.show {
+    display: block;
+  }
+
+  button {
+    margin-bottom: 0.5rem;
+    display: block;
+    background-color: #ffebcd;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
 }
 
-#dropContent button {
-  margin-bottom: 0.5rem;
-  display: block;
-  background-color: #ffebcd;
-}
-
-#dropContent button:hover {
-  background-color: #f0f0f0;
-}
-
-#dropContent.show {
-  display: block;
-}
-
-#contenedorPrincipal, #contenedorSecundario {
+#contenedorPrincipal,
+#contenedorSecundario {
   text-align: center;
-  margin: 4% auto;
-  margin-top: 0%;
+  margin: 4% auto 0 auto;
   padding: 1em;
   width: calc(100% - 4rem);
   color: #bb0a21;
@@ -165,6 +205,7 @@ button img {
 #contenedorSecundario {
   display: none;
 }
+
 #profile {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -172,15 +213,16 @@ button img {
   max-width: 95%;
   padding-bottom: 1rem;
   border-bottom: 1px dashed #bb0a21;
+
+  #profileTitle {
+    grid-column: span 2;
+  }
+
+  #characterClass {
+    grid-column: span 2;
+  }
 }
 
-#profileTitle {
-  grid-column: span 2;
-}
-
-#characterClass{
-  grid-column: span 2;
-}
 .characterField {
   background-color: antiquewhite;
   color: black;
@@ -190,9 +232,12 @@ button img {
 #globalStats {
   margin-top: 1em;
   display: grid;
+  gap: 0.5rem;
+}
+
+#stats {
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.5rem;
 }
 
 .stat {
@@ -201,18 +246,13 @@ button img {
   padding: 1em 0.5em 0 0.5em;
   height: fit-content;
   text-align: center;
-}
-
-.stat,
-.globalStat,
-#attackBlock {
   background-color: antiquewhite;
 }
 
 .mod {
   border: 1px solid black;
   border-radius: 2em;
-  padding: 1em 2em 1em 2em;
+  padding: 1em 2em;
 }
 
 #globalStats {
@@ -221,20 +261,21 @@ button img {
   grid-column: span 3;
   text-align: center;
   padding-bottom: 1.5rem;
-  border-top: 1px dashed #bb0a21;
   padding-top: 1rem;
+  border-top: 1px dashed #bb0a21;
   border-bottom: 1px dashed #bb0a21;
-}
 
-.globalStat {
-  border: 1px solid black;
-  border-radius: 2em;
-  padding: 1em 0.5em 1em 0.5em;
-  text-align: center;
-}
+  .globalStat {
+    border: 1px solid black;
+    border-radius: 2em;
+    padding: 1em 0.5em;
+    text-align: center;
+    background-color: antiquewhite;
+  }
 
-#pb {
-  grid-column: span 2;
+  #pb {
+    grid-column: span 2;
+  }
 }
 
 #tiradas {
@@ -248,83 +289,91 @@ button img {
   gap: 1rem;
   border-bottom: 1px dashed #bb0a21;
   padding-bottom: 1em;
-}
 
-#savesTitle {
-  flex-basis: 100%;
-}
+  #savesTitle {
+    flex-basis: 100%;
+  }
 
-.save {
-  display: flex;
-  flex-direction: column;
-  padding: 0.2rem;
-  background-color: antiquewhite;
-  border-radius: 0.2rem;
+  .save {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2rem;
+    background-color: antiquewhite;
+    border-radius: 0.2rem;
+  }
 }
 
 #abilities {
   border-bottom: 1px dashed #bb0a21;
   padding-bottom: 1em;
   min-width: 0;
-}
 
-#abilitiesPhysical,
-#abilitiesMental {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-  min-width: 0;
-}
+  &Physical,
+  &Mental {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    min-width: 0;
+  }
 
-#abilitiesStr,
-#abilitiesDex,
-#abilitiesInt,
-#abilitiesWis,
-#abilitiesCha {
-  min-width: 0;
-}
+  &Str,
+  &Dex,
+  &Int,
+  &Wis,
+  &Cha {
+    min-width: 0;
+  }
 
-.ability {
-  min-width: 0;
-  margin-bottom: 0.5rem;
-  padding: 0.2rem;
-  text-align: center;
-  font-size: small;
-  background-color: antiquewhite;
-  border-radius: 0.2rem;
+  .ability {
+    min-width: 0;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: small;
+    background-color: antiquewhite;
+    border-radius: 0.2rem;
+  }
 }
 
 #attackBlock {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   padding: 0.3rem;
+  background-color: antiquewhite;
 }
 
-#backgroundPage, #featuresPage, #equipmentPage, #spellbookPage {
+#backgroundPage,
+#featuresPage,
+#equipmentPage,
+#spellbookPage {
   display: none;
 }
+
 #equipmentPage {
   width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-}
-#addEquipmentBotton {
-  align-self: end;
-}
-#equipmentItems {
-  width: 100%;
-  text-align: left;
-  background-color: antiquewhite;
-  border: 1px solid ;
+
+  #addEquipmentBotton {
+    align-self: end;
+  }
+
+  #equipmentItems {
+    width: 100%;
+    text-align: left;
+    background-color: antiquewhite;
+    border: 1px solid;
+  }
+
+  .equipmentItem {
+    padding: 1em;
+  }
 }
 
-.equipmentItem {
-  padding: 1em;
-}
 #spellbookPage {
-width: 100%;
+  width: 100%;
 }
 
 #spellStats {
@@ -332,20 +381,24 @@ width: 100%;
   flex-direction: column;
   align-items: center;
   gap: 1em;
-}
-.spellStat {
-  width: 80%;
-  padding: 1em;
-  border: 1px dashed red;
-  background-color: antiquewhite;
-}
-.spell {
-  padding: 1em;
+
+  .spellStat {
+    width: 80%;
+    padding: 1em;
+    border: 1px dashed red;
+    background-color: antiquewhite;
+  }
+
+  .spell {
+    padding: 1em;
+  }
 }
 
-@media (min-width: 576px) {
+
+@include respond-to(small) {
+
 }
 
-@media (min-width: 992px) {
-  
+@include respond-to(large) {
+
 }
