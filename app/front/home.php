@@ -6,12 +6,12 @@ $selectUser = $dbConection->prepare("SELECT username FROM users WHERE user_id = 
 $selectUser->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectUser->execute();
 $user = $selectUser->fetch(PDO::FETCH_ASSOC);
-$selectCampaigns = $dbConection->prepare("SELECT c.campaign_id, c.campaign_name, c.campaign_desc FROM campaigns c JOIN users_campaigns uc ON c.campaign_id = uc.campaign_id WHERE uc.user_id = :userId");
+$selectCampaigns = $dbConection->prepare("SELECT c.campaign_id, c.campaign_name, c.campaign_desc, c.campaign_pic FROM campaigns c JOIN users_campaigns uc ON c.campaign_id = uc.campaign_id WHERE uc.user_id = :userId");
 $selectCampaigns->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectCampaigns->execute();
 $campaigns = $selectCampaigns->fetchAll(PDO::FETCH_ASSOC);
 
-$selectCharacters = $dbConection->prepare("SELECT character_id, character_name, character_desc FROM characters WHERE character_owner = :userId");
+$selectCharacters = $dbConection->prepare("SELECT character_id, character_name, character_desc, character_pic FROM characters WHERE character_owner = :userId");
 $selectCharacters->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectCharacters->execute();
 $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
@@ -52,8 +52,9 @@ if (isset($_COOKIE['logInMessage'])) {
     ?>
                     <div id="popup" class="popup">
                         Campaña Eliminada Correctamente
-                    </div> <?php
-                    setcookie("deletedCampaignMessage", "", time() - 3600, "/");
+                    </div>
+            <?php
+            setcookie("deletedCampaignMessage", "", time() - 3600, "/");
 }
 ?>
     <div id="margin">
@@ -77,6 +78,10 @@ if (isset($_COOKIE['logInMessage'])) {
                     <?php foreach ($campaigns as $campaign): ?>
                         <div class="campaign">
                             <h3><?php echo htmlspecialchars($campaign['campaign_name']); ?></h3><br>
+                            <?php if (!empty($campaign['campaign_pic'])): ?>
+                                <img src="<?php echo htmlspecialchars("../" . $campaign['campaign_pic']); ?>" alt="Imagen de campaña"
+                                    class="campaign-img">
+                            <?php endif; ?>
                             <?php echo nl2br(htmlspecialchars($campaign['campaign_desc'])); ?><br>
                             <button class="mas" data-campaign-id="<?php echo $campaign['campaign_id']; ?>">+</button>
                         </div>
@@ -96,6 +101,10 @@ if (isset($_COOKIE['logInMessage'])) {
                 <?php foreach ($characters as $character): ?>
                     <div class="sheet">
                         <h3><?php echo htmlspecialchars($character['character_name']); ?></h3><br>
+                        <?php if (!empty($character['character_pic'])): ?>
+                            <img src="<?php echo htmlspecialchars("../" . $character['character_pic']); ?>" alt="Imagen del personaje"
+                                class="character-img">
+                        <?php endif; ?>
                         <?php echo nl2br(htmlspecialchars($character['character_desc'])); ?><br>
                         <button class="mas" data-character-id="<?php echo $character['character_id']; ?>">+</button>
                     </div>

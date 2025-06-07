@@ -348,9 +348,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 //===== Character Image =====
 $characterPic = 'src/img/barbarian.png'; // Imagen por defecto
 
-if ($userId) {
-    $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_owner = :id");
-    $select->execute([':id' => $userId]);
+if ($characterId) {
+    $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_id = :id");
+    $select->execute([':id' => $characterId]);
     $result = $select->fetch(PDO::FETCH_ASSOC);
 
     if (!empty($result['character_pic'])) {
