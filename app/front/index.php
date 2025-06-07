@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>BDD-index</title>
     <link href="https://fonts.googleapis.com/css2?family=Almendra&family=Cormorant+Garamond:wght@700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../src/styles/styles.css" />
+    <link rel="stylesheet" href="../src/styles/styles.scss" />
     <script src="../src/scripts/main.js"></script>
     <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
