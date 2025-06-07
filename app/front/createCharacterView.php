@@ -27,12 +27,21 @@ if (isset($_POST['createCharacter'])) {
         "charisma" => (int) $_POST["charisma"]
     ], JSON_UNESCAPED_UNICODE);
 
+    // Ruta de imagen por clase para guardar una imagen predeterminadaa
+    $classImageMap = [
+        1 => 'src/img/barbarian.png',
+        2 => 'src/img/wizard.png',
+        // De momento no añadimos más porque sólo tenemos dos clases de ejemplo
+    ];
+
+    $characterPic = isset($classImageMap[$classId]) ? $classImageMap[$classId] : 'src/img/barbarian.png';
+
     try {
 
         // Preparamos la inserción a la base de datos
         $insert = $dbConection->prepare("
-            INSERT INTO Characters (character_name, character_desc, character_owner, specie, pb, stats, class_levels)
-            VALUES (:name, :desc, :owner, :specie, 2, :stats, :classLevels)
+            INSERT INTO Characters (character_name, character_desc, character_owner, specie, pb, stats, class_levels, character_pic)
+            VALUES (:name, :desc, :owner, :specie, 2, :stats, :classLevels, :pic)
         ");
 
         // Y, por último, ejecutamos la inserción poniendo todas las variables correspondientes
@@ -42,7 +51,8 @@ if (isset($_POST['createCharacter'])) {
             ':owner' => $owner,
             ':specie' => $specie,
             ':stats' => $stats,
-            ':classLevels' => $classLevels
+            ':classLevels' => $classLevels,
+            ':pic' => $characterPic
         ]);
         $_SESSION['fromNewCharacter'] = true;
         //He puesto este header para testear los pop-ups. Está hardcodeada para ir siempre al character 11. Hay que sacar el characterId que toque.

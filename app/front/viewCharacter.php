@@ -346,7 +346,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 }
 
 //===== Character Image =====
-$characterPic = 'src/img/barbarian.png'; // Imagen por defecto
 
 if ($characterId) {
     $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_id = :id");
