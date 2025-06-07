@@ -86,7 +86,7 @@ if (isset($_POST['campaignDelete'])) {
         $deleteCampaign->execute([':campaignId' => $campaignId]);
         setcookie("deletedCampaignMessage", "Campaña Eliminada Correctamente", time() + 5, "/");
         header("Location: home.php");
-        
+
     } catch (PDOException $e) {
         echo "Error al eliminar la campaña: " . $e->getMessage();
     }
@@ -111,6 +111,27 @@ try {
     $getUserData->bindParam(':campaign_id', $campaignId, PDO::PARAM_INT);
     $getUserData->execute();
     $loggedUserData = $getUserData->fetch(PDO::FETCH_ASSOC);
+
+    //===== campaign Image =====
+    $campaignPic = 'src/img/dados.jpg'; // Imagen por defecto
+
+    if ($campaignId) {
+        $select = $dbConection->prepare("SELECT campaign_pic FROM campaigns WHERE campaign_id = :id");
+        $select->execute([':id' => $campaignId]);
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        if (!empty($result['campaign_pic'])) {
+            // Elimina cualquier '../' inicial para evitar rutas incorrectas
+            $relativePath = ltrim($result['campaign_pic'], '/');
+            $absolutePath = realpath(__DIR__ . '/../' . $relativePath);
+
+            if ($absolutePath && file_exists($absolutePath)) {
+                $campaignPic = $result['campaign_pic'];
+            }
+        }
+    }
+
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -124,6 +145,7 @@ try {
         <link rel="shortcut icon" href="../src/img/logo.png" />
     </head>
     <!-- Comprobamos si el usuario viene de crear la campaña o unirse a ella por primera vez para generar el pop-up de bienvenida -->
+
     <body> <?php
     if ($isFromNewCampaign == true) {
         if ($loggedUserData['role'] == "Master") {
@@ -137,12 +159,12 @@ try {
                         Te has Unido a la Campaña con Éxito
                     </div> <?php
         }
-    }  
+    }
     if ($alreadyJoined == true) {
         ?>
-                <div id="popup" class="popup">
-                    Ya Estabas Unido a Esta Campaña
-                </div> <?php
+            <div id="popup" class="popup">
+                Ya Estabas Unido a Esta Campaña
+            </div> <?php
     }
     // Intento de creación de pop-ups para Edición de Campañas
     if (isset($_SESSION['message'])) {
@@ -170,6 +192,9 @@ try {
                     <button id="campaignButton">Editar</button>
                     <h1 id="campaignName" class="title"><?php echo $campaign['campaign_name'] ?></h1>
                     <!-- $campaignName de la base de datos-->
+                    <div>
+                        <img id="campaignPic" src="<?= htmlspecialchars("../" . $campaignPic) ?>" alt="Profile picture" />
+                    </div>
                     <div id="campaignDescription">
                         <h2>Pequeña Descripción de la Campaña </h2>
                         <!-- $description en la base de datos-->
@@ -238,6 +263,16 @@ try {
 
                         ?>
                     </div>
+
+                    <div>
+                        <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                            <label for="campaign_photo">Subir imagen de personaje:</label><br>
+                            <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
+                            <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
+                            <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
+                        </form>
+                    </div>
+
                     <div id="campaignForm">
                         <form method="POST" action="">
                             <label for="campaignName">Indique el nuevo nombre de la campaña:</label>

@@ -151,7 +151,7 @@ try {
 }
 
 //===== IMAGEN DE PERFIL =====
-$profilePic = '../src/img/user.png'; // Imagen por defecto
+$profilePic = 'src/img/user.png'; // Imagen por defecto
 
 if ($userId) {
     $select = $dbConection->prepare("SELECT profile_pic FROM users WHERE user_id = :id");
