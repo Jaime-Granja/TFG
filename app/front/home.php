@@ -22,7 +22,7 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BDD-Home</title>
     <!-- <link rel="stylesheet" href="../src/styles/styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesHome.css">
     <script src="../src/scripts/home.js"></script>
