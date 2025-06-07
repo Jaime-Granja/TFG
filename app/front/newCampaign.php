@@ -108,7 +108,7 @@ if (isset($_POST['joinCampaign'])) {
 
 <head>
   <meta charset="UTF-8" />
-  <title>Nueva Campaña</title>
+  <title>BDD-New Campaing</title>
   <link rel="stylesheet" href="../src/styles/stylesNewCampaign.css" />
   <script src="../src/scripts/newCampaign.js"></script>
   <link rel="shortcut icon" href="../src/img/logo.png" />

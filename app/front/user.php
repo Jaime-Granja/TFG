@@ -175,7 +175,7 @@ if ($userId) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Usuario: <?php echo htmlspecialchars($loggedUserData['username']) ?></title>
+    <title>BDD-Usuario: <?php echo htmlspecialchars($loggedUserData['username']) ?></title>
     <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="../src/styles/stylesUser.css" />
     <script src="../src/scripts/user.js"></script>

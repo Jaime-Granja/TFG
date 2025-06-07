@@ -64,12 +64,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['entrada'])) {
         try {
             $insert = $dbConection->prepare("INSERT INTO campaign_diary (campaign_id, author_id, title, content, created_at) 
                                              VALUES (:campaignId, :authorId, '', :content, NOW())");
-            $insert->execute([
-                ':campaignId' => $campaignId,
-                ':authorId' => $authorId,
-                ':content' => $entrada
+           $insert->execute([
+            ':campaignId' => $campaignId,
+            ':authorId' => $authorId,
+            ':content' => $entrada
             ]);
-            $diaryMessage = "Entrada guardada con éxito.";
+
+        // guardamos el mensaje en sesion
+        $_SESSION['diaryMessage'] = "Entrada guardada con éxito.";
+
+        // redirigimos para evitar reenvio duplicado al refrescar
+         header("Location: " . $_SERVER['REQUEST_URI']);
+            exit;
         } catch (PDOException $e) {
             $diaryMessage = "Error al guardar entrada: " . $e->getMessage();
         }
@@ -139,7 +145,7 @@ try {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>BDD-Campaing</title>
         <link rel="stylesheet" href="../src/styles/stylesCampaign.css" />
         <script src="../src/scripts/campaign.js"></script>
         <link rel="shortcut icon" href="../src/img/logo.png" />
