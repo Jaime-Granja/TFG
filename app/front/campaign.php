@@ -64,17 +64,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['entrada'])) {
         try {
             $insert = $dbConection->prepare("INSERT INTO campaign_diary (campaign_id, author_id, title, content, created_at) 
                                              VALUES (:campaignId, :authorId, '', :content, NOW())");
-           $insert->execute([
-            ':campaignId' => $campaignId,
-            ':authorId' => $authorId,
-            ':content' => $entrada
+            $insert->execute([
+                ':campaignId' => $campaignId,
+                ':authorId' => $authorId,
+                ':content' => $entrada
             ]);
 
-        // guardamos el mensaje en sesion
-        $_SESSION['diaryMessage'] = "Entrada guardada con éxito.";
+            // guardamos el mensaje en sesion
+            $_SESSION['diaryMessage'] = "Entrada guardada con éxito.";
 
-        // redirigimos para evitar reenvio duplicado al refrescar
-         header("Location: " . $_SERVER['REQUEST_URI']);
+            // redirigimos para evitar reenvio duplicado al refrescar
+            header("Location: " . $_SERVER['REQUEST_URI']);
             exit;
         } catch (PDOException $e) {
             $diaryMessage = "Error al guardar entrada: " . $e->getMessage();
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['entrada'])) {
 if (isset($_POST['campaignDelete'])) {
     try {
         // Borrar la relacion del usuario con la campaña
-        $deleteUsers = $dbConection->prepare("DELETE FROM Users_Campaigns WHERE campaign_id = :campaignId");
+        $deleteUsers = $dbConection->prepare("DELETE FROM Users_Campaigns_Characters WHERE campaign_id = :campaignId");
         $deleteUsers->execute([':campaignId' => $campaignId]);
         // Borrar la campaña
         $deleteCampaign = $dbConection->prepare("DELETE FROM Campaigns WHERE campaign_id = :campaignId");
@@ -102,21 +102,69 @@ if (isset($_POST['campaignDelete'])) {
 
 try {
     //Con esta select sacamos la información de la campaña
-    $select = $dbConection->prepare("SELECT campaign_name, campaign_desc FROM Campaigns WHERE campaign_id = :campaign_id");
+    $select = $dbConection->prepare("SELECT campaign_name, campaign_desc, invite_code FROM Campaigns WHERE campaign_id = :campaign_id");
     $select->bindParam(':campaign_id', $campaignId, PDO::PARAM_INT);
     $select->execute();
     $campaign = $select->fetch(PDO::FETCH_ASSOC);
     //Con esta select sacamos los usuarios que están registrados en la campaña
-    $selectPlayers = $dbConection->prepare("SELECT U.user_id, U.username, UC.role FROM Users U JOIN Users_Campaigns UC ON U.user_id = UC.user_id WHERE UC.campaign_id = :campaign_id");
+    $selectPlayers = $dbConection->prepare("SELECT U.user_id, U.username, UC.role FROM Users U JOIN Users_Campaigns_Characters UC ON U.user_id = UC.user_id WHERE UC.campaign_id = :campaign_id");
     $selectPlayers->bindParam(':campaign_id', $campaignId, PDO::PARAM_INT);
     $selectPlayers->execute();
     $players = $selectPlayers->fetchAll(PDO::FETCH_ASSOC);
     //Ahora queremos sacar quién es el usuario loggeado.
-    $getUserData = $dbConection->prepare("SELECT U.username, UC.role FROM Users U JOIN Users_Campaigns UC ON U.user_id = UC.user_id WHERE U.user_id = :user_id AND UC.campaign_id = :campaign_id");
+    $getUserData = $dbConection->prepare("SELECT U.username, UC.role FROM Users U JOIN Users_Campaigns_Characters UC ON U.user_id = UC.user_id WHERE U.user_id = :user_id AND UC.campaign_id = :campaign_id");
     $getUserData->bindParam(':user_id', $userId, PDO::PARAM_INT);
     $getUserData->bindParam(':campaign_id', $campaignId, PDO::PARAM_INT);
     $getUserData->execute();
     $loggedUserData = $getUserData->fetch(PDO::FETCH_ASSOC);
+
+    // ====== FICHAS =====
+
+    if ($loggedUserData['role'] === 'Master') {
+        $selectAllSheets = $dbConection->prepare("
+        SELECT 
+            Characters.character_name,
+            Characters.character_pic,
+            Species.specie_name,
+            Classes.class_name,
+            Users_Campaigns_Characters.user_id
+        FROM Users_Campaigns_Characters
+        JOIN Characters ON Users_Campaigns_Characters.character_id = Characters.character_id
+        JOIN Species ON Characters.specie = Species.specie_id
+        JOIN Classes ON Classes.class_id = JSON_UNQUOTE(JSON_EXTRACT(JSON_KEYS(Characters.class_levels), '$[0]'))
+        WHERE Users_Campaigns_Characters.campaign_id = :campaignId
+          AND Users_Campaigns_Characters.character_id IS NOT NULL
+    ");
+        $selectAllSheets->execute([':campaignId' => $campaignId]);
+        $allSheets = $selectAllSheets->fetchAll(PDO::FETCH_ASSOC);
+
+    } elseif ($loggedUserData['role'] === 'Player') {
+        $selectCharacters = $dbConection->prepare("SELECT character_id, character_name FROM Characters WHERE character_owner = :user_id");
+        $selectCharacters->execute([':user_id' => $userId]);
+        $userCharacters = $selectCharacters->fetchAll();
+
+        // Aquí sacamos los datos de la ficha asociada a la campaña
+        $selectAssociatedCharacter = $dbConection->prepare("
+        SELECT 
+            Characters.character_name,
+            Characters.character_pic,
+            Species.specie_name,
+            Classes.class_name
+        FROM Users_Campaigns_Characters
+        JOIN Characters ON Users_Campaigns_Characters.character_id = Characters.character_id
+        JOIN Species ON Characters.specie = Species.specie_id
+        JOIN Classes ON Classes.class_id = JSON_UNQUOTE(JSON_EXTRACT(JSON_KEYS(Characters.class_levels), '$[0]'))
+        WHERE Users_Campaigns_Characters.user_id = :userId
+          AND Users_Campaigns_Characters.campaign_id = :campaignId
+          AND Users_Campaigns_Characters.character_id IS NOT NULL
+    ");
+        $selectAssociatedCharacter->execute([
+            ':userId' => $userId,
+            ':campaignId' => $campaignId
+        ]);
+
+        $associatedCharacter = $selectAssociatedCharacter->fetch(PDO::FETCH_ASSOC);
+    }
 
     //===== campaign Image =====
     if ($campaignId) {
@@ -134,6 +182,8 @@ try {
             }
         }
     }
+
+
 
 
     ?>
@@ -187,6 +237,7 @@ try {
             <?php
             if ($campaign) {
                 ?>
+
                 <div campaignInfo>
                     <form id="deleteForm" method="POST"
                         onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
@@ -206,11 +257,68 @@ try {
                     </div>
                 </div>
                 <div id="contenido">
-                    <div id="sheet">
-                        <h2> <?php echo "Ficha de " . htmlspecialchars($loggedUserData['username']); ?></h2>
-                        <button id="sheetButton">Editar</button><br />
-                        <div id="sheetPage">Espacio para la Ficha</div>
-                    </div>
+                    <?php if ($loggedUserData['role'] === 'Master'): ?>
+                        <div id="sheet">
+                            <h2>Fichas de los Jugadores</h2>
+                            <?php foreach ($allSheets as $sheet): ?>
+                                <div class="sheetPage">
+                                    <h3><?= htmlspecialchars($sheet['character_name']) ?></h3>
+                                    <img src='<?= htmlspecialchars("../" . $sheet['character_pic']) ?>' alt='Imagen del personaje'
+                                        style='max-width:100px'><br>
+                                    <p>Clase: <?= htmlspecialchars($sheet['class_name']) ?></p>
+                                    <p>Especie: <?= htmlspecialchars($sheet['specie_name']) ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+
+
+                        <div class="inviteCode">
+                            <h3>Código de invitación:</h3>
+                            <p style="font-family:monospace; font-size:1.2rem;"><?= htmlspecialchars($campaign['invite_code']) ?>
+                            </p>
+                        </div>
+
+                        <div>
+                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                                <label for="campaign_photo">Subir imagen de personaje:</label><br>
+                                <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
+                                <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
+                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
+                            </form>
+                        </div>
+                    <?php elseif ($loggedUserData['role'] === 'Player'): ?>
+
+                        <?php if ($associatedCharacter): ?>
+                            <div id="sheet">
+                                <h2><?= "Ficha de " . htmlspecialchars($loggedUserData['username']); ?></h2>
+                                <div class='sheetPage'>
+                                    <h3><?= htmlspecialchars($associatedCharacter['character_name']) ?></h3>
+                                    <img src='<?= htmlspecialchars("../" . $associatedCharacter['character_pic']) ?>'
+                                        alt='Imagen del personaje' style='max-width:150px'>
+                                    <p>Clase: <?= htmlspecialchars($associatedCharacter['class_name']) ?></p>
+                                    <p>Especie: <?= htmlspecialchars($associatedCharacter['specie_name']) ?></p>
+                                </div>
+                                <button id="sheetButton">Ver Ficha</button><br />
+                            </div>
+
+                        <?php else: ?>
+                            <form method="POST" action="../back/associateCharacter.php">
+                                <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
+
+                                <label for="character_id">Selecciona tu ficha para esta campaña:</label>
+                                <select name="character_id" id="character_id" required>
+                                    <?php foreach ($userCharacters as $char): ?>
+                                        <option value="<?= $char['character_id'] ?>">
+                                            <?= htmlspecialchars($char['character_name']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <button type="submit">Asociar ficha</button>
+                            </form>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <div id="journal">
                         <h2 id="journalTitle">Diario de Campaña</h2>
                         <button id="journalButton">Editar</button><br />
@@ -266,15 +374,6 @@ try {
                         }
 
                         ?>
-                    </div>
-
-                    <div>
-                        <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-                            <label for="campaign_photo">Subir imagen de personaje:</label><br>
-                            <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
-                            <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
-                            <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
-                        </form>
                     </div>
 
                     <div id="campaignForm">

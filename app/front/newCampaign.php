@@ -49,7 +49,7 @@ if (isset($_POST['createCampaign'])) {
       $campaignId = $campaign["campaign_id"];
 
       // Insertamos los datos en la tabla usuarios_campañas para añadir al usuario a la campaña
-      $insert = $dbConection->prepare("INSERT INTO Users_Campaigns (user_id, campaign_id, role) VALUES (:creatorId, :campaignId, 'Master')");
+      $insert = $dbConection->prepare("INSERT INTO Users_Campaigns_Characters (user_id, campaign_id, role) VALUES (:creatorId, :campaignId, 'Master')");
       $insert->execute([
         ':creatorId' => $creatorId,
         ':campaignId' => $campaignId
@@ -78,7 +78,7 @@ if (isset($_POST['joinCampaign'])) {
 
   if ($campaign) {
     $campaignId = $campaign["campaign_id"];
-    $verify = $dbConection->prepare("SELECT COUNT(*) FROM Users_Campaigns WHERE campaign_id = :campaignId AND user_id = :userId");
+    $verify = $dbConection->prepare("SELECT COUNT(*) FROM Users_Campaigns_Characters WHERE campaign_id = :campaignId AND user_id = :userId");
     $verify->execute([
       ':campaignId' => $campaignId,
       ':userId' => $userId
@@ -90,7 +90,7 @@ if (isset($_POST['joinCampaign'])) {
       exit;
     } else {
       // Insertamos los datos en la tabla usuarios_campañas para añadir al usuario a la campaña
-      $insert = $dbConection->prepare("INSERT INTO Users_Campaigns (user_id, campaign_id, role) VALUES (:userId, :campaignId, 'Player')");
+      $insert = $dbConection->prepare("INSERT INTO Users_Campaigns_Characters (user_id, campaign_id, role) VALUES (:userId, :campaignId, 'Player')");
       $insert->execute([
         ':userId' => $userId,
         ':campaignId' => $campaignId

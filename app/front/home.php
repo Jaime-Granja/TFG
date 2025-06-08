@@ -6,7 +6,7 @@ $selectUser = $dbConection->prepare("SELECT username FROM users WHERE user_id = 
 $selectUser->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectUser->execute();
 $user = $selectUser->fetch(PDO::FETCH_ASSOC);
-$selectCampaigns = $dbConection->prepare("SELECT c.campaign_id, c.campaign_name, c.campaign_desc, c.campaign_pic FROM campaigns c JOIN users_campaigns uc ON c.campaign_id = uc.campaign_id WHERE uc.user_id = :userId");
+$selectCampaigns = $dbConection->prepare("SELECT c.campaign_id, c.campaign_name, c.campaign_desc, c.campaign_pic FROM campaigns c JOIN users_campaigns_characters uc ON c.campaign_id = uc.campaign_id WHERE uc.user_id = :userId");
 $selectCampaigns->bindParam(':userId', $userId, PDO::PARAM_INT);
 $selectCampaigns->execute();
 $campaigns = $selectCampaigns->fetchAll(PDO::FETCH_ASSOC);

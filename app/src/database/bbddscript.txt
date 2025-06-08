@@ -30,23 +30,6 @@ CREATE TABLE Campaign_Diary (
     FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
--- Tabla Usuarios_Campañas
-
-/*ON DELETE CASCADE lo pongo para mantener la integridad referencial. Si un usuario o una campaña se eliminan, las filas relacionadas en Users_Campaigns también se borran automáticamente.
-
-Poner la clave primaria compuesta es necesario para garantizar que cada combinación de usuario y campaña sea única. Así un usuario no se puede unir varias veces a la misma.
-
-ENUM es una lista fija de valores posibles para una columna*/
-
-CREATE TABLE Users_Campaigns (
-    user_id INT NOT NULL,
-    campaign_id INT NOT NULL,
-    role ENUM('Master', 'Player') NOT NULL,  
-    PRIMARY KEY (user_id, campaign_id), 
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (campaign_id) REFERENCES Campaigns(campaign_id) ON DELETE CASCADE
-);
-
 -- Tabla Monstruos
 CREATE TABLE Monsters (
     monster_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -158,6 +141,25 @@ CREATE TABLE Characters_Items (
     PRIMARY KEY (character_id, item_id), 
     FOREIGN KEY (character_id) REFERENCES Characters(character_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE CASCADE
+);
+
+-- Tabla Usuarios_Campañas
+
+/*ON DELETE CASCADE lo pongo para mantener la integridad referencial. Si un usuario o una campaña se eliminan, las filas relacionadas en Users_Campaigns también se borran automáticamente.
+
+Poner la clave primaria compuesta es necesario para garantizar que cada combinación de usuario y campaña sea única. Así un usuario no se puede unir varias veces a la misma.
+
+ENUM es una lista fija de valores posibles para una columna*/
+
+CREATE TABLE Users_Campaigns_Characters (
+    user_id INT NOT NULL,
+    campaign_id INT NOT NULL,
+    character_id INT DEFAULT NULL,  
+    role ENUM('Master', 'Player') NOT NULL,
+    PRIMARY KEY (user_id, campaign_id), 
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (character_id) REFERENCES Characters(character_id) ON DELETE SET NULL,
+    FOREIGN KEY (campaign_id) REFERENCES Campaigns(campaign_id) ON DELETE CASCADE
 );
 
 
