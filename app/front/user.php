@@ -177,7 +177,7 @@ if ($userId) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BDD-Usuario: <?php echo htmlspecialchars($loggedUserData['username']) ?></title>
     <!-- <link rel="stylesheet" href="./styles.css"> -->
-    <link rel="stylesheet" href="../src/styles/stylesUser.css" />
+    <link rel="stylesheet" href="../src/styles/stylesUser.scss" />
     <script src="../src/scripts/user.js"></script>
     <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>

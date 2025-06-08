@@ -1,3 +1,16 @@
+// Mixins para media queries
+@mixin media-sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -25,20 +38,24 @@ body {
   min-width: 120px;
   padding: 10px 15px;
 }
+
 #campaignButton {
   right: 2%;
   top: 0.7%;
 }
+
 #campaignDelete {
-    display: none;
+  display: none;
   left: 2%;
   top: 0.7%;
   background-color: red;
 }
+
 #campaignForm {
   display: none;
   flex-direction: column;
 }
+
 form {
   display: flex;
   flex-direction: column;
@@ -46,11 +63,12 @@ form {
   margin-top: 1rem;
   background-color: antiquewhite;
 }
+
 #sheetPage,
 #journalPage {
   height: 10rem;
   background-color: antiquewhite;
-  margin: 1rem 1rem 1rem 1rem;
+  margin: 1rem;
 }
 
 #participantsTittle {
@@ -84,15 +102,18 @@ form {
   align-items: center;
   gap: 1rem;
 }
+
 #menuHamburguesa {
   width: 4rem;
 }
+
 #menuHamburguesaBotones {
   display: none;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 5rem;
 }
+
 .popup {
   position: fixed;
   top: 20px;
@@ -111,26 +132,26 @@ form {
   border-left: 5px solid #27ae60;
   color: #27ae60;
   background-color: #e9f8f0;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.error {
+    border-left: 5px solid #e74c3c;
+    color: #e74c3c;
+    background-color: #fdecea;
+  }
+
+  &.success {
+    border-left: 5px solid #27ae60;
+    color: #27ae60;
+    background-color: #e9f8f0;
+  }
 }
 
-.popup.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.popup.error {
-  border-left: 5px solid #e74c3c;
-  color: #e74c3c;
-  background-color: #fdecea;
-}
-
-.popup.success {
-  border-left: 5px solid #27ae60;
-  color: #27ae60;
-  background-color: #e9f8f0;
-}
-
-@media (min-width: 576px) {
+@include media-sm {
   #contenido {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -155,7 +176,7 @@ form {
   }
 }
 
-@media (min-width: 992px) {
+@include media-lg {
   #contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

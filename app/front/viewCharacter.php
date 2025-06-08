@@ -379,7 +379,7 @@ if (!empty($_SESSION['fromNewCharacter'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BDD-Ficha</title>
-  <link rel="stylesheet" href="../src/styles/stylesSheet.css" />
+  <link rel="stylesheet" href="../src/styles/stylesSheet.scss" />
   <script src="../src/scripts/sheet.js"></script>
   <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>

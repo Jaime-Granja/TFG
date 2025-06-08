@@ -194,7 +194,7 @@ try {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>BDD-Campaing</title>
-        <link rel="stylesheet" href="../src/styles/stylesCampaign.css" />
+        <link rel="stylesheet" href="../src/styles/stylesCampaign.scss" />
         <script src="../src/scripts/campaign.js"></script>
         <link rel="shortcut icon" href="../src/img/logo.png" />
     </head>
