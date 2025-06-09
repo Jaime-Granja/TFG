@@ -231,6 +231,27 @@ try {
                 </div>
             <?php endif;
     }
+    if (isset($_COOKIE['invalidPicture'])) {
+            ?>
+            <div id="popup" class="popup error">
+                Formato de Imagen No Válido
+            </div> <?php
+            setcookie("invalidPicture", "", time() - 3600, "/");
+        } else if (isset($_COOKIE['largePicture'])) {
+            ?>
+            <div id="popup" class="popup error">
+                Imagen Demasiado Pesada
+            </div> <?php
+            setcookie("largePicture", "", time() - 3600, "/");
+
+        } else if (isset($_COOKIE['correctUpload'])) {
+            ?>
+            <div id="popup" class="popup success">
+                Imagen Subida Correctamente
+            </div> <?php
+            setcookie("largePicture", "", time() - 3600, "/");
+
+        }
     ?>
         <div id="contenedor">
             <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->

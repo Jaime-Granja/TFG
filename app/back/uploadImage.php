@@ -27,10 +27,12 @@ function uploadImage(PDO $dbConection, $file, $relativeFolder, $dbField, $table,
     // Validamos el tipo de archivo para que no nos puedan subir cualquier cosa
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     if (!in_array($file['type'], $allowedTypes)) {
+        setcookie("invalidPicture", "Formato de imagen no válido", time() + 5, "/");
         return ['success' => false, 'message' => 'Invalid file type'];
     }
     // Y también validamos el tamaño del archivo para que no nos puedan subir archivos demasiado grandes
     if ($file['size'] > 2 * 1024 * 1024) {
+        setcookie("largePicture", "Imagen demasiado Grande", time() + 5, "/");
         return ['success' => false, 'message' => 'File too large'];
     }
 
@@ -76,7 +78,7 @@ function uploadImage(PDO $dbConection, $file, $relativeFolder, $dbField, $table,
     if (!$success) {
         return ['success' => false, 'message' => 'Database update failed'];
     }
-
+    setcookie("correctUpload", "Imagen Subida Correctamente", time() + 5, "/");
     return ['success' => true, 'message' => 'File uploaded successfully', 'path' => $destination];
 }
 
