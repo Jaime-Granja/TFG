@@ -419,8 +419,7 @@ if (isset($_SESSION['message'])) {
   </div>
   <div id="sheetTabs">
     <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage"> Principal</button>
-    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage">
-      Trasfondo</button>
+    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage">Trasfondo</button>
     <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
     <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
     <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de

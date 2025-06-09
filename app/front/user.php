@@ -111,7 +111,7 @@ $loggedUserData = $getUserData->fetch(PDO::FETCH_ASSOC);
 //Con esta otra query sacaremos la cantidad de campañas en las que está el usuario y cuál es su rol en estas.
 $getRoleCounts = $dbConection->prepare("
     SELECT role, COUNT(*) as count 
-    FROM Users_Campaigns 
+    FROM users_campaigns_characters 
     WHERE user_id = :user_id 
     GROUP BY role
 ");
