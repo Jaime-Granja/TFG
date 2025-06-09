@@ -348,19 +348,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($_SERVER['REQUEST_METHOD'] === 'GE
 //===== Character Image =====
 
 if ($characterId) {
-    $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_id = :id");
-    $select->execute([':id' => $characterId]);
-    $result = $select->fetch(PDO::FETCH_ASSOC);
+  $select = $dbConection->prepare("SELECT character_pic FROM characters WHERE character_id = :id");
+  $select->execute([':id' => $characterId]);
+  $result = $select->fetch(PDO::FETCH_ASSOC);
 
-    if (!empty($result['character_pic'])) {
-        // Elimina cualquier '../' inicial para evitar rutas incorrectas
-        $relativePath = ltrim($result['character_pic'], '/');
-        $absolutePath = realpath(__DIR__ . '/../' . $relativePath);
+  if (!empty($result['character_pic'])) {
+    // Elimina cualquier '../' inicial para evitar rutas incorrectas
+    $relativePath = ltrim($result['character_pic'], '/');
+    $absolutePath = realpath(__DIR__ . '/../' . $relativePath);
 
-        if ($absolutePath && file_exists($absolutePath)) {
-            $characterPic = $result['character_pic'];
-        }
+    if ($absolutePath && file_exists($absolutePath)) {
+      $characterPic = $result['character_pic'];
     }
+  }
 }
 
 // ===== Detectar si viene de crear el pj =====
@@ -414,6 +414,7 @@ if (isset($_SESSION['message'])) {
         <input type="hidden" name="character_id" value="<?= htmlspecialchars($characterId) ?>">
         <input type="submit" name="upload_character_photo" value="Subir imagen de personaje">
       </form>
+      <button id="openCalculatorBtn">Abrir calculadora</button>
       <button id="logOut">Cerrar Sesión</button>
     </div>
   </div>
@@ -468,7 +469,6 @@ if (isset($_SESSION['message'])) {
         </div>
       </div> -->
     </div>
-
 
 
     <!-- FORMULARIO DE EDICION -->
@@ -954,6 +954,71 @@ if (isset($_SESSION['message'])) {
     </div>
   </div>
 
+  <!-- LA CALCULADORA -->
+  <div id="calculatorModal"
+    style="display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; height: 80%; background: #1e1e1e; border: 2px solid #ccc; z-index: 1000; box-shadow: 0 0 15px #000; border-radius: 8px;">
+    <div id="calculatorHeader" style="display: flex; justify-content: flex-end; padding: 10px; cursor: move;">
+      <button id="closeCalculatorBtn"
+        style="background: #444; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">Cerrar</button>
+    </div>
+    <iframe src="../src/calculator/index.html"
+      style="width: 100%; height: calc(100% - 40px); border: none; border-radius: 0 0 8px 8px;"></iframe>
+  </div>
+
+  <script>
+    const modal = document.getElementById('calculatorModal');
+    const openBtn = document.getElementById('openCalculatorBtn');
+    const closeBtn = document.getElementById('closeCalculatorBtn');
+
+    openBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Drag and drop 
+    dragElement(modal);
+
+    function dragElement(elmnt) {
+      const header = document.getElementById("calculatorHeader");
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      if (header) {
+        header.onmousedown = dragMouseDown;
+      } else {
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        elmnt.style.transform = "none"; // Elimina el translateX del centrado
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  </script>
 </body>
 
 </html>
