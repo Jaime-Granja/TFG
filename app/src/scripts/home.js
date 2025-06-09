@@ -35,11 +35,6 @@ window.onload = function () {
   document.addEventListener("click", function (event) {
     cerrarMenu(event);
   });
-  goBack.addEventListener("click", goBackFunction);
-  logOut.addEventListener("click", logOutFunction);
-  userBotton.addEventListener("click", user);
-  editCampaign.addEventListener("click", editCampaignFunction);
-  campaignDelete.addEventListener("click", campaignDeleteFunction);
 
   function abrirMenu() {
     botones.style.display = "flex";
@@ -74,13 +69,9 @@ window.onload = function () {
   function user() {
     window.location.href = "../front/user.php";
   }
-
-  function campaignFunction() {
-    window.location.href = "../front/campaign.php";
-  }
   const popup = document.getElementById("popup");
+  
   if (popup && popup.textContent.trim() !== "") {
-    popup.style.display = "block";
     popup.classList.add("show");
     setTimeout(() => {
       popup.classList.remove("show");
