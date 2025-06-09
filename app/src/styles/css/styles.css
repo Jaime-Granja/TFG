@@ -1,26 +1,12 @@
-
-@mixin media-sm {
-  @media (min-width: 576px) {
-    @content;
-  }
-}
-
-@mixin media-lg {
-  @media (min-width: 992px) {
-    @content;
-  }
-}
-
 body {
   margin: 0;
   padding: 0;
-  background-color: #6874e8;
+  background-image: url(../../img/wallpaper_PC.jpg);
   display: flex;
   justify-content: center;
 }
 
 #body {
-  background-color: #B0A4FF;
   padding: 1rem;
   margin: 2rem 2rem 2rem 2rem;
 }
@@ -43,34 +29,31 @@ body {
   border-left: 5px solid #e74c3c;
   color: #e74c3c;
   background-color: #fdecea;
-
-  &.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+}
+#popup.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 h1 {
   color: #bb0a21;
   padding: 0.5em;
   background-color: #FFEBCD;
+  opacity: 0.8;
   border-radius: 0.5em;
   text-align: center;
-
-  > img {
-    max-width: 80px;
-  }
+}
+h1 > img {
+  max-width: 80px;
 }
 
-div {
-  > img {
-    max-width: 90px;
-    padding: 1rem;
-  }
+div > img {
+  max-width: 90px;
+  padding: 1rem;
 }
 
 #titleLogIn {
-  font-family: 'Almendra', 'Cormorant Garamond', serif;
+  font-family: "Almendra", "Cormorant Garamond", serif;
   font-size: 3rem;
 }
 
@@ -80,8 +63,10 @@ div {
   padding: 1em;
   color: #bb0a21;
   background-color: #FFEBCD;
+  opacity: 0.8;
   border-radius: 2em;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #banner {
@@ -100,14 +85,14 @@ div {
 
 #Nosotros {
   display: none;
-
-  div {
-    display: block;
-    padding: 1em;
-    color: #bb0a21;
-    background-color: #FFEBCD;
-    border-radius: 2em;
-  }
+}
+#Nosotros div {
+  display: block;
+  padding: 1em;
+  color: #bb0a21;
+  background-color: #FFEBCD;
+  opacity: 0.8;
+  border-radius: 2em;
 }
 
 form {
@@ -115,6 +100,7 @@ form {
   flex-direction: column;
   color: #bb0a21;
   background-color: #FFEBCD;
+  opacity: 0.8;
   padding: 1em;
   border-radius: 1em;
 }
@@ -129,10 +115,9 @@ form {
 button {
   border-radius: 2em;
   background-color: #ffebcd;
-
-  &:hover {
-    box-shadow: 0px 0px 4px 0px black;
-  }
+}
+button:hover {
+  box-shadow: 0px 0px 4px 0px black;
 }
 
 .submit {
@@ -145,6 +130,7 @@ footer {
   padding: 1em;
   color: #bb0a21;
   background-color: #FFEBCD;
+  opacity: 0.8;
   border-radius: 2em;
 }
 
@@ -155,10 +141,13 @@ footer {
   width: 20rem;
 }
 
-@include media-sm {
-
+@media (min-width: 576px) {
+  body {
+    background-image: url(../../img/wallpaper_mobile.jpg);
+  }
 }
-
-@include media-lg {
-
-}
+@media (min-width: 992px) {
+  body {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+}/*# sourceMappingURL=styles.css.map */

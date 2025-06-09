@@ -24,7 +24,7 @@ $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BDD-Home</title>
     <!-- <link rel="stylesheet" href="../src/styles/styles.scss"> -->
-    <link rel="stylesheet" href="../src/styles/stylesHome.scss">
+    <link rel="stylesheet" href="../src/styles/css/stylesHome.css">
     <script src="../src/scripts/home.js"></script>
     <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>

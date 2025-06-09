@@ -1,5 +1,4 @@
 // Variables
-$primary-color: #6874e8;
 $secondary-color: #bb0a21;
 $background-light: antiquewhite;
 $border-radius: 0.5em;
@@ -7,10 +6,10 @@ $border-radius: 0.5em;
 body {
   margin: 0;
   padding: 0;
-  background-color: $primary-color;
   display: flex;
   justify-content: space-around;
   margin-bottom: 1em;
+  background-image: url(../../img/wallpaper_PC.jpg);
 }
 
 #contenedor {
@@ -18,6 +17,7 @@ body {
   padding: 0.5em;
   margin: 0.5em 0 0 3rem;
   background-color: $background-light;
+  opacity: 0.8;
   color: $secondary-color;
   border-radius: $border-radius;
   text-align: center;
@@ -46,6 +46,7 @@ body {
     flex-direction: column;
     gap: 1rem;
     background-color: $background-light;
+    opacity: 0.8;
     padding: 1rem;
     border-radius: $border-radius;
     margin-top: 1rem;
@@ -57,6 +58,7 @@ body {
     gap: 1rem;
     margin-top: 1rem;
     background-color: $background-light;
+    opacity: 0.8;
   }
 }
 
@@ -67,6 +69,7 @@ body {
   max-height: 30vh;
   overflow-y: auto; 
   background-color: $background-light;
+  opacity: 0.8;
   margin: 1rem;
   padding: 1rem;
   border-radius: $border-radius;
@@ -120,6 +123,9 @@ body {
 
 // Media queries
 @media (min-width: 576px) {
+  body {
+  background-image: url(../../img/wallpaper_mobile.jpg);
+}
   #contenido {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,6 +151,9 @@ body {
 }
 
 @media (min-width: 992px) {
+  body {
+  background-image: url(../../img/wallpaper_tablet.jpg);
+}
   #contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
