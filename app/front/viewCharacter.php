@@ -384,7 +384,7 @@ if (!empty($_SESSION['fromNewCharacter'])) {
   <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
-<body id="body"> <?php
+<body id="body" class=" <?php $className ?>"> <?php
 if ($isFromNewCharacter == true) {
   ?>
     <div id="popup" class="popup">

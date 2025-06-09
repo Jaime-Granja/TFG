@@ -4,6 +4,8 @@ body {
   padding: 0;
   justify-content: center;
   background-image: url(../../img/wallpaper_PC.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #body {
@@ -83,7 +85,9 @@ h1, h2 {
     background-color: #e9f8f0;
   }
 }
-
+img {
+  max-width: 100%;
+}
 button {
   border-radius: 2em;
   background-color: #fadeb3;

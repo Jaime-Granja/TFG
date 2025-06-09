@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #6874e8;
+  background-image: url(../../img/wallpaper_PC.jpg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@ h1,
   width: 80vw;
   color: #bb0a21;
   padding: 0.5em;
-  background-color: #FFEBCD;
+  background-color: rgba(255, 235, 205, 0.8);
   border-radius: 0.5em;
   text-align: center;
 }
@@ -49,7 +49,7 @@ p {
   display: block;
   width: 70vw;
   padding: 0.5em;
-  background-color: #FFEBCD;
+  background-color: rgba(255, 235, 205, 0.8);
   border-radius: 0.5em;
   margin-bottom: 1em;
 }
@@ -83,7 +83,7 @@ p {
   width: 70vw;
   margin-left: 5vw;
   padding: 0.5em;
-  background-color: #FFEBCD;
+  background-color: rgba(255, 235, 205, 0.8);
   border-radius: 0.5em;
   display: none;
 }

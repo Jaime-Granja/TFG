@@ -258,6 +258,14 @@ if ($userId) {
                 <input type="password" id="newPass" name="password" placeholder="Contraseña" required /><br />
                 <button type="submit">Confirmar</button>
             </form>
+            <div id="uploadPic">
+            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                <label for="user_photo">Subir foto de perfil:</label><br>
+                <input type="file" name="user_photo" id="user_photo" accept="image/*" required>
+                <input type="hidden" name="user_id" value="<?= htmlspecialchars($userId) ?>">
+                <input type="submit" name="upload_user_photo" value="Subir foto de perfil">
+            </form>
+        </div>
         </div>
         <div id="changePassword">
             <form method="post" action="user.php">
@@ -270,14 +278,7 @@ if ($userId) {
             </form>
         </div>
 
-        <div id="uploadPic">
-            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-                <label for="user_photo">Subir foto de perfil:</label><br>
-                <input type="file" name="user_photo" id="user_photo" accept="image/*" required>
-                <input type="hidden" name="user_id" value="<?= htmlspecialchars($userId) ?>">
-                <input type="submit" name="upload_user_photo" value="Subir foto de perfil">
-            </form>
-        </div>
+        
 
 
         <button id="goBackUser">Retroceder</button>
