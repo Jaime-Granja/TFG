@@ -1,20 +1,13 @@
-// Mixins para media queries
-@mixin media-sm {
-  @media (min-width: 576px) {
-    @content;
-  }
-}
-
-@mixin media-lg {
-  @media (min-width: 992px) {
-    @content;
-  }
-}
+// Variables
+$primary-color: #6874e8;
+$secondary-color: #bb0a21;
+$background-light: antiquewhite;
+$border-radius: 0.5em;
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #6874e8;
+  background-color: $primary-color;
   display: flex;
   justify-content: space-around;
   margin-bottom: 1em;
@@ -23,73 +16,84 @@ body {
 #contenedor {
   width: 70vw;
   padding: 0.5em;
-  margin-top: 0.5em;
-  margin-left: 3rem;
-  background-color: #ffebcd;
-  color: #bb0a21;
-  border-radius: 0.5em;
+  margin: 0.5em 0 0 3rem;
+  background-color: $background-light;
+  color: $secondary-color;
+  border-radius: $border-radius;
   text-align: center;
   position: relative;
-}
 
-#campaignButton,
-#campaignDelete {
-  position: absolute;
-  min-width: 120px;
-  padding: 10px 15px;
-}
+  #campaignButton,
+  #campaignDelete {
+    position: absolute;
+    min-width: 120px;
+    padding: 10px 15px;
+    top: 0.7%;
+  }
 
-#campaignButton {
-  right: 2%;
-  top: 0.7%;
-}
+  #campaignButton {
+    right: 2%;
+  }
 
-#campaignDelete {
-  display: none;
-  left: 2%;
-  top: 0.7%;
-  background-color: red;
-}
+  #campaignDelete {
+    left: 2%;
+    background-color: red;
+  }
 
-#campaignForm {
-  display: none;
-  flex-direction: column;
-}
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-  background-color: antiquewhite;
+  #campaignForm {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: $background-light;
+    padding: 1rem;
+    border-radius: $border-radius;
+    margin-top: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    background-color: $background-light;
+  }
 }
 
 #sheetPage,
 #journalPage {
-  height: 10rem;
-  background-color: antiquewhite;
+  height: auto; 
+  min-height: 10rem;
+  max-height: 30vh;
+  overflow-y: auto; 
+  background-color: $background-light;
   margin: 1rem;
-}
-
-#participantsTittle {
-  flex-basis: 82%;
+  padding: 1rem;
+  border-radius: $border-radius;
 }
 
 #participants {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 1rem; 
+
+  .profilePic {
+    max-width: 15%;
+    border-radius: 50%; 
+  }
+
+  .participant {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+  }
 }
 
-.profilePic {
-  max-width: 15%;
-}
-
-.participant {
-  flex-basis: 20%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#participantsTittle {
+  flex-basis: 82%;
 }
 
 #margin {
@@ -101,57 +105,21 @@ form {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-}
 
-#menuHamburguesa {
-  width: 4rem;
-}
-
-#menuHamburguesaBotones {
-  display: none;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 5rem;
-}
-
-.popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 16px 24px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-family: inherit;
-  font-size: 1rem;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.5s, transform 0.5s;
-  z-index: 9999;
-  display: none;
-  border-left: 5px solid #27ae60;
-  color: #27ae60;
-  background-color: #e9f8f0;
-
-  &.show {
-    opacity: 1;
-    transform: translateY(0);
+  #menuHamburguesa {
+    width: 4rem;
   }
 
-  &.error {
-    border-left: 5px solid #e74c3c;
-    color: #e74c3c;
-    background-color: #fdecea;
-  }
-
-  &.success {
-    border-left: 5px solid #27ae60;
-    color: #27ae60;
-    background-color: #e9f8f0;
+  #menuHamburguesaBotones {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 5rem;
   }
 }
 
-@include media-sm {
+// Media queries
+@media (min-width: 576px) {
   #contenido {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -163,7 +131,7 @@ form {
   }
 
   #journal {
-    border-right: 1px dashed #bb0a21;
+    border-right: 1px dashed $secondary-color;
   }
 
   #participants {
@@ -176,7 +144,7 @@ form {
   }
 }
 
-@include media-lg {
+@media (min-width: 992px) {
   #contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -192,7 +160,7 @@ form {
   }
 
   #participants {
-    border-top: 1px dashed #bb0a21;
+    border-top: 1px dashed $secondary-color;
     grid-column: span 2;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
