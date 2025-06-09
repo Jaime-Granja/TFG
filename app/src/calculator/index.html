@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>La Calculadora del Dragón</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#3a6ea5" />
+    <link rel="icon" href="icon-192.png" />
+    <link rel="stylesheet" href="calculatorPopup.css" />
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #1e1e1e;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .calculator {
+            background: #1e1e1e;
+            padding: 20px;
+            width: 90%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 40px);
+            max-height: calc(100vh - 40px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #eee;
+        }
+
+        .history-toggle {
+            background: #444;
+            padding: 6px 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            color: #eee;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        .history-toggle:hover {
+            background: #666;
+        }
+
+        .display {
+            background: #2a2a2a;
+            border-radius: 5px;
+            padding: 12px;
+
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            flex-grow: 1;
+            overflow-y: auto;
+            color: #ddd;
+            box-shadow: inset 0 0 5px #000;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        button {
+            padding: 15px 0;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            background: #3a6ea5;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        button:hover {
+            background: #2e5680;
+        }
+
+        .history-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #121212;
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            color: #ddd;
+            box-shadow: inset 0 0 10px #000;
+        }
+
+        .history-overlay.visible {
+            display: flex;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .history-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #eee;
+        }
+
+        .history-buttons button {
+            margin-left: 10px;
+            background: #555;
+            font-size: 1rem;
+            padding: 6px 12px;
+            color: #eee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .history-buttons button:hover {
+            background: #777;
+        }
+
+        .history-overlay .entry {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 4px;
+            word-wrap: break-word;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="header">
+            <div class="title">La Calculadora del Dragón</div>
+            <button class="history-toggle" onclick="toggleHistory()">Historial</button>
+        </div>
+        <div class="display" id="display"></div>
+        <div class="buttons">
+            <button onclick="addInput('7')">7</button>
+            <button onclick="addInput('8')">8</button>
+            <button onclick="addInput('9')">9</button>
+            <button onclick="addInput('d4')">d4</button>
+            <button onclick="addInput('d10')">d10</button>
+
+            <button onclick="addInput('4')">4</button>
+            <button onclick="addInput('5')">5</button>
+            <button onclick="addInput('6')">6</button>
+            <button onclick="addInput('d6')">d6</button>
+            <button onclick="addInput('d12')">d12</button>
+
+            <button onclick="addInput('1')">1</button>
+            <button onclick="addInput('2')">2</button>
+            <button onclick="addInput('3')">3</button>
+            <button onclick="addInput('d8')">d8</button>
+            <button onclick="addInput('d20')">d20</button>
+
+            <button onclick="addInput('0')">0</button>
+            <button onclick="addInput('+')">+</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="rollDice()">=</button>
+            <button onclick="addInput('d100')">d100</button>
+        </div>
+
+        <div class="history-overlay" id="history">
+            <div class="history-header">
+                <h2>Historial de tiradas</h2>
+                <div class="history-buttons">
+                    <button onclick="toggleHistory()">Cerrar</button>
+                    <button onclick="clearHistory()">Borrar</button>
+                </div>
+            </div>
+            <div id="history-entries"></div>
+        </div>
+    </div>
+
+    <script>
+        let expression = '';
+        const display = document.getElementById('display');
+        const historyOverlay = document.getElementById('history');
+        const historyEntries = document.getElementById('history-entries');
+
+        function addInput(val) {
+            if (val === '+') {
+                if (expression === '' || expression.endsWith('+')) return;
+            }
+            if (val.startsWith('d')) {
+                if (!/\d$/.test(expression)) return;
+                expression += val;
+            } else {
+                expression += val;
+            }
+            updateDisplay(expression);
+        }
+
+        function clearDisplay() {
+            expression = '';
+            updateDisplay('');
+        }
+
+        function updateDisplay(content) {
+            display.textContent = content;
+        }
+
+        function rollDice() {
+            if (!expression) return;
+            const tokens = expression.match(/(\d*d\d+|\d+|\+)/g);
+            if (!tokens) return;
+
+            let total = 0;
+            let details = [];
+            let sign = 1;
+
+            for (let token of tokens) {
+                if (token === '+') {
+                    sign = 1;
+                } else {
+                    const match = token.match(/(\d*)d(\d+)/);
+                    if (match) {
+                        const count = parseInt(match[1]) || 1;
+                        const sides = parseInt(match[2]);
+                        const rolls = [];
+                        let subtotal = 0;
+                        for (let i = 0; i < count; i++) {
+                            const roll = Math.floor(Math.random() * sides) + 1;
+                            rolls.push(roll);
+                            subtotal += roll;
+                        }
+                        total += sign * subtotal;
+                        details.push(`${count}d${sides}(${rolls.join(', ')})`);
+                    } else if (!isNaN(token)) {
+                        total += sign * parseInt(token);
+                        details.push(token);
+                    }
+                }
+            }
+
+            const result = `${details.join(' + ')} = ${total}`;
+            updateDisplay(result);
+            addToHistory(result);
+            expression = '';
+        }
+
+        function addToHistory(text) {
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+            entry.textContent = text;
+            historyEntries.appendChild(entry);
+        }
+
+        function clearHistory() {
+            historyEntries.innerHTML = '';
+        }
+
+        function toggleHistory() {
+            historyOverlay.classList.toggle('visible');
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch(err => console.error('Error al registrar el Service Worker', err));
+        }
+    </script>
+</body>
+
+</html>
