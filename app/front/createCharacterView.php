@@ -112,15 +112,21 @@ if (isset($_POST['createCharacter'])) {
                 ?>
             </select>
             <label id="stats">Puntos de estadística:</label>
+            <label for="strength">Fuerza</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength"
                 required>
+            <label for="dexterity">Destreza</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity"
                 required>
+            <label for="constitution">Constitución</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution"
                 required>
+            <label for="intelligence">Inteligencia</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence"
                 required>
+            <label for="wisdom">Sabiduría</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
+            <label for="charisma">Carisma</label>
             <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma"
                 required>
             <!-- <p>Puntos Restantes: <span id="remaining">27</span> </p>  Si habilitamos compra de puntos, esto estará por aquí.-->

@@ -40,8 +40,6 @@ window.onload = function () {
     botones.style.display = "flex";
     menu.style.display = "none";
     margen.style.height = window.getComputedStyle(body).height;
-    fondo.style.opacity = "50%";
-    fondoSecundario.style.opacity = "50%";
     margen.style.backgroundColor = "#242848";
     margen.style.opacity = "90%";
   }

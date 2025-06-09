@@ -18,15 +18,26 @@
     }
   }
 }
-
+html {
+  height: 100%;
+}
 body {
-  margin: 2rem 0 2rem 0;
+  margin: 0 auto;
   padding: 0;
   width: 100%;
-  height: 100%;
-  position: absolute;
-   &.barbarian {
+  height: auto;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+   &.Barbarian {
      background-image: url(../../img/wallpaperBarbarianPC.jpeg);
+     background-position: right center; 
+   }
+   &.Wizard {
+    background-image: url(../../img/wallpaperWizardPC.jpeg);
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
    }
 }
 
@@ -196,11 +207,11 @@ button img {
 #contenedorPrincipal,
 #contenedorSecundario {
   text-align: center;
-  margin: 4% auto 0 auto;
+  margin: 0 auto 0 auto;
   padding: 1em;
   width: calc(100% - 4rem);
   color: #bb0a21;
-  background-color: #ffebcd;
+  background-color: rgba(255, 235, 205, 0.8);
   border-radius: 1em;
 }
 
@@ -306,7 +317,6 @@ button img {
 }
 
 #abilities {
-  border-bottom: 1px dashed #bb0a21;
   padding-bottom: 1em;
   min-width: 0;
 

@@ -384,7 +384,8 @@ if (!empty($_SESSION['fromNewCharacter'])) {
   <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
-<body id="body" class=" <?php $className ?>"> <?php
+<body id="body" class="<?= $className; ?>"> <?php
+
 if ($isFromNewCharacter == true) {
   ?>
     <div id="popup" class="popup">
@@ -712,17 +713,6 @@ if (isset($_COOKIE['invalidPicture'])) {
           </div>
         </div>
       </div>
-      <div id="atacks">
-        <h2 id="atacksTitle">Ataques</h2>
-        <div id="attackBlock">
-          <div>Ataque</div>
-          <div>Modificador</div>
-          <div>Daño</div>
-          <div>Espadón a Dos Manos</div>
-          <div>+4</div>
-          <div>2D6+4</div>
-        </div>
-      </div>
     </div>
   </div>
   <div id="contenedorSecundario">
@@ -909,7 +899,7 @@ if (isset($_COOKIE['invalidPicture'])) {
         </div>
         <div id="spells2">
           <h3>Hechizos Nivel 2</h3>
-          <div class="spell lvl2">No me acuerdo</div>
+          <div class="spell lvl2">Fuerza Fantasmal</div>
           <div class="spell lvl2">Rayo Abrasador</div>
         </div>
         <div id="spells3">
@@ -1042,5 +1032,4 @@ if (isset($_COOKIE['invalidPicture'])) {
     }
   </script>
 </body>
-
 </html>

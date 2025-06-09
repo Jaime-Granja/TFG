@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #6874e8;
+  background-image: url(../../img/wallpaper_PC.jpg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,7 @@ body {
 
 #contenedor {
   margin-top: 2rem;
-  background-color: #ffebcd;
+  background-color: rgba(255, 235, 205, 0.8);
   padding: 2rem;
 }
 
@@ -33,6 +33,6 @@ form {
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #d4c0a7;
+  background-color: #ffebcd;
   border-radius: 0.5em;
 }/*# sourceMappingURL=stylesNewCampaign.css.map */
