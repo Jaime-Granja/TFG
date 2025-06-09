@@ -167,7 +167,6 @@ try {
     }
 
     //===== campaign Image =====
-    $campaignPic = "src/img/dados.jpg"; // Ruta por defecto
     if ($campaignId) {
         $select = $dbConection->prepare("SELECT campaign_pic FROM campaigns WHERE campaign_id = :id");
         $select->execute([':id' => $campaignId]);

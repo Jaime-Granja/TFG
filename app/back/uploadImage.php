@@ -46,12 +46,13 @@ function uploadImage(PDO $dbConection, $file, $relativeFolder, $dbField, $table,
     $oldPath = $selectImg->fetchColumn();
 
     // Borramos la imagen antigua si existe, para no llenar el servidor de imágenes antiguas
-    if ($oldPath) {
+    if ($oldPath && str_starts_with($oldPath, 'src/uploads/')) {
         $absoluteOldPath = __DIR__ . '/../' . $oldPath;
         if (file_exists($absoluteOldPath)) {
             unlink($absoluteOldPath);
         }
     }
+
 
 
     // Después guardamos la nueva

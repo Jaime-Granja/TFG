@@ -22,7 +22,7 @@ if (isset($_POST['createCampaign'])) {
   $description = trim($_POST["description"]);
   $creatorId = $_SESSION["user_id"];
   $inviteCode = generateInviteCode($creatorId);
-  
+  $defaultPic = 'src/img/dados.jpg';
   // Validamos los datos, por si acaso 
   if (empty($campaignName) || empty($description)) {
     die("Todos los campos son obligatorios.");
@@ -30,11 +30,12 @@ if (isset($_POST['createCampaign'])) {
 
   // Insertamos la campaña en la bbdd y además añadimos al creador a la tabla de usuarios_campañas
   try {
-    $insert = $dbConection->prepare("INSERT INTO Campaigns (campaign_name, campaign_desc, creator_id, invite_code) VALUES (:campaignName, :description, :creatorId, :inviteCode)");
+    $insert = $dbConection->prepare("INSERT INTO Campaigns (campaign_name, campaign_desc, creator_id, campaign_pic, invite_code) VALUES (:campaignName, :description, :creatorId, :campaign_pic, :inviteCode)");
     $insert->execute([
       ':campaignName' => $campaignName,
       ':description' => $description,
       ':creatorId' => $creatorId,
+      ':campaign_pic' => $defaultPic,
       ':inviteCode' => $inviteCode
     ]);
     $_SESSION['fromNewCampaign'] = true;
