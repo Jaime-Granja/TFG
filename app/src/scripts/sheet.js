@@ -48,8 +48,6 @@ window.onload = function () {
       botones.style.display = "none";
       menu.style.display = "block";
       margen.style.height = 0;
-      fondo.style.opacity = "100%";
-      fondoSecundario.style.opacity = "100%";
       margen.style.backgroundColor = "transparent";
     }
   }
@@ -63,7 +61,6 @@ window.onload = function () {
     //Fondos
     fondo.style.display = "block";
     fondoSecundario.style.display = "none";
-
     //Textos
     trasfondoTexto.style.display = "none";
     rasgosTexto.style.display = "none";
@@ -80,7 +77,6 @@ window.onload = function () {
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
     //Textos
     trasfondoTexto.style.display = "block";
     rasgosTexto.style.display = "none";
@@ -97,7 +93,6 @@ window.onload = function () {
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
     //Textos
     trasfondoTexto.style.display = "none";
     rasgosTexto.style.display = "block";
@@ -114,7 +109,6 @@ window.onload = function () {
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
     //Textos
     trasfondoTexto.style.display = "none";
     rasgosTexto.style.display = "none";
@@ -132,7 +126,6 @@ window.onload = function () {
     //Fondos
     fondo.style.display = "none";
     fondoSecundario.style.display = "flex";
-
     //Textos
     trasfondoTexto.style.display = "none";
     rasgosTexto.style.display = "none";
@@ -177,7 +170,6 @@ window.onload = function () {
       //Fondos
       fondo.style.display = "block";
       fondoSecundario.style.display = "none";
-
       //Textos
       trasfondoTexto.style.display = "none";
       rasgosTexto.style.display = "none";
@@ -189,7 +181,6 @@ window.onload = function () {
     }
   }
   function showDrop() {
-    console.log("Funciona?");
     let content = document.getElementById("dropContent");
     content.classList.toggle("show");
     
