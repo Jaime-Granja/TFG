@@ -15,18 +15,17 @@ body {
   padding: 1rem;
   width: 70%;
 }
-
-p {
-  background-color: #fadeb3;
-  padding: 1.5em;
-}
-
-h1, h2 {
+#body h1, #body h2 {
   color: #bb0a21;
   padding: 0.5em;
   background-color: #fadeb3;
   border-radius: 0.5em;
   text-align: center;
+}
+
+p {
+  background-color: #fadeb3;
+  padding: 1.5em;
 }
 
 .newCampaign,
@@ -49,11 +48,6 @@ h1, h2 {
   text-align: center;
   width: 27%;
   background-color: #fadeb3;
-}
-
-.mas {
-  background-color: #fcd7ad;
-  margin-top: 1rem;
 }
 
 .popup {
@@ -87,23 +81,47 @@ img {
   max-width: 100%;
 }
 
-button {
-  border-radius: 2em;
-  background-color: #fadeb3;
-}
-button:hover {
-  box-shadow: 0px 0px 4px 0px black;
-}
-
 #logOut {
   background-color: #bb0a21;
 }
 
+button {
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #c8c3b4;
+  color: #333;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+button.mas {
+  background-color: #fcd7ad;
+  margin-top: 1rem;
+  border-radius: 2em;
+}
+
+button:hover {
+  background: #d0d0d0;
+}
+
+#logOut {
+  background: #bb0a21;
+  border: none;
+}
+
 #margin {
-  padding: 2rem;
-  position: absolute;
+  margin-top: 0;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
   left: 0;
-  margin-left: 0.5%;
+  width: 40%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,11 +130,21 @@ button:hover {
 
 #menuHamburguesa {
   width: 4rem;
+  position: relative;
+  left: -35%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background-color: rgba(255, 235, 205, 0.9);
+  border: 1px solid rgb(255, 235, 205);
 }
 
 #menuHamburguesaBotones {
   display: none;
   flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-evenly;
+  gap: 4rem;
   margin-top: 5rem;
+}
+#menuHamburguesaBotones h1 {
+  color: #ccc;
 }/*# sourceMappingURL=stylesHome.css.map */

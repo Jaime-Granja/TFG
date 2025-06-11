@@ -60,6 +60,7 @@ if (isset($_COOKIE['logInMessage'])) {
     <div id="margin">
         <img id="menuHamburguesa" src="../src/img/menu.png" />
         <div id="menuHamburguesaBotones">
+            <h1>Navegación</h1>
             <button id="userProfile">Perfil de Usuario</button>
             <button id="logOut">Cerrar Sesión</button>
         </div>

@@ -220,7 +220,7 @@ try {
                 Ya Estabas Unido a Esta Campaña
             </div> <?php
     }
-    // Intento de creación de pop-ups para Edición de Campañas
+    // Creación de pop-ups para Edición de Campañas
     if (isset($_SESSION['message'])) {
         $message = $_SESSION['message'];
         $messageType = $_SESSION['messageType'] ?? 'info';
@@ -253,6 +253,15 @@ try {
 
     }
     ?>
+    <div id="margin">
+                <img id="menuHamburguesa" src="../src/img/menu.png" />
+                <div id="menuHamburguesaBotones">
+                    <h1>Navegación</h1>
+                    <button id="userProfile">Perfil de Usuario</button>
+                    <button id="goBack">Retroceder</button>
+                    <button id="logOut">Cerrar Sesión</button>
+                </div>
+            </div>
         <div id="contenedor">
             <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->
             <?php
@@ -261,11 +270,6 @@ try {
 
                 <div campaignInfo>
                     <?php if ($loggedUserData['role'] === 'Master'): ?>
-                        <form id="deleteForm" method="POST"
-                            onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
-                            <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
-                            <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
-                        </form>
                         <button id="campaignButton">Editar</button>
                     <?php endif; ?>
                     <h1 id="campaignName" class="title"><?php echo $campaign['campaign_name'] ?></h1>
@@ -335,7 +339,6 @@ try {
                     <?php endif; ?>
                     <div id="journal">
                         <h2 id="journalTitle">Diario de Campaña</h2>
-                        <button id="journalButton">Editar</button><br />
                         <div id="journalPage">
                             <?php if (isset($diaryMessage)) {
                                 echo "<p style='color:green;font-weight:bold;'>$diaryMessage</p>";
@@ -402,25 +405,24 @@ try {
 
                             <button type="submit">Editar Campaña</button>
                         </form>
+                        <?php if ($loggedUserData['role'] === 'Master'): ?>
+                        <form id="deleteForm" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
+                            <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
+                            <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
+                        </form>
+                    <?php endif; ?>
                         <div>
-                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-                                <label for="campaign_photo">Subir imagen de personaje:</label><br>
+                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data" id="pictureForm">
+                                <label for="campaign_photo">Subir imagen de la campaña:</label><br>
                                 <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
                                 <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
-                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
+                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de la campaña">
                             </form>
                         </div>
                     </div>
                 </div>
 
-            </div>
-            <div id="margin">
-                <img id="menuHamburguesa" src="../src/img/menu.png" />
-                <div id="menuHamburguesaBotones">
-                    <button id="userProfile">Perfil de Usuario</button>
-                    <button id="goBack">Retroceder</button>
-                    <button id="logOut">Cerrar Sesión</button>
-                </div>
             </div>
             <?php
             } else {

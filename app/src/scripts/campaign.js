@@ -25,7 +25,7 @@ window.onload = function () {
     botones.style.display = "flex";
     menu.style.display = "none";
     margen.style.height = window.getComputedStyle(fondo).height;
-    margen.style.backgroundColor = "black";
+    margen.style.backgroundColor = "#242848";
     margen.style.opacity = "90%";
   }
 

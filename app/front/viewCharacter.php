@@ -430,10 +430,11 @@ if (!empty($_SESSION['fromNewCharacter'])) {
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
       <h1>Navegación</h1>
-      <button id="goBack">Retroceder</button>
       <button id="userProfile">Perfil de Usuario</button>
-      <button id="openCalculatorBtn">Abrir calculadora</button>
+      <button id="goBack">Retroceder</button>
       <button id="logOut">Cerrar Sesión</button>
+      <h1>Calculadora</h1>
+      <button id="openCalculatorBtn">Abrir calculadora</button>
     </div>
   </div>
   <div id="sheetTabs">
@@ -854,7 +855,6 @@ if (!empty($_SESSION['fromNewCharacter'])) {
     </div>
     <div id="equipmentPage">
       <h2>Equipamiento</h2>
-      <button id="addEquipmentBotton">Añadir Equipamiento</button>
       <div id="equipmentItems">
         <ul>
           <li class="equipmentCategory">Armas
@@ -1027,7 +1027,7 @@ if (!empty($_SESSION['fromNewCharacter'])) {
 
         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
         elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        elmnt.style.transform = "none"; // Elimina el translateX del centrado
+        elmnt.style.transform = "none";
       }
 
       function closeDragElement() {
