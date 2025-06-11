@@ -29,15 +29,14 @@ body {
   min-height: 100%;
   top: 0;
   left: 0;
+  background-repeat: no-repeat;
+  background-position: right top;
+    background-size: 200% 200%;
    &.Barbarian {
      background-image: url(../../img/wallpaperBarbarianPC.jpeg);
-     background-position: right center; 
    }
    &.Wizard {
     background-image: url(../../img/wallpaperWizardPC.jpeg);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: 200% 200%;
    }
 }
 
