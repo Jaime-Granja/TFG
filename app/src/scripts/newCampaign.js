@@ -39,5 +39,13 @@ window.onload = function () {
     function atras() {
     window.location.href = "../back/logout.php";
   }
-  
+  const popup = document.getElementById("popup");
+  if (popup && popup.textContent.trim() !== "") {
+    console.log("Aparece, popup")
+    popup.classList.add("show");
+    setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => (popup.style.display = "none"), 500);
+    }, 4000);
+  }
 };

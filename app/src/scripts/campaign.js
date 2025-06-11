@@ -24,7 +24,6 @@ window.onload = function () {
   function abrirMenu() {
     botones.style.display = "flex";
     menu.style.display = "none";
-    fondo.style.opacity = "50%";
     margen.style.height = window.getComputedStyle(fondo).height;
     margen.style.backgroundColor = "black";
     margen.style.opacity = "90%";
@@ -35,7 +34,6 @@ window.onload = function () {
       botones.style.display = "none";
       menu.style.display = "block";
       margen.style.height = 0;
-      fondo.style.opacity = "100%";
       margen.style.backgroundColor = "transparent";
     }
   }

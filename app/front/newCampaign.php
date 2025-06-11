@@ -48,7 +48,7 @@ if (isset($_POST['createCampaign'])) {
     if ($campaign) {
       $campaignId = $campaign["campaign_id"];
 
-      // Insertamos los datos en la tabla usuarios_campañas para añadir al usuario a la campaña
+      // Insertamos los datos en la tabla usuarios_campañas_personajes para añadir al usuario a la campaña
       $insert = $dbConection->prepare("INSERT INTO Users_Campaigns_Characters (user_id, campaign_id, role) VALUES (:creatorId, :campaignId, 'Master')");
       $insert->execute([
         ':creatorId' => $creatorId,
@@ -100,7 +100,9 @@ if (isset($_POST['joinCampaign'])) {
       exit;
     }
   } else {
-    echo "Código de invitación incorrecto.";
+    $_SESSION['errorCode'] = "Ese código no existe";
+    header("Location: newCampaign.php");
+    exit;
   }
 }
 ?>
@@ -115,7 +117,14 @@ if (isset($_POST['joinCampaign'])) {
   <link rel="shortcut icon" href="../src/img/logo.png" />
 </head>
 
-<body>
+<body> <?php
+  if (isset($_SESSION['errorCode'])) {
+    ?>
+        <div id="popup" class="popup">
+            El código es incorrecto o no existe
+        </div> <?php
+        unset($_SESSION['errorCode']);
+} ?>
   <div id="contenedor">
     <h2>¿Quieres crear una campaña nueva o unirte a una existente?</h2>
     <div class="botones">

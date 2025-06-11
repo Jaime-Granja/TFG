@@ -9,6 +9,39 @@ body {
   background-repeat: no-repeat;
 }
 
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s, transform 0.5s;
+  z-index: 9999;
+  border-left: 5px solid #27ae60;
+  color: #27ae60;
+  background-color: #e9f8f0;
+}
+.popup.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.popup.error {
+  border-left-color: #e74c3c;
+  color: #e74c3c;
+  background-color: #fdecea;
+}
+.popup.success {
+  border-left: 5px solid #27ae60;
+  color: #27ae60;
+  background-color: #e9f8f0;
+}
+
 #contenedor {
   width: 70vw;
   padding: 0.5em;
@@ -33,6 +66,9 @@ body {
 #contenedor #campaignDelete {
   left: 2%;
   background-color: red;
+}
+#contenedor img {
+  max-width: 100%;
 }
 #contenedor #campaignForm {
   display: none;

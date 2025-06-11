@@ -8,6 +8,29 @@ body {
   gap: 1.5em;
 }
 
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s, transform 0.5s;
+  z-index: 9999;
+  border-left: 5px solid #e74c3c;
+  color: #e74c3c;
+  background-color: #fdecea;
+}
+.popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 #contenedor {
   margin-top: 2rem;
   background-color: rgba(255, 235, 205, 0.8);

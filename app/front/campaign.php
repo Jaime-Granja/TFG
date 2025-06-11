@@ -299,15 +299,6 @@ try {
                             <p style="font-family:monospace; font-size:1.2rem;"><?= htmlspecialchars($campaign['invite_code']) ?>
                             </p>
                         </div>
-
-                        <div>
-                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-                                <label for="campaign_photo">Subir imagen de personaje:</label><br>
-                                <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
-                                <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
-                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
-                            </form>
-                        </div>
                     <?php elseif ($loggedUserData['role'] === 'Player'): ?>
 
                         <?php if ($associatedCharacter): ?>
@@ -408,6 +399,14 @@ try {
                                 placeholder="<?php echo htmlspecialchars($campaign['campaign_desc']); ?>" required></textarea>
 
                             <button type="submit">Editar Campaña</button>
+                            <div>
+                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                                <label for="campaign_photo">Subir imagen de personaje:</label><br>
+                                <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
+                                <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
+                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
+                            </form>
+                        </div>
                         </form>
                     </div>
                 </div>
