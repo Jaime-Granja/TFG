@@ -386,64 +386,60 @@ if (!empty($_SESSION['fromNewCharacter'])) {
 
 <body id="body" class="<?= $className; ?>"> <?php
 
-if ($isFromNewCharacter == true) {
-  ?>
+  if ($isFromNewCharacter == true) {
+    ?>
     <div id="popup" class="popup">
       Personaje Creado con Éxito
     </div> <?php
-}
+  }
 
-if (isset($_SESSION['message'])) {
-  $message = $_SESSION['message'];
-  $messageType = $_SESSION['messageType'] ?? 'info';
-  unset($_SESSION['message'], $_SESSION['messageType']);
-  if (!empty($message)): ?>
+  if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    $messageType = $_SESSION['messageType'] ?? 'info';
+    unset($_SESSION['message'], $_SESSION['messageType']);
+    if (!empty($message)): ?>
       <div id="popup" class="popup <?php echo $messageType; ?>">
         <?php echo htmlspecialchars($message); ?>
       </div>
     <?php endif;
-} 
-if (isset($_COOKIE['invalidPicture'])) {
-            ?>
-            <div id="popup" class="popup error">
-                Formato de Imagen No Válido
-            </div> <?php
-            setcookie("invalidPicture", "", time() - 3600, "/");
-        } else if (isset($_COOKIE['largePicture'])) {
-            ?>
-            <div id="popup" class="popup error">
-                Imagen Demasiado Pesada
-            </div> <?php
-            setcookie("largePicture", "", time() - 3600, "/");
+  }
+  if (isset($_COOKIE['invalidPicture'])) {
+    ?>
+    <div id="popup" class="popup error">
+      Formato de Imagen No Válido
+    </div> <?php
+    setcookie("invalidPicture", "", time() - 3600, "/");
+  } else if (isset($_COOKIE['largePicture'])) {
+    ?>
+      <div id="popup" class="popup error">
+        Imagen Demasiado Pesada
+      </div> <?php
+      setcookie("largePicture", "", time() - 3600, "/");
 
-        } else if (isset($_COOKIE['correctUpload'])) {
-            ?>
-            <div id="popup" class="popup success">
-                Imagen Subida Correctamente
-            </div> <?php
-            setcookie("largePicture", "", time() - 3600, "/");
+  } else if (isset($_COOKIE['correctUpload'])) {
+    ?>
+        <div id="popup" class="popup success">
+          Imagen Subida Correctamente
+        </div>
+      <?php
+      setcookie("largePicture", "", time() - 3600, "/");
 
-        }
-?>
+  }
+  ?>
   <div id="margin">
     <img id="menuHamburguesa" src="../src/img/menu.png" />
     <div id="menuHamburguesaBotones">
       <h1>Navegación</h1>
       <button id="goBack">Retroceder</button>
       <button id="userProfile">Perfil de Usuario</button>
-      <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-        <label for="character_photo">Subir imagen de personaje:</label><br>
-        <input type="file" name="character_photo" id="character_photo" accept="image/*" required>
-        <input type="hidden" name="character_id" value="<?= htmlspecialchars($characterId) ?>">
-        <input type="submit" name="upload_character_photo" value="Subir imagen de personaje">
-      </form>
       <button id="openCalculatorBtn">Abrir calculadora</button>
       <button id="logOut">Cerrar Sesión</button>
     </div>
   </div>
   <div id="sheetTabs">
     <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage"> Principal</button>
-    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png" alt="backgroundImage">Trasfondo</button>
+    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png"
+        alt="backgroundImage">Trasfondo</button>
     <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
     <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
     <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de
@@ -547,6 +543,15 @@ if (isset($_COOKIE['invalidPicture'])) {
         <input type="hidden" name="edit" value="1">
         <button type="submit">Guardar cambios</button>
       </form>
+
+
+      <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+        <label for="character_photo">Subir imagen de personaje:</label><br>
+        <input type="file" name="character_photo" id="character_photo" accept="image/*" required>
+        <input type="hidden" name="character_id" value="<?= htmlspecialchars($characterId) ?>">
+        <input type="submit" name="upload_character_photo" value="Subir imagen de personaje">
+      </form>
+
     </div>
 
 
@@ -1032,4 +1037,5 @@ if (isset($_COOKIE['invalidPicture'])) {
     }
   </script>
 </body>
+
 </html>
