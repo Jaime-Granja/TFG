@@ -14,7 +14,7 @@ button {
   font-size: 1.1rem;
   border: 1px solid #999;
   border-radius: 5px;
-  background: #c8c3b4;
+  background: #FFEBCD;
   color: #333;
   cursor: pointer;
   -webkit-user-select: none;
@@ -88,7 +88,7 @@ button:hover {
 }
 #contenedor #campaignDelete {
   left: 2%;
-  background-color: red;
+  background-color: #bb0a21;
 }
 #contenedor img {
   max-width: 100%;

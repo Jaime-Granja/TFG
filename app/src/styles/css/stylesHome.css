@@ -21,6 +21,7 @@ body {
   background-color: #fadeb3;
   border-radius: 0.5em;
   text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 p {
@@ -48,6 +49,7 @@ p {
   text-align: center;
   width: 27%;
   background-color: #fadeb3;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .popup {
@@ -90,7 +92,7 @@ button {
   font-size: 1.1rem;
   border: 1px solid #999;
   border-radius: 5px;
-  background: #c8c3b4;
+  background: #fcd7ad;
   color: #333;
   cursor: pointer;
   -webkit-user-select: none;
