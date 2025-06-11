@@ -260,12 +260,14 @@ try {
                 ?>
 
                 <div campaignInfo>
-                    <form id="deleteForm" method="POST"
-                        onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
-                        <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
-                        <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
-                    </form>
-                    <button id="campaignButton">Editar</button>
+                    <?php if ($loggedUserData['role'] === 'Master'): ?>
+                        <form id="deleteForm" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
+                            <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
+                            <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
+                        </form>
+                        <button id="campaignButton">Editar</button>
+                    <?php endif; ?>
                     <h1 id="campaignName" class="title"><?php echo $campaign['campaign_name'] ?></h1>
                     <!-- $campaignName de la base de datos-->
                     <div>
@@ -401,13 +403,13 @@ try {
                             <button type="submit">Editar Campaña</button>
                         </form>
                         <div>
-                                <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
-                                    <label for="campaign_photo">Subir imagen de personaje:</label><br>
-                                    <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
-                                    <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
-                                    <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
-                                </form>
-                            </div>
+                            <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data">
+                                <label for="campaign_photo">Subir imagen de personaje:</label><br>
+                                <input type="file" name="campaign_photo" id="campaign_photo" accept="image/*" required>
+                                <input type="hidden" name="campaign_id" value="<?= htmlspecialchars($campaignId) ?>">
+                                <input type="submit" name="upload_campaign_photo" value="Subir imagen de personaje">
+                            </form>
+                        </div>
                     </div>
                 </div>
 
