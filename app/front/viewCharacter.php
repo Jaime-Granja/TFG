@@ -968,10 +968,10 @@ if (isset($_COOKIE['invalidPicture'])) {
 
   <!-- LA CALCULADORA -->
   <div id="calculatorModal"
-    style="display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; height: 80%; background: #1e1e1e; border: 2px solid #ccc; z-index: 1000; box-shadow: 0 0 15px #000; border-radius: 8px;">
+    style="display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; height: 80%; background: #1e1e1e; z-index: 1000; box-shadow: 0 0 15px #000; border-radius: 8px;">
     <div id="calculatorHeader" style="display: flex; justify-content: flex-end; padding: 10px; cursor: move;">
       <button id="closeCalculatorBtn"
-        style="background: #444; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">Cerrar</button>
+        style="background: #bb0a21; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">Cerrar</button>
     </div>
     <iframe src="../src/calculator/index.html"
       style="width: 100%; height: calc(100% - 40px); border: none; border-radius: 0 0 8px 8px;"></iframe>
