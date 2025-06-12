@@ -253,32 +253,33 @@ try {
 
     }
     ?>
-    <div id="margin">
-                <img id="menuHamburguesa" src="../src/img/menu.png" />
-                <div id="menuHamburguesaBotones">
-                    <h1>Navegación</h1>
-                    <button id="userProfile">Perfil de Usuario</button>
-                    <button id="goBack">Retroceder</button>
-                    <button id="logOut">Cerrar Sesión</button>
-                </div>
+        <div id="margin">
+            <img id="menuHamburguesa" src="../src/img/menu.png" />
+            <div id="menuHamburguesaBotones">
+                <h1>Navegación</h1>
+                <button id="userProfile">Perfil de Usuario</button>
+                <button id="goBack">Retroceder</button>
+                <button id="logOut">Cerrar Sesión</button>
             </div>
+        </div>
+        <?php if ($loggedUserData['role'] === 'Master'): ?>
+        <div id="campaignTab">
+            <button class="tab" id="campaignButton">Editar</button>
+        </div>
+        <?php endif; ?>
         <div id="contenedor">
             <!-- Al llegar a esta página, hay que revisar el id del usuario y así mostrarle su información-->
             <?php
             if ($campaign) {
                 ?>
-
                 <div campaignInfo>
-                    <?php if ($loggedUserData['role'] === 'Master'): ?>
-                        <button id="campaignButton">Editar</button>
-                    <?php endif; ?>
                     <h1 id="campaignName" class="title"><?php echo $campaign['campaign_name'] ?></h1>
                     <!-- $campaignName de la base de datos-->
                     <div>
                         <img id="campaignPic" src="<?= htmlspecialchars("../" . $campaignPic) ?>" alt="Profile picture" />
                     </div>
                     <div id="campaignDescription">
-                        <h2>Pequeña Descripción de la Campaña </h2>
+                        <h2>Descripción de la Campaña </h2>
                         <!-- $description en la base de datos-->
                         <?php echo $campaign['campaign_desc'] ?>
                     </div>
@@ -368,14 +369,16 @@ try {
                         </div>
                     </div>
                     <div id="participants">
-                        <h2 id="participantsTittle">Participantes</h2>
                         <?php if ($loggedUserData['role'] === 'Master'): ?>
-                        <div class="inviteCode">
-                            <h3>Código de invitación:</h3>
-                            <p style="font-family:monospace; font-size:1.2rem;"><?= htmlspecialchars($campaign['invite_code']) ?>
-                            </p>
-                        </div>
-                        <?php endif; 
+                            <div class="inviteCode">
+                                <h3>Código de invitación:</h3>
+                                <p style="font-family:monospace; font-size:1.2rem;">
+                                    <?= htmlspecialchars($campaign['invite_code']) ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                        <h2 id="participantsTitle">Participantes</h2>
+                        <?php
                         if ($players) {
                             foreach ($players as $player) {
                                 $username = htmlspecialchars($player['username']);
@@ -404,12 +407,12 @@ try {
                             <button type="submit">Editar Campaña</button>
                         </form>
                         <?php if ($loggedUserData['role'] === 'Master'): ?>
-                        <form id="deleteForm" method="POST"
-                            onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
-                            <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
-                            <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
-                        </form>
-                    <?php endif; ?>
+                            <form id="deleteForm" method="POST"
+                                onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta campaña? Esta acción no se puede deshacer.');">
+                                <input type="hidden" name="campaign_id" value="<?= $campaignId ?>">
+                                <button type="submit" id="campaignDelete" name="campaignDelete">Eliminar Campaña</button>
+                            </form>
+                        <?php endif; ?>
                         <div>
                             <form action="../back/uploadImage.php" method="POST" enctype="multipart/form-data" id="pictureForm">
                                 <label for="campaign_photo">Subir imagen de la campaña:</label><br>

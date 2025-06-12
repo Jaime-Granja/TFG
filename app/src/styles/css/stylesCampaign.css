@@ -75,33 +75,64 @@ button#logOut {
   background-color: #e9f8f0;
 }
 
+#campaignTab {
+  margin-top: 1rem;
+  position: absolute;
+  top: 0;
+  right: 7%;
+}
+@media (min-width: 768px) {
+  #campaignTab {
+    right: 12%;
+  }
+}
+@media (min-width: 1440px) {
+  #campaignTab {
+    right: 15%;
+  }
+}
+#campaignTab .tab {
+  padding: 0.5rem 1rem 0 1rem;
+  background-color: #c8c3b4;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  margin-right: 0.3rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: large;
+  height: 3rem;
+}
+#campaignTab .tab:hover {
+  background-color: #d0d0d0;
+}
+
 #contenedor {
   width: 70vw;
   padding: 0.5em;
-  margin: 0.5em 0 0 3rem;
+  margin: 4.5em 0 0 3rem;
   background-color: rgba(255, 235, 205, 0.8);
   color: #bb0a21;
   border-radius: 0.5em;
   text-align: center;
   position: relative;
 }
-#contenedor #campaignButton,
 #contenedor #campaignDelete {
-  position: absolute;
-  min-width: 120px;
-  padding: 10px 15px;
-  top: 0.7%;
-}
-#contenedor #campaignButton {
-  right: 2%;
-}
-#contenedor #campaignDelete {
-  left: 2%;
   background-color: #bb0a21;
 }
 #contenedor img {
   max-width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 768px) {
+  #contenedor #contenido {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr;
+  }
 }
 #contenedor #campaignForm {
   display: none;
@@ -118,6 +149,28 @@ button#logOut {
   gap: 1rem;
   margin-top: 1rem;
   background-color: rgba(255, 235, 205, 0.8);
+}
+@media (min-width: 768px) {
+  #contenedor #sheet {
+    grid-column: span 2;
+    border-top: 1px dashed #bb0a21;
+  }
+}
+@media (min-width: 1440px) {
+  #contenedor #sheet {
+    grid-column: span 1;
+  }
+}
+@media (min-width: 768px) {
+  #contenedor #journal {
+    border-right: 1px dashed #bb0a21;
+    border-top: 1px dashed #bb0a21;
+  }
+}
+@media (min-width: 1440px) {
+  #contenedor #journal {
+    border-right: none;
+  }
 }
 
 #sheetPage,
@@ -137,10 +190,33 @@ button#logOut {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  border-top: 1px dashed #bb0a21;
 }
-#participants #participantsTittle, #participants .inviteCode {
+@media (min-width: 768px) {
+  #participants {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1440px) {
+  #participants {
+    border-top: 1px dashed #bb0a21;
+    grid-column: span 2;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+#participants #participantsTitle, #participants .inviteCode {
+  margin-top: 0;
   flex-basis: 82%;
+}
+@media (min-width: 768px) {
+  #participants #participantsTitle, #participants .inviteCode {
+    grid-column: span 3;
+  }
+}
+#participants #participantsTitle p, #participants .inviteCode p {
+  margin-bottom: 0;
 }
 #participants .profilePic {
   max-width: 15%;
@@ -170,7 +246,7 @@ button#logOut {
 #margin #menuHamburguesa {
   width: 4rem;
   position: relative;
-  left: -35%;
+  left: -30%;
   padding: 0.6rem;
   border-radius: 8px;
   background-color: rgba(255, 235, 205, 0.9);
@@ -185,47 +261,4 @@ button#logOut {
 }
 #margin #menuHamburguesaBotones h1 {
   color: #ccc;
-}
-
-@media (min-width: 576px) {
-  #contenido {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-  #sheet {
-    grid-column: span 2;
-  }
-  #journal {
-    border-right: 1px dashed #bb0a21;
-  }
-  #participants {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-  }
-  #participantsTittle {
-    grid-column: span 3;
-  }
-}
-@media (min-width: 992px) {
-  #contenido {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr;
-  }
-  #sheet {
-    grid-column: span 1;
-  }
-  #journal {
-    border-right: none;
-  }
-  #participants {
-    border-top: 1px dashed #bb0a21;
-    grid-column: span 2;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-  }
-  #participantsTittle {
-    grid-column: span 3;
-  }
 }/*# sourceMappingURL=stylesCampaign.css.map */
