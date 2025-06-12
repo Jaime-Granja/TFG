@@ -232,16 +232,19 @@ h2 {
 }
 
 button {
-            padding: 0.4rem;
-            font-size: 1.1rem;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background: #FFEBCD;
-            color: #333;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #FFEBCD;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+
+  
         }
 button:hover {
             background: #d0d0d0;
