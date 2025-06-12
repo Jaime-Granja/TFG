@@ -115,6 +115,8 @@ h2 {
   border-bottom: none;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   margin-right: 0.3rem;
   cursor: pointer;
   font-weight: bold;
@@ -126,7 +128,7 @@ h2 {
 }
 .tab.active {
   height: 3.5rem;
-  background-color: #ffebcd;
+  background-color: antiquewhite;
   border-bottom: 2px solid #ffebcd;
 }
 
@@ -229,6 +231,12 @@ button:hover {
 .characterField {
   background-color: antiquewhite;
   color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+}
+
+#characterPic {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #stats,
@@ -251,6 +259,7 @@ button:hover {
   height: fit-content;
   text-align: center;
   background-color: antiquewhite;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .mod {
@@ -275,6 +284,7 @@ button:hover {
   padding: 1em 0.5em;
   text-align: center;
   background-color: antiquewhite;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 #globalStats #pb {
   grid-column: span 2;
@@ -298,9 +308,10 @@ button:hover {
 #saves .save {
   display: flex;
   flex-direction: column;
-  padding: 0.2rem;
+  padding: 0.5rem;
   background-color: antiquewhite;
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #abilities {
@@ -324,13 +335,7 @@ button:hover {
   font-size: small;
   background-color: antiquewhite;
   border-radius: 0.2rem;
-}
-
-#attackBlock {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  padding: 0.3rem;
-  background-color: antiquewhite;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #backgroundPage,
