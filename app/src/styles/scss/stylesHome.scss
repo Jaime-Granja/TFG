@@ -1,15 +1,35 @@
+@mixin media-tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-pc {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}
+html {
+  height: 100%;
+}
 body {
+  height: auto;
   display: flex;
   margin: 0;
   padding: 0;
   justify-content: center;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed;
+  @include media-tablet {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+  @include media-pc {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
 }
-
 #body {
-  margin: 0rem 0rem 0rem 7rem;
+  margin: 0rem 0rem 0rem 2.5rem;
   color: #bb0a21;
   background-color: rgba(255, 235, 205, 0.8);
   padding: 1rem;
@@ -22,7 +42,10 @@ body {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-}
+@include media-tablet {
+    margin: 0rem;
+  }
+
 
 p {
   background-color: #fadeb3;
@@ -40,6 +63,13 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  @include media-tablet {
+    gap: 0.1rem;
+  }
+  @include media-pc {
+    gap: 0.5rem;
+  }
+  
 }
 
 .campaign,
@@ -53,7 +83,36 @@ p {
   border-radius: 0.5em;
 }
 
-.popup {
+img {
+  max-width: 100%;
+}
+}
+  button {
+  padding: 0.4rem;          
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #fcd7ad;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    &.mas {
+    background-color: #fcd7ad;
+    margin-top: 1rem;
+    border-radius: 2em;
+}
+&:hover {
+  background: #d0d0d0;
+  }
+  &#logOut {
+    background: #bb0a21;
+    border: none;
+  }
+        }
+
+  .popup {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -82,36 +141,6 @@ p {
     background-color: #e9f8f0;
   }
 }
-img {
-  max-width: 100%;
-}
-#logOut {
-  background-color: #bb0a21;
-}
-button {
-  padding: 0.4rem;          
-  font-size: 1.1rem;
-  border: 1px solid #999;
-  border-radius: 5px;
-  background: #fcd7ad;
-  color: #333;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.3s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    &.mas {
-    background-color: #fcd7ad;
-    margin-top: 1rem;
-    border-radius: 2em;
-}
-        }
-button:hover {
-  background: #d0d0d0;
-  }
-  #logOut {
-    background: #bb0a21;
-    border: none;
-  }
 #margin {
   margin-top: 0;
   padding: 1rem;

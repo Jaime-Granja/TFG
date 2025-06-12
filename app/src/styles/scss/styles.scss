@@ -1,12 +1,12 @@
 
 @mixin media-tablet {
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     @content;
   }
 }
 
 @mixin media-pc {
-  @media (min-width: 992px) {
+  @media (min-width: 1440px) {
     @content;
   }
 }
@@ -57,20 +57,25 @@ body {
   }
 }
 button {
-            padding: 0.4rem;
-            font-size: 1.1rem;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background: #FFEBCD;
-            color: #333;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-button:hover {
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #FFEBCD;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
+  @include media-tablet {
+    margin-top: 0;
+  }
+&:hover {
             background: #d0d0d0;
         }
+        }
+
 h1 {
   color: #bb0a21;
   padding: 0.5em;

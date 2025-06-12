@@ -1,6 +1,7 @@
 window.onload = function () {
   let userBotton = document.getElementById("userProfile");
   let logOut = document.getElementById("logOut");
+  let html = document.getElementById("html");
   let newCampaign = document.getElementById("newCampaignButton");
   let newCharacter = document.getElementById("createSheet");
   let campaignButtons = document.querySelectorAll(".campaign .mas");
@@ -39,7 +40,7 @@ window.onload = function () {
   function abrirMenu() {
     botones.style.display = "flex";
     menu.style.display = "none";
-    margen.style.height = window.getComputedStyle(fondo).height;
+    margen.style.height = window.getComputedStyle(html).height;
     margen.style.backgroundColor = "#242848";
     margen.style.opacity = "90%";
   }

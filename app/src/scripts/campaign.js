@@ -1,6 +1,6 @@
 window.onload = function () {
   let menu = document.getElementById("menuHamburguesa");
-  let fondo = document.getElementById("contenedor");
+  let html = document.getElementById("html");
   let margen = document.getElementById("margin");
   let botones = document.getElementById("menuHamburguesaBotones");
   let userBotton = document.getElementById("userProfile");
@@ -24,7 +24,7 @@ window.onload = function () {
   function abrirMenu() {
     botones.style.display = "flex";
     menu.style.display = "none";
-    margen.style.height = window.getComputedStyle(fondo).height;
+    margen.style.height = window.getComputedStyle(html).height;
     margen.style.backgroundColor = "#242848";
     margen.style.opacity = "90%";
   }

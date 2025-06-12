@@ -7,12 +7,12 @@ body {
   display: flex;
   justify-content: center;
 }
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   body {
     background-image: url(../../img/wallpaper_tablet.jpg);
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 1440px) {
   body {
     background-image: url(../../img/wallpaper_PC.jpg);
   }
@@ -60,8 +60,13 @@ button {
           user-select: none;
   transition: background 0.3s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
 }
-
+@media (min-width: 768px) {
+  button {
+    margin-top: 0;
+  }
+}
 button:hover {
   background: #d0d0d0;
 }
@@ -108,13 +113,13 @@ div > img {
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   #banner {
     min-width: 75%;
     height: 20rem;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 1440px) {
   #banner {
     min-width: 60%;
     height: 25rem;

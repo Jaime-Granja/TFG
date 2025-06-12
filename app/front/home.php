@@ -17,7 +17,7 @@ $selectCharacters->execute();
 $characters = $selectCharacters->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
 
 <head>
     <meta charset="UTF-8">

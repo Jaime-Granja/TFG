@@ -2,7 +2,7 @@ window.onload = function () {
   let userBotton = document.getElementById("userProfile");
   let logOut = document.getElementById("logOut");
   let menu = document.getElementById("menuHamburguesa");
-  let body = document.getElementById("body");
+  let html = document.getElementById("html");
   let fondo = document.getElementById("contenedorPrincipal");
   let fondoSecundario = document.getElementById("contenedorSecundario");
   let margen = document.getElementById("margin");
@@ -39,7 +39,7 @@ window.onload = function () {
   function abrirMenu() {
     botones.style.display = "flex";
     menu.style.display = "none";
-    margen.style.height = window.getComputedStyle(body).height;
+    margen.style.height = window.getComputedStyle(html).height;
     margen.style.backgroundColor = "#242848";
     margen.style.opacity = "90%";
   }

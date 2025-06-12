@@ -1,15 +1,30 @@
+html {
+  height: 100%;
+}
+
 body {
+  height: auto;
   display: flex;
   margin: 0;
   padding: 0;
   justify-content: center;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed;
+}
+@media (min-width: 768px) {
+  body {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
 }
 
 #body {
-  margin: 0rem 0rem 0rem 7rem;
+  margin: 0rem 0rem 0rem 2.5rem;
   color: #bb0a21;
   background-color: rgba(255, 235, 205, 0.8);
   padding: 1rem;
@@ -23,27 +38,40 @@ body {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
-p {
+@media (min-width: 768px) {
+  #body {
+    margin: 0rem;
+  }
+}
+#body p {
   background-color: #fadeb3;
   padding: 1.5em;
 }
-
-.newCampaign,
-.newSheet {
+#body .newCampaign,
+#body .newSheet {
   display: flex;
   justify-content: end;
 }
-
-#campaigns,
-#sheets {
+#body #campaigns,
+#body #sheets {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
-.campaign,
-.sheet {
+@media (min-width: 768px) {
+  #body #campaigns,
+  #body #sheets {
+    gap: 0.1rem;
+  }
+}
+@media (min-width: 1440px) {
+  #body #campaigns,
+  #body #sheets {
+    gap: 0.5rem;
+  }
+}
+#body .campaign,
+#body .sheet {
   margin-top: 2rem;
   padding: 1rem;
   text-align: center;
@@ -51,6 +79,36 @@ p {
   background-color: #fadeb3;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
+}
+#body img {
+  max-width: 100%;
+}
+
+button {
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #fcd7ad;
+  color: #333;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+button.mas {
+  background-color: #fcd7ad;
+  margin-top: 1rem;
+  border-radius: 2em;
+}
+button:hover {
+  background: #d0d0d0;
+}
+button#logOut {
+  background: #bb0a21;
+  border: none;
 }
 
 .popup {
@@ -78,43 +136,6 @@ p {
   border-left: 5px solid #27ae60;
   color: #27ae60;
   background-color: #e9f8f0;
-}
-
-img {
-  max-width: 100%;
-}
-
-#logOut {
-  background-color: #bb0a21;
-}
-
-button {
-  padding: 0.4rem;
-  font-size: 1.1rem;
-  border: 1px solid #999;
-  border-radius: 5px;
-  background: #fcd7ad;
-  color: #333;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  transition: background 0.3s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-button.mas {
-  background-color: #fcd7ad;
-  margin-top: 1rem;
-  border-radius: 2em;
-}
-
-button:hover {
-  background: #d0d0d0;
-}
-
-#logOut {
-  background: #bb0a21;
-  border: none;
 }
 
 #margin {
