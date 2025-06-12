@@ -1,3 +1,16 @@
+@mixin media-tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-pc {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}
+
+
 // Variables
 $secondary-color: #bb0a21;
 $background-light: antiquewhite;
@@ -9,30 +22,36 @@ body {
   display: flex;
   justify-content: space-around;
   margin-bottom: 1em;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+  @include media-tablet {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+  @include media-pc {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
 }
 button {
-            padding: 0.4rem;
-            font-size: 1.1rem;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background: #FFEBCD;
-            color: #333;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-button:hover {
-            background: #d0d0d0;
-        }
-        #logOut {
-           background: #bb0a21;
-           border: none;
-
-        }
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #FFEBCD;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  &:hover {
+    background: #d0d0d0;
+  }
+  &#logOut {
+    background: #bb0a21;
+    border: none;
+  }
+}
 .popup {
   position: fixed;
   top: 20px;
@@ -134,6 +153,9 @@ button:hover {
   flex-wrap: wrap;
   gap: 1rem; 
 
+  #participantsTittle, .inviteCode {
+  flex-basis: 82%;
+  }
   .profilePic {
     max-width: 15%;
     border-radius: 50%;
@@ -148,9 +170,7 @@ button:hover {
   }
 }
 
-#participantsTittle {
-  flex-basis: 82%;
-}
+
 
 #margin {
   margin-top: 0;
@@ -189,9 +209,6 @@ button:hover {
 
 // Media queries
 @media (min-width: 576px) {
-  body {
-  background-image: url(../../img/wallpaper_mobile.jpg);
-}
   #contenido {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -217,9 +234,6 @@ button:hover {
 }
 
 @media (min-width: 992px) {
-  body {
-  background-image: url(../../img/wallpaper_tablet.jpg);
-}
   #contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

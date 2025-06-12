@@ -297,14 +297,6 @@ try {
                                 </div>
                             <?php endforeach; ?>
                         </div>
-
-
-
-                        <div class="inviteCode">
-                            <h3>Código de invitación:</h3>
-                            <p style="font-family:monospace; font-size:1.2rem;"><?= htmlspecialchars($campaign['invite_code']) ?>
-                            </p>
-                        </div>
                     <?php elseif ($loggedUserData['role'] === 'Player'): ?>
 
                         <?php if ($associatedCharacter): ?>
@@ -377,7 +369,13 @@ try {
                     </div>
                     <div id="participants">
                         <h2 id="participantsTittle">Participantes</h2>
-                        <?php
+                        <?php if ($loggedUserData['role'] === 'Master'): ?>
+                        <div class="inviteCode">
+                            <h3>Código de invitación:</h3>
+                            <p style="font-family:monospace; font-size:1.2rem;"><?= htmlspecialchars($campaign['invite_code']) ?>
+                            </p>
+                        </div>
+                        <?php endif; 
                         if ($players) {
                             foreach ($players as $player) {
                                 $username = htmlspecialchars($player['username']);

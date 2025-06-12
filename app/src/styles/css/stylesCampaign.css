@@ -4,9 +4,20 @@ body {
   display: flex;
   justify-content: space-around;
   margin-bottom: 1em;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@media (min-width: 768px) {
+  body {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
 }
 
 button {
@@ -23,12 +34,10 @@ button {
   transition: background 0.3s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
 button:hover {
   background: #d0d0d0;
 }
-
-#logOut {
+button#logOut {
   background: #bb0a21;
   border: none;
 }
@@ -130,6 +139,9 @@ button:hover {
   flex-wrap: wrap;
   gap: 1rem;
 }
+#participants #participantsTittle, #participants .inviteCode {
+  flex-basis: 82%;
+}
 #participants .profilePic {
   max-width: 15%;
   border-radius: 50%;
@@ -140,10 +152,6 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 0.5rem;
-}
-
-#participantsTittle {
-  flex-basis: 82%;
 }
 
 #margin {
@@ -180,9 +188,6 @@ button:hover {
 }
 
 @media (min-width: 576px) {
-  body {
-    background-image: url(../../img/wallpaper_mobile.jpg);
-  }
   #contenido {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -203,9 +208,6 @@ button:hover {
   }
 }
 @media (min-width: 992px) {
-  body {
-    background-image: url(../../img/wallpaper_tablet.jpg);
-  }
   #contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
