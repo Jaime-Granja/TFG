@@ -91,8 +91,8 @@ if (isset($_POST['createCharacter'])) {
             <label>Descripción:</label>
             <textarea name="character_desc"></textarea>
 
-            <label>Especie:</label>
-            <select name="specie" required>
+            <label id="labelSpecies">Especie:</label>
+            <select id="selectSpecies" name="specie" required>
                 <?php
                 require '../back/conection.php';
                 $select = $dbConection->query("SELECT specie_id, specie_name FROM Species");
@@ -102,8 +102,8 @@ if (isset($_POST['createCharacter'])) {
                 ?>
             </select>
 
-            <label>Clase:</label>
-            <select name="class_level" required>
+            <label id="labelClasses">Clase:</label>
+            <select id="selectClasses" name="class_level" required>
                 <?php
                 $select = $dbConection->query("SELECT class_id, class_name FROM Classes");
                 while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
@@ -112,22 +112,22 @@ if (isset($_POST['createCharacter'])) {
                 ?>
             </select>
             <label id="stats">Puntos de estadística:</label>
-            <label for="strength">Fuerza</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength"
+            <label id="labelStr" for="strength">Fuerza</label>
+            <input id="inputStr" type="number" class="stat" value="8" min="8" max="15" name="strength" placeholder="Strength"
                 required>
-            <label for="dexterity">Destreza</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity"
+            <label id="labelDex" for="dexterity">Destreza</label>
+            <input id="inputDex" type="number" class="stat" value="8" min="8" max="15" name="dexterity" placeholder="Dexterity"
                 required>
-            <label for="constitution">Constitución</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution"
+            <label id="labelCon" for="constitution">Constitución</label>
+            <input id="inputCon" type="number" class="stat" value="8" min="8" max="15" name="constitution" placeholder="Constitution"
                 required>
-            <label for="intelligence">Inteligencia</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence"
+            <label id="labelInt" for="intelligence">Inteligencia</label>
+            <input id="inputInt" type="number" class="stat" value="8" min="8" max="15" name="intelligence" placeholder="Intelligence"
                 required>
-            <label for="wisdom">Sabiduría</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
-            <label for="charisma">Carisma</label>
-            <input type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma"
+            <label id="labelWis" for="wisdom">Sabiduría</label>
+            <input id="inputWis" type="number" class="stat" value="8" min="8" max="15" name="wisdom" placeholder="Wisdom" required>
+            <label id="labelCha" for="charisma">Carisma</label>
+            <input id="inputCha" type="number" class="stat" value="8" min="8" max="15" name="charisma" placeholder="Charisma"
                 required>
             <!-- <p>Puntos Restantes: <span id="remaining">27</span> </p>  Si habilitamos compra de puntos, esto estará por aquí.-->
             <button type="submit" name="createCharacter">Crear personaje</button>
