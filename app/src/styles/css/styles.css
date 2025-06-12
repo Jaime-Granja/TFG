@@ -1,10 +1,21 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   background-repeat: no-repeat;
+  background-attachment: scroll;
   display: flex;
   justify-content: center;
+}
+@media (min-width: 576px) {
+  body {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+}
+@media (min-width: 992px) {
+  body {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
 }
 
 #body {
@@ -68,7 +79,7 @@ h1 > img {
 }
 
 div > img {
-  max-width: 90px;
+  max-width: 8rem;
   padding: 1rem;
 }
 
@@ -90,9 +101,24 @@ div > img {
 }
 
 #banner {
-  min-width: 40%;
-  height: 20rem;
+  min-width: 90%;
+  margin-top: 1rem;
+  padding: 0;
+  height: 15rem;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 576px) {
+  #banner {
+    min-width: 75%;
+    height: 20rem;
+  }
+}
+@media (min-width: 992px) {
+  #banner {
+    min-width: 60%;
+    height: 25rem;
+  }
 }
 
 #Log {
@@ -151,15 +177,4 @@ footer {
   padding: 1rem;
   height: 4rem;
   width: 20rem;
-}
-
-@media (min-width: 576px) {
-  body {
-    background-image: url(../../img/wallpaper_mobile.jpg);
-  }
-}
-@media (min-width: 992px) {
-  body {
-    background-image: url(../../img/wallpaper_tablet.jpg);
-  }
 }/*# sourceMappingURL=styles.css.map */

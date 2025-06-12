@@ -50,6 +50,7 @@ p {
   width: 27%;
   background-color: #fadeb3;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
 }
 
 .popup {
@@ -138,6 +139,7 @@ button:hover {
   border-radius: 8px;
   background-color: rgba(255, 235, 205, 0.9);
   border: 1px solid rgb(255, 235, 205);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #menuHamburguesaBotones {

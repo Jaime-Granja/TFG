@@ -92,6 +92,7 @@ button:hover {
 }
 #contenedor img {
   max-width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 #contenedor #campaignForm {
   display: none;
@@ -120,6 +121,7 @@ button:hover {
   margin: 1rem;
   padding: 1rem;
   border-radius: 0.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #participants {

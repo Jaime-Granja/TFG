@@ -50,6 +50,7 @@ p {
   width: 27%;
   background-color: #fadeb3;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
 }
 
 .popup {
@@ -84,36 +85,33 @@ p {
 img {
   max-width: 100%;
 }
-
-
 #logOut {
   background-color: #bb0a21;
 }
 button {
-            padding: 0.4rem;
-            font-size: 1.1rem;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background: #fcd7ad;
-            color: #333;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            &.mas {
-              background-color: #fcd7ad;
-              margin-top: 1rem;
-              border-radius: 2em;
+  padding: 0.4rem;          
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #fcd7ad;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    &.mas {
+    background-color: #fcd7ad;
+    margin-top: 1rem;
+    border-radius: 2em;
 }
         }
 button:hover {
-            background: #d0d0d0;
-        }
-        #logOut {
-           background: #bb0a21;
-           border: none;
-
-        }
+  background: #d0d0d0;
+  }
+  #logOut {
+    background: #bb0a21;
+    border: none;
+  }
 #margin {
   margin-top: 0;
   padding: 1rem;
@@ -136,6 +134,7 @@ button:hover {
   border-radius: 8px;
   background-color: rgba(255, 235, 205, 0.9);
   border: 1px solid rgb(255, 235, 205);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 #menuHamburguesaBotones {
   display: none;
