@@ -373,7 +373,7 @@ if (!empty($_SESSION['fromNewCharacter'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
 
 <head>
   <meta charset="UTF-8" />
@@ -438,26 +438,30 @@ if (!empty($_SESSION['fromNewCharacter'])) {
     </div>
   </div>
   <div id="sheetTabs">
-    <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage"> Principal</button>
-    <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png"
-        alt="backgroundImage">Trasfondo</button>
-    <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
-    <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
-    <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png" alt="spellbookImage">Libro de
-      Hechizos</button>
-    <!-- Intento de menú desplegable para edición de PJ -->
-    <div id="dropdown">
-      <button id="dropButton" class="tab">Modificar ∇</button>
-      <div id="dropContent">
-        <button id="editButton" onclick="toggleFormulario()">Editar</button>
-        <!-- BOTON BORRAR -->
-        <form method="POST"
-          onsubmit="return confirm('¿Estás seguro de que quieres borrar este personaje? Esta acción no se puede deshacer.');">
-          <input type="hidden" name="delete" value="1">
-          <button id="deleteButton" type="submit" style="background-color: red; color: white;">Borrar personaje</button>
-        </form>
-      </div>
+    <button id="tabsToggle" class="tab responsive-toggle">☰ Más cositas</button>
+    <div id="tabsList">
+      <button class="tab active" id="mainPageBotton"><img src="../src/img/sheet.png" alt="sheetImage">
+        Principal</button>
+      <button class="tab" id="backgroundBotton"> <img src="../src/img/background.png"
+          alt="backgroundImage">Trasfondo</button>
+      <button class="tab" id="featuresBotton"><img src="../src/img/traits.png" alt="traitsImage"> Rasgos</button>
+      <button class="tab" id="equipmentBotton"> <img src="../src/img/equipment.png" alt="equipmentImage">Equipo</button>
+      <button class="tab" id="spellbookBotton"> <img src="../src/img/spellbook.png"
+          alt="spellbookImage">Hechizos</button>
+          <div id="dropdown">
+    <button id="dropButton" class="tab">Modificar ∇</button>
+    <div id="dropContent">
+      <button id="editButton" onclick="toggleFormulario()">Editar</button>
+      <!-- BOTON BORRAR -->
+      <form method="POST"
+        onsubmit="return confirm('¿Estás seguro de que quieres borrar este personaje? Esta acción no se puede deshacer.');">
+        <input type="hidden" name="delete" value="1">
+        <button id="deleteButton" type="submit" style="background-color: #bb0a21;">Borrar personaje</button>
+      </form>
     </div>
+  </div>
+    </div>
+    
   </div>
   <div id="contenedorPrincipal">
     <div id="profile">
@@ -915,7 +919,7 @@ if (!empty($_SESSION['fromNewCharacter'])) {
       </div>
       <div>
         <?php if (!empty($tableTraits)): ?>
-          <h2>Tablita magiquita</h2>
+          <h2>Tabla de Hechizos</h2>
           <?php
           foreach ($tableTraits as $className => $traits):
             $cantripsKnown = '-';

@@ -11,14 +11,39 @@ body {
   top: 0;
   left: 0;
   background-repeat: no-repeat;
-  background-position: right top;
-  background-size: 200% 200%;
+  background-attachment: fixed;
 }
 body.Barbarian {
-  background-image: url(../../img/wallpaperBarbarianPC.jpeg);
+  background-image: url(../../img/wallpaperBarbarianMobile.jpeg);
+  background-position: right bottom 45%;
+}
+@media (min-width: 768px) {
+  body.Barbarian {
+    background-image: url(../../img/wallpaperBarbarianTablet.jpeg);
+    background-position: right 40% center;
+  }
+}
+@media (min-width: 1440px) {
+  body.Barbarian {
+    background-image: url(../../img/wallpaperBarbarianPC.jpeg);
+    background-position: right 20% bottom 25%;
+  }
 }
 body.Wizard {
-  background-image: url(../../img/wallpaperWizardPC.jpeg);
+  background-image: url(../../img/wallpaperWizardMobile.jpeg);
+  background-position: right bottom 52%;
+}
+@media (min-width: 768px) {
+  body.Wizard {
+    background-image: url(../../img/wallpaperWizardTablet.jpeg);
+    background-position: center center;
+  }
+}
+@media (min-width: 1440px) {
+  body.Wizard {
+    background-image: url(../../img/wallpaperWizardPC.jpeg);
+    background-position: left 80% bottom 0%;
+  }
 }
 
 .popup {
@@ -71,8 +96,7 @@ h2 {
   align-items: center;
   gap: 1rem;
 }
-
-#menuHamburguesa {
+#margin #menuHamburguesa {
   width: 4rem;
   position: relative;
   left: -35%;
@@ -81,59 +105,130 @@ h2 {
   background-color: rgba(255, 235, 205, 0.9);
   border: 1px solid rgb(255, 235, 205);
 }
-
-#menuHamburguesaBotones {
+#margin #menuHamburguesaBotones {
   display: none;
   flex-direction: column;
   justify-content: space-evenly;
   gap: 4rem;
   margin-top: 5rem;
 }
-#menuHamburguesaBotones h1 {
+#margin #menuHamburguesaBotones h1 {
   color: #ccc;
 }
-#menuHamburguesaBotones button {
+#margin #menuHamburguesaBotones button {
   padding: 1rem;
-}
-
-#logOut {
-  background-color: #bb0a21;
-}
-#logOut:hover {
-  background-color: #e74c3c;
 }
 
 #sheetTabs {
   margin-top: 8rem;
-  margin-left: 4rem;
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+  align-items: stretch;
+}
+@media (min-width: 768px) {
+  #sheetTabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+#sheetTabs #tabsToggle {
+  display: block;
+  background: #FFEBCD;
+  color: #bb0a21;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+}
+@media (min-width: 768px) {
+  #sheetTabs #tabsToggle {
+    display: none;
+  }
+}
+#sheetTabs #tabsList {
+  display: none;
+  flex-direction: column;
+  background: #fff8f0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+}
+@media (min-width: 768px) {
+  #sheetTabs #tabsList {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background: none;
+    border: none;
+    padding: 0;
+    gap: 0.5rem;
+  }
+}
+#sheetTabs #tabsList.show {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  gap: 0.2rem;
 }
 
 .tab {
-  padding: 0.5rem 1rem 0 1rem;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  text-align: center;
+  width: 15%;
   background-color: #c8c3b4;
+  padding: 0.5rem 1rem 0 1rem;
   border: 1px solid #ccc;
   border-bottom: none;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
-  margin-right: 0.3rem;
   cursor: pointer;
   font-weight: bold;
   font-size: large;
   height: 3rem;
 }
-.tab:hover {
-  background-color: #d0d0d0;
+@media (min-width: 768px) {
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .tab:hover {
+    background-color: #d0d0d0;
+  }
+  .tab.active {
+    display: inline;
+    height: 3.5rem;
+    background-color: antiquewhite;
+    border-bottom: 2px solid #ffebcd;
+  }
 }
-.tab.active {
-  height: 3.5rem;
-  background-color: antiquewhite;
-  border-bottom: 2px solid #ffebcd;
-}
-
-button img {
+.tab img {
   max-width: 1.5rem;
+}
+@media (min-width: 768px) {
+  .tab img {
+    display: none;
+  }
+}
+@media (min-width: 1440px) {
+  .tab img {
+    display: inline;
+  }
 }
 
 button {
@@ -159,11 +254,13 @@ button:hover {
   background: #bb0a21;
   border: none;
 }
+#logOut:hover {
+  background-color: #e74c3c;
+}
 
 #dropdown {
   position: relative;
   float: right;
-  margin-right: 4rem;
 }
 
 #dropButton {
@@ -187,7 +284,13 @@ button:hover {
   min-width: 8rem;
 }
 #dropContent.show {
-  display: block;
+  display: flex;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  #dropContent.show {
+    display: block;
+  }
 }
 #dropContent button {
   margin-bottom: 0.5rem;

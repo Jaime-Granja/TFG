@@ -66,6 +66,7 @@ window.onload = function () {
     rasgosTexto.style.display = "none";
     equipamientoTexto.style.display = "none";
     hechizosTexto.style.display = "none";
+    document.getElementById("tabsList").classList.toggle("show");
   }
   function trasfondoMenu() {
     //Tab
@@ -82,6 +83,7 @@ window.onload = function () {
     rasgosTexto.style.display = "none";
     equipamientoTexto.style.display = "none";
     hechizosTexto.style.display = "none";
+    document.getElementById("tabsList").classList.toggle("show");
   }
   function rasgosMenu() {
     //Tab
@@ -98,6 +100,7 @@ window.onload = function () {
     rasgosTexto.style.display = "block";
     equipamientoTexto.style.display = "none";
     hechizosTexto.style.display = "none";
+    document.getElementById("tabsList").classList.toggle("show");
   }
   function equipamientoMenu() {
     //Tab
@@ -114,6 +117,7 @@ window.onload = function () {
     rasgosTexto.style.display = "none";
     equipamientoTexto.style.display = "flex";
     hechizosTexto.style.display = "none";
+    document.getElementById("tabsList").classList.toggle("show");
   }
 
   function hechizosMenu() {
@@ -131,6 +135,7 @@ window.onload = function () {
     rasgosTexto.style.display = "none";
     equipamientoTexto.style.display = "none";
     hechizosTexto.style.display = "block";
+    document.getElementById("tabsList").classList.toggle("show");
   }
   const popup = document.getElementById("popup");
   if (popup && popup.textContent.trim() !== "") {
@@ -185,4 +190,7 @@ window.onload = function () {
     content.classList.toggle("show");
     
   }
+  document.getElementById("tabsToggle").addEventListener("click", function () {
+  document.getElementById("tabsList").classList.toggle("show");
+});
 };

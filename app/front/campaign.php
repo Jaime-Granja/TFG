@@ -188,7 +188,7 @@ try {
 
     ?>
     <!DOCTYPE html>
-    <html lang="es">
+    <html lang="es" id="html">
 
     <head>
         <meta charset="UTF-8" />
