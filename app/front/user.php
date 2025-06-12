@@ -277,12 +277,7 @@ if ($userId) {
                 <button type="submit" name="change_password">Confirmar</button>
             </form>
         </div>
-
-        
-
-
-        <button id="goBackUser">Retroceder</button>
     </div>
+    <button id="goBackUser">Retroceder</button>
 </body>
-
 </html>
