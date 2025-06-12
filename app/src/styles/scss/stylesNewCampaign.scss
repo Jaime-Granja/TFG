@@ -1,11 +1,32 @@
+@mixin media-tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-pc {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}
+
+
 body {
   margin: 0;
   padding: 0;
-  background-image: url(../../img/wallpaper_PC.jpg);
+  background-image: url(../../img/wallpaper_mobile.jpg);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5em;
+  text-align: center;
+  @include media-tablet {
+    background-image: url(../../img/wallpaper_tablet.jpg);
+  }
+  @include media-pc {
+    background-image: url(../../img/wallpaper_PC.jpg);
+  }
+
 }
 .popup {
   position: fixed;
@@ -34,40 +55,48 @@ body {
   margin-top: 2rem;
   background-color: rgba(255, 235, 205, 0.8);
   padding: 2rem;
+  width: 90%;
+  @include media-tablet {
+    width: 80%;
+  }
+  @include media-pc {
+    width: 70%;
+  }
+  
 }
-
 .botones {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
   gap: 1rem;
 }
-button {
-            padding: 0.4rem;
-            font-size: 1.1rem;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background: #FFEBCD;
-            color: #333;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-button:hover {
-            background: #d0d0d0;
-        }
-        #logOut {
-           background: #bb0a21;
-           border: none;
 
+
+button {
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #FFEBCD;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);     
+  &:hover {
+    background: #d0d0d0;
+  }
+  &#logOut {
+    background: #bb0a21;
+    border: none;
+
+        }
         }
 #joinCampaign,
 #createCampaign {
   display: none;
-}
 
-form {
+  form {
   margin-top: 3rem;
   padding: 1.5rem;
   display: flex;
@@ -78,3 +107,6 @@ form {
   border-radius: 0.5em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+}
+
+

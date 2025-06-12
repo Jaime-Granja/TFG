@@ -16,6 +16,7 @@ body {
   height: 100vh;
   background-image: url(../../img/wallpaper_mobile.jpg);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   @include media-tablet {
@@ -116,5 +117,6 @@ button {
   &#logOut {
     background: #bb0a21;
     border: none;
-  }
+    margin: 1rem;
+   }
         }

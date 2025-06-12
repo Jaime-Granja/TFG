@@ -1,5 +1,5 @@
 window.onload = function () {
-   let logOut = document.getElementById("logOut");
+  let logOut = document.getElementById("logOut");
   let join = document.getElementById("join");
   let create = document.getElementById("create");
   let goBackButton = document.getElementById("goBackButton")
@@ -7,7 +7,7 @@ window.onload = function () {
   logOut.addEventListener("click", atras);
   join.addEventListener("click", joinCampaign);
   create.addEventListener("click", createCampaign);
-  goBackButton.addEventListener("click", goBack)
+  goBackButton.addEventListener("click", goBack);
 
   function joinCampaign() {
     let formJoin = document.getElementById("joinCampaign");
