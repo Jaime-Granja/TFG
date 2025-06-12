@@ -16,7 +16,7 @@ body {
   padding: 0;
   background-image: url(../../img/wallpaper_mobile.jpg);
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   display: flex;
   justify-content: center;
   @include media-tablet {
@@ -149,8 +149,7 @@ form {
   display: flex;
   flex-direction: column;
   color: #bb0a21;
-  background-color: #FFEBCD;
-  opacity: 0.8;
+  background-color: rgba(255, 235, 205, 0.8);
   padding: 1em;
   border-radius: 1em;
 }
