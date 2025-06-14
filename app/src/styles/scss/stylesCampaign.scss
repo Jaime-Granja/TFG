@@ -31,6 +31,7 @@ body {
   }
   @include media-pc {
     background-image: url(../../img/wallpaper_PC.jpg);
+    background-size: cover;
   }
 }
 button {

@@ -32,6 +32,7 @@ body {
      @include media-pc() {
       background-image: url(../../img/wallpaperBarbarianPC.jpeg);
       background-position: right 20% bottom 25%;
+      background-size: cover;
      }
    }
    &.Wizard {
@@ -44,6 +45,7 @@ body {
      @include media-pc() {
       background-image: url(../../img/wallpaperWizardPC.jpeg);
       background-position: left 80% bottom 0%;
+      background-size: cover;
      }
    }
 }

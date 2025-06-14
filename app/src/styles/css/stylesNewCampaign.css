@@ -16,6 +16,7 @@ body {
 @media (min-width: 1440px) {
   body {
     background-image: url(../../img/wallpaper_PC.jpg);
+    background-size: cover;
   }
 }
 
