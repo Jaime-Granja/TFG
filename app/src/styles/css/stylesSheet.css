@@ -21,6 +21,7 @@ body.Barbarian {
   body.Barbarian {
     background-image: url(../../img/wallpaperBarbarianTablet.jpeg);
     background-position: right 40% center;
+    background-size: cover;
   }
 }
 @media (min-width: 1440px) {
@@ -38,6 +39,7 @@ body.Wizard {
   body.Wizard {
     background-image: url(../../img/wallpaperWizardTablet.jpeg);
     background-position: center center;
+    background-size: cover;
   }
 }
 @media (min-width: 1440px) {

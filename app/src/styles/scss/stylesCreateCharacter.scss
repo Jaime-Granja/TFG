@@ -21,6 +21,7 @@ body {
   align-items: center;
   @include media-tablet {
     background-image: url(../../img/wallpaper_tablet.jpg);
+    background-size: cover;
   }
   @include media-pc {
     background-image: url(../../img/wallpaper_PC.jpg);

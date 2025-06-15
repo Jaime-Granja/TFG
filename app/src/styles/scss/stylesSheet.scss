@@ -28,6 +28,7 @@ body {
      @include media-tablet {
       background-image: url(../../img/wallpaperBarbarianTablet.jpeg);
       background-position: right 40% center;
+      background-size: cover;
      }
      @include media-pc() {
       background-image: url(../../img/wallpaperBarbarianPC.jpeg);
@@ -41,6 +42,7 @@ body {
     @include media-tablet {
       background-image: url(../../img/wallpaperWizardTablet.jpeg);
       background-position: center center ;
+      background-size: cover;
      }
      @include media-pc() {
       background-image: url(../../img/wallpaperWizardPC.jpeg);
