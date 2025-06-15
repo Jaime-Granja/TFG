@@ -71,6 +71,6 @@ window.onload = function () {
     window.location.href = "../front/home.php";
   }
   function logOutFunction() {
-    window.location.href = "../front/index.php";
+    window.location.href = "../back/logOut.php";
   }
 };
